@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="{% static 'css/registration.css'%}">
+</head>
+<body>
+    <div class="registration-container">
+        
+        <h2><center>Registration</center></h2>
+        <form class="registration-form" action="#" method="POST" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <input class="form-input" type="text" name="username" id="username" placeholder="Username" required>
+            <span class="error-message" id="username-error"></span>
+            <input class="form-input" type="email" name="email" id="email" placeholder="Email" required>
+            <span class="error-message" id="email-error"></span>
+            <input class="form-input" type="password" name="password" id="password" placeholder="Password" required>
+            <span class="error-message" id="password-error"></span>
+            <input class="form-input" type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password" required>
+            <span class="error-message" id="confirm-password-error"></span>
+            <button class="register-button" type="submit">SignUp</button>
+        </form>
+        <p class="login-link">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    </div>
+        <script>
+            function validateForm() {
+                var username = document.getElementById('username').value;
+                var email = document.getElementById('email').value;
+                var password = document.getElementById('password').value;
+                var confirmPassword = document.getElementById('confirm-password').value;
+    
+                var usernameError = document.getElementById('username-error');
+                var emailError = document.getElementById('email-error');
+                var passwordError = document.getElementById('password-error');
+                var confirmPasswordError = document.getElementById('confirm-password-error');
+    
+                // Reset previous error messages
+                usernameError.textContent = "";
+                emailError.textContent = "";
+                passwordError.textContent = "";
+                confirmPasswordError.textContent = "";
+    
+                var isValid = true;
+    
+                if (username.trim().length < 6) {
+                    usernameError.textContent = "Username should be at least 6 characters long.";
+                    isValid = false;
+                }
+    
+                var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+                if (!emailRegex.test(email)) {
+                    emailError.textContent = "Enter a valid email address.";
+                    isValid = false;
+                }
+    
+                if (password.trim().length < 6 || !isStrongPassword(password)) {
+                    passwordError.textContent = "Password should be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+                    isValid = false;
+                }
+    
+                if (confirmPassword !== password) {
+                    confirmPasswordError.textContent = "Passwords do not match.";
+                    isValid = false;
+                }
+    
+                if (isValid) {
+                    alert("Successfully registered!");
+                }
+    
+                return isValid;
+            }
+    
+            function isStrongPassword(password) {
+                // Define a regular expression to check for a strong password
+                var strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+                return strongPasswordRegex.test(password);
+            }
+        </script>
+        
+</body>
+</html>
+
+
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        function validateForm() {
+            var username = document.getElementById('username').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirm-password').value;
+
+            var usernameError = document.getElementById('username-error');
+            var emailError = document.getElementById('email-error');
+            var passwordError = document.getElementById('password-error');
+            var confirmPasswordError = document.getElementById('confirm-password-error');
+
+            // Reset previous error messages
+            usernameError.textContent = "";
+            emailError.textContent = "";
+            passwordError.textContent = "";
+            confirmPasswordError.textContent = "";
+
+            var isValid = true;
+
+            if (username.trim().length < 6) {
+                usernameError.textContent = "Username should be at least 6 characters long.";
+                isValid = false;
+            }
+
+            var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+            if (!emailRegex.test(email)) {
+                emailError.textContent = "Enter a valid email address.";
+                isValid = false;
+            }
+
+            if (password.trim().length < 6 || !isStrongPassword(password)) {
+                passwordError.textContent = "Password should be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+                isValid = false;
+            }
+
+            if (confirmPassword !== password) {
+                confirmPasswordError.textContent = "Passwords do not match.";
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert("Successfully registered!");
+            }
+
+            return isValid;
+        }
+
+        function isStrongPassword(password) {
+            // Define a regular expression to check for a strong password
+            var strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+            return strongPasswordRegex.test(password);
+        }
+    </script>
+</head>
+<body>
+    <form class="registration-form" action="#" method="POST" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <input class="form-input" type="text" name="username" id="username" placeholder="Username" required>
+        <span class="error-message" id="username-error"></span>
+        <input class="form-input" type="email" name="email" id="email" placeholder="Email" required>
+        <span class="error-message" id="email-error"></span>
+        <input class="form-input" type="password" name="password" id="password" placeholder="Password" required>
+        <span class="error-message" id="password-error"></span>
+        <input class="form-input" type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password" required>
+        <span class="error-message" id="confirm-password-error"></span>
+        <button class="register-button" type="submit">SignUp</button>
+    </form>
+</body>
+</html>
