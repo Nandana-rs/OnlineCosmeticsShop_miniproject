@@ -16,13 +16,20 @@
             <form class="login-form" action="#" method="POST" onsubmit="return validateForm()">
         {% csrf_token %}
         <input class="form-input" type="text" name="username" id="username" placeholder="Username" required>
-        <span class="username-error" id="username-error"></span>
+        <span class="username-error" id="username-error"></span> 
+
+
         <input class="form-input" type="password" name="password" id="password" placeholder="Password" required>
         <span class="password-error" id="password-error"></span>
         <button class="login-button" type="submit">Login</button>
+        
+       
+
     </form>
         </form>
-        <p class="forgot-password"><a href="#">Forgot your password?</a></p>
+        <!-- Sign in with Google link -->
+       <a href="{% url 'social:begin' 'google-oauth2' %}">Sign in with Google</a>
+        <p class="forgot-password"><a href="{% url 'reset_password' %}">Forgot your password?</a></p>
         <p class="registration-link">Don't have an account? <a href="{% url 'registration'%}">Register here</a></p>
     </div>
     <script>

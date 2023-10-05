@@ -31,6 +31,17 @@ def home(request):
 
 def about(request):
     return render(request, 'about.html')
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+#here
+def sellerRegistration(request):
+     return render(request, 'sellerRegistration.html')
+
+def seller_template(request):
+     return render(request, 'seller_template.html')
+    
+
  
 def registration(request):
     if request.method == 'POST':
@@ -63,6 +74,7 @@ def registration(request):
 def login(request):
     if request.method == 'POST':
         username = request.POST["username"]
+
         password = request.POST["password"]
         # if user is not None:
         #     auth_login(request, user)
@@ -74,6 +86,7 @@ def login(request):
 
         if username and password:
             user = authenticate(request, username =username , password=password)
+           
             if user is not None:
                 auth_login(request,user)
             
