@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
+    #'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,11 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'BeauteCartApp',
-    #here
+    ##heregooglestarts
     'oauth2_provider',
     'social_django',
     'allauth',
     'allauth.account',
+    #heregoogleends
     
 ]
 
@@ -55,7 +56,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #heregooglestarts
     'allauth.account.middleware.AccountMiddleware',
+    #heregoogleends
 ]
 
 ROOT_URLCONF = 'BeauteCart.urls'
@@ -71,8 +74,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                #here
+                #heregooglestarts
                 'social_django.context_processors.backends',
+                #heregoogleends
             ],
         },
     },
@@ -158,9 +162,9 @@ LOGOUT_REDIRECT_URL= '/'
 # settings.py
 AUTH_USER_MODEL = 'BeauteCartApp.CustomUser'
 
-JAZZMIN_SETTINGS={"show_ui_builder" : True }
+#JAZZMIN_SETTINGS={"show_ui_builder" : True }
 
-#here
+#heregooglestarts
 OAUTH2_PROVIDER = {
     'APPLICATION_MODEL': 'oauth2_provider.Application',
     'DEFAULT_SCOPES': ['read', 'write'],
@@ -177,10 +181,24 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+#heregoogleends
 
+#forget password
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'nandanars2024b@mca.ajce.in'  
 EMAIL_HOST_PASSWORD = '9946095781nrs'  
+
+#implementing role based acces for product adding by admin & seller
+# settings.py
+
+AUTH_PERMISSIONS = {
+    'Seller': {
+        'add_product': 'Can add product',
+    },
+    'Administrator': {
+        'add_product': 'Can add product',
+    },
+}

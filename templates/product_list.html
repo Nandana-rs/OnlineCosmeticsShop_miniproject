@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="{% static 'css/product_list.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Product List</h1>
+    </header>
+    <div class="product-container">
+        {% for product in products %}
+        <div class="product-card">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <div class="product-details">
+                <h2>{{ product.name }}</h2>
+                <p>{{ product.description }}</p>
+                <p>Price: ${{ product.price }}</p>
+                <p>Category: {{ product.category }}</p>
+                <p>Subcategory: {{ product.subcategory }}</p>
+                <p>Brand: {{ product.brand }}</p>
+                <p>Stock Quantity: {{ product.stock_quantity }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p class="no-products">No products available.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

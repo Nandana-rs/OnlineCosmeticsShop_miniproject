@@ -66,13 +66,31 @@ class CustomUser(AbstractUser):
    # confirmPassword = models.CharField(max_length=128)
     #role = models.PositiveSmallIntegerField(choices=ROLE_CHOICE, blank=True, null=True,default='1')
 
+    #usertype=SELLER starts
+
+    shop_name=models.CharField(max_length=255, null=True)
+    user_name=models.CharField(max_length=100, null=True)
+    email = models.EmailField(max_length=100, unique=True)
+    password = models.CharField(max_length=128)
+    phone = models.CharField(max_length=12, blank=True)
+    shop_address=models.CharField(max_length=255, null=True)
+    tax_id=models.CharField(max_length=20, null=True)
+    
+
+    #  #usertype=SELLER ends
+
+
+
+
+
+
 
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superadmin = models.BooleanField(default=False)
 
-    
+
     #REQUIRED_FIELDS = ['first_name','last_name', 'phone']
 
     objects = UserManager()
@@ -128,6 +146,46 @@ class UserProfile(models.Model):
             user_role = 'Seller'
         
         return user_role
-
 #cmd  -- python manage.py makemigrations
 #        python manage.py migrate
+
+#ADDING PRODUCTS BY ADMIN AND SELLER NECESSITIES
+
+
+
+class Category(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Subcategory(models.Model):
+    id = models.AutoField(primary_key=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Brand(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Product(models.Model):
+    id = models.AutoField(primary_key=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    quantity = models.PositiveIntegerField()
+    image = models.ImageField(upload_to='product_images/')
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+

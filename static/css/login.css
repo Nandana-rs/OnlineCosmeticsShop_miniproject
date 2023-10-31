@@ -6,7 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image:url ("plant12.jpg");
+    background-image: url('static/images/nrsbackground.png')
 }
 
 .login-container {
@@ -80,6 +80,9 @@ body {
     font-weight: bold;
     font-style: italic; /* Italic style */
 }
+
+
+
 
 @media screen and (max-width: 480px) {
     .login-container {

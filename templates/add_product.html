@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/add_product.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Add Product</h1>
+        <form method="post" enctype="multipart/form-data" id="productForm">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" name="product_name" required>
+            </div>
+            <div class="form-group">
+                <label for="productDescription">Product Description</label>
+                <textarea id="productDescription" name="product_description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Price</label>
+                <input type="number" id="productPrice" name="product_price" min="0.01" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="productCategory">Category</label>
+                <select id="productCategory" name="product_category" required>
+                    <option value="">Select a Category</option>
+                    <option value="Face Makeup">Face Makeup</option>
+                    <option value="Eye Makeup">Eye Makeup</option>
+                    <option value="Lip Makeup">Lip Makeup</option>
+                    <option value="Skincare">Skincare</option>
+                    <option value="Hair Care">Hair Care</option>
+                    <option value="Fragrances">Fragrances</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productSubcategory">Subcategory</label>
+                <select id="productSubcategory" name="product_subcategory" required>
+                    <option value="">Select a Subcategory</option>
+                    <!-- Options for subcategory based on the selected category will be populated using JavaScript -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productBrand">Brand</label>
+                <select id="productBrand" name="product_brand" required>
+                    <option value="">Select a Brand</option>
+                    <option value="L'Oréal">L'Oréal</option>
+                    <option value="Plum">Plum</option>
+                    <option value="Lakme">Lakme</option>
+                    <!-- Add more brand options here -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="stockQuantity">Stock Quantity</label>
+                <input type="number" id="stockQuantity" name="stock_quantity" required>
+            </div>
+            <div class="form-group">
+                <label for="productImage">Product Image (JPEG, JPG, PNG only)</label>
+                <input type="file" id="productImage" name="product_image" accept=".jpeg, .jpg, .png" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" id="addProductButton" disabled>Add Product</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <p>PRODUCT ADDED SUCCESSFULLY</p>
+        </div>
+    </div>
+
+    <script src="{% static 'add_product.js' %}"></script>
+</body>
+</html>

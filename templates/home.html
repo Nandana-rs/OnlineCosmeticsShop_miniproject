@@ -138,7 +138,7 @@
 </head>
 <body>
  
-  <header style="background-image: url({% static 'images/background1.png' %});" >
+  <header style="background-image: url({% static 'images/nrsbackground1.jpeg' %});" >
     
       <div class="nav-icons">
         <ul>
@@ -147,7 +147,7 @@
          <li><a href= "{% url 'login' %}">Login</a></li>
          <li><a href="{% url 'registration'%}">Signup</a></li>
          <li><a href="{% url 'sellerRegistration' %}">Become a Seller</a></li>
-         <li><a href="{% url 'logout' %}">Logout</a></li>
+         <!-- <li><a href="{% url 'logout' %}">Logout</a></li> -->
         
         </ul>
       </div>
@@ -176,7 +176,7 @@
     </div>
     <div class="main">
       <q>Hi there!</q>
-      <h1 style="background-image: url('{% static 'images/text back.png' %}');">With Flawless, Glow like never before!</h1>
+      <h1 style="background-image: url('{% static 'images/text back.png' %}');">With BeauteCart, Glow like never before!</h1>
       <p class="description">
         Looking young and beautiful never comes without using the best cosmetics.
         Here we have compiled the best skincare products by the best brands.
@@ -204,7 +204,7 @@
       <div class="skincare">
         <img class="product-image" src="{% static '/images/bodylotion.png ' %}" alt="lotion">
         <h3>Lotions</h3>
-        <p class="explication">Usse our body lotions daily and you'll notice a difference in your skin's hydration levels.</p>
+        <p class="explication">Use our body lotions daily and you'll notice a difference in your skin's hydration levels.</p>
       </div>
       <div class="skincare">
         <img class="product-image" src="{% static '/images/nails.png' %}" alt="nails">
@@ -239,7 +239,7 @@
   </div>
   <div class="Footer">
     <img class="LOGO2"src="{% static 'images/our logo.png' %}" alt="logo">
-    <p class="footer2">@Flawless <br> Some Rights Reserved.</p>
+    <p class="footer2">@BeauteCart <br> Some Rights Reserved.</p>
   </div>
   <script type="text/javascript">
     DJANGO_STATIC_URL = '{{ STATIC_URL }}';
