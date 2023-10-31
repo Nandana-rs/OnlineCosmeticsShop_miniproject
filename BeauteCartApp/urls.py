@@ -46,6 +46,7 @@ urlpatterns =  [
 
     #admin adding products
     path('product_list/', views.product_list, name='product_list'),
+    
 
     #forgetpassword
     path('reset_password/', auth_views.PasswordResetView.as_view(), name="reset_password"),

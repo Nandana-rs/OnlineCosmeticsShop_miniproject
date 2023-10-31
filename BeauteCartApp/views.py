@@ -13,7 +13,10 @@ from django.views.decorators.cache import never_cache
 # from django.contrib.auth.models import User
 
 # admin adding product
-from .models import Product  # Import your Product model
+# from .models import Product  # Import your Product model
+# from django.http import JsonResponse
+from .models import Product, Category, Subcategory, Brand
+
 
 @never_cache
 def home(request):
@@ -31,8 +34,9 @@ def about(request):
 def seller_template(request):
      return render(request, 'seller_template.html')
 
-def add_product(request):
-   return render(request, 'add_product.html')
+ 
+
+
     
 
 @never_cache 
@@ -158,20 +162,47 @@ def sellerRegistration(request):
 def product_list(request):
     products = Product.objects.all()  # Retrieve all products from the database
     return render(request, 'product_list.html', {'products': products})
-# def sellerRegistration(request):
-#      return render(request, 'sellerRegistration.html')
-
-#heresellerregistration ends  
 
 
 
-# def logout_user(request):
-#     logout(request)
-#     messages.success(request,("Logged out"))
-#     return  redirect('userhome')
+#adding prodcuts
 
-# def register_pump(request):
-#     return render(request, 'registerPump.html')
+from .models import Product, Category, Subcategory, Brand
 
-# def userhome(request):
-#     return render(request, 'userhome.html')
+def add_product(request):
+    if request.method == 'POST':
+        # Get form data
+        product_name = request.POST.get('product_name')
+        product_description = request.POST.get('product_description')
+        product_price = request.POST.get('product_price')
+        product_category = request.POST.get('product_category')
+        product_subcategory = request.POST.get('product_subcategory')
+        product_brand = request.POST.get('product_brand')
+        stock_quantity = request.POST.get('stock_quantity')
+        product_image = request.FILES['product_image']
+
+        # Check if the category, subcategory, and brand exist, if not, create them
+        category, _ = Category.objects.get_or_create(name=product_category)
+        subcategory, _ = Subcategory.objects.get_or_create(category=category, name=product_subcategory)
+        brand, _ = Brand.objects.get_or_create(name=product_brand)
+
+        # Create the new product
+        product = Product(
+            category=category,
+            subcategory=subcategory,
+            brand=brand,
+            name=product_name,
+            quantity=stock_quantity,
+            image=product_image,
+            price=product_price,
+            description=product_description,
+        )
+        product.save()
+
+        messages.success(request, "Product added successfully.")
+        return redirect('seller_template')
+
+    return render(request, 'add_product.html')
+
+#SELLER VIWEING PRODUCTS
+
