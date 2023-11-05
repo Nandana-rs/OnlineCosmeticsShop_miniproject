@@ -46,6 +46,21 @@ urlpatterns =  [
 
     #admin adding products
     path('product_list/', views.product_list, name='product_list'),
+    #seller viewing added products
+    path('seller/products/', views.seller_products, name='seller_products'),
+    path('edit_product/<int:product_id>/', views.edit_product, name='edit_product'),
+    path('deactivate_product/<int:product_id>/', views.deactivate_product, name='deactivate_product'),
+#customers profile view in home2.html
+    path('user_profile/', views.user_profile, name='user_profile'),
+#customer changing passwird
+    path('change_password/', views.change_password, name='change_password'),
+#seller viewing profile 
+    path('seller_template/seller_profile', views.seller_profile, name='seller_profile'),
+    
+
+    
+  
+
     
 
     #forgetpassword

@@ -23,6 +23,7 @@ links.forEach((link) => {
   });
 });
 
+
 // implimenting the section "our beautician artists"
 
 const beautician = [{

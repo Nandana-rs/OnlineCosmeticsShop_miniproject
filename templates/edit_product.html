@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+    <title>BeauteCart</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+    <!-- Font Awesome styles -->
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+    <!-- jQuery UI CSS for the date picker -->
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <!-- Responsive style -->
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+    <style>
+        /* Add custom CSS styles here */
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body class="sub_page">
+    <div class="container">
+        <h1>Edit Product</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Your form fields go here -->
+
+            <label for="productName">Product Name</label>
+            <input type="text" id="productName" name="product_name" value="{{ product.name }}" required>
+
+            <label for="productCategory">Category</label>
+            <select id="productCategory" name="product_category" required>
+                <option value="">Select a Category</option>
+                <option value="Face Makeup" {% if product.category == 'Face Makeup' %}selected{% endif %}>Face Makeup</option>
+                <option value="Eye Makeup" {% if product.category == 'Eye Makeup' %}selected{% endif %}>Eye Makeup</option>
+                <option value="Lip Makeup" {% if product.category == 'Lip Makeup' %}selected{% endif %}>Lip Makeup</option>
+                <option value="Skincare" {% if product.category == 'Skincare' %}selected{% endif %}>Skincare</option>
+                <option value="Hair Care" {% if product.category == 'Hair Care' %}selected{% endif %}>Hair Care</option>
+                <option value="Fragrances" {% if product.category == 'Fragrances' %}selected{% endif %}>Fragrances</option>
+            </select>
+
+            <label for="productSubcategory">Subcategory</label>
+            <select id="productSubcategory" name="product_subcategory" required>
+                <option value="">Select a Subcategory</option>
+                <!-- Options for subcategory based on the selected category will be populated using JavaScript -->
+            </select>
+
+            <!-- Your other form fields go here -->
+
+            <label for="stockQuantity">Stock Quantity</label>
+            <input type="number" id="stockQuantity" name="stock_quantity" value="{{ product.stock_quantity }}" required>
+
+            <label for="productDescription">Product Description</label>
+            <textarea id="productDescription" name="product_description" required maxlength="500">{{ product.description }}</textarea>
+            <p class="description-limit">Maximum 500 characters.</p>
+
+            <label for="productPrice">Price</label>
+            <input type="number" id="productPrice" name="product_price" value="{{ product.price }}" min="0.01" step="0.01" required>
+
+            <!-- Add this block of code below your form fields to display the product image -->
+            <label for="productImage">Product Image (JPEG, JPG, PNG only)</label>
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <input type="file" id="productImage" name="product_image" accept=".jpeg, .jpg, .png">
+
+            <label for="productStatus">Product Status</label>
+            <select id="productStatus" name="product_status" required>
+            <option value="Active" {% if product.product_status == 'Active' %}selected{% endif %}>Active</option>
+            <option value="Inactive" {% if product.product_status == 'Inactive' %}selected{% endif %}>Inactive</option>
+            </select>
+
+            <button type="submit" id="editProductButton">Edit Product</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const categoryDropdown = document.getElementById('productCategory');
+            const subcategoryDropdown = document.getElementById('productSubcategory');
+
+            // Define subcategories for each category
+            const subcategories = {
+                'Face Makeup': ['Foundations', 'Concealers', 'Blush'],
+                'Eye Makeup': ['Eyeshadows', 'Eyeliners', 'Mascaras', 'Eyebrow Products'],
+                'Lip Makeup': ['Lipsticks', 'Lip Liners', 'Lip Balm', 'Lip Gloss', 'Lip Crayon'],
+                'Skincare': ['Cleansers', 'Moisturizers', 'Sunscreens', 'Serums', 'Masks'],
+                'Hair Care': ['Hair Color', 'Shampoos', 'Conditioners', 'Hair Serums', 'Hair Styling'],
+                'Fragrances': ['Perfumes', 'Body Sprays'],
+            };
+
+            // Function to populate the subcategory dropdown
+            function populateSubcategories() {
+                const selectedCategory = categoryDropdown.value;
+                const subcategoriesForCategory = subcategories[selectedCategory] || [];
+
+                subcategoryDropdown.innerHTML = '';
+                for (const subcategory of subcategoriesForCategory) {
+                    const option = document.createElement('option');
+                    option.value = subcategory;
+                    option.text = subcategory;
+                    subcategoryDropdown.appendChild(option);
+                }
+            }
+
+            // Add an event listener to the category dropdown
+            categoryDropdown.addEventListener('change', populateSubcategories);
+
+            // Initial population of subcategories
+            populateSubcategories();
+        });
+    </script>
+</body>
+</html>

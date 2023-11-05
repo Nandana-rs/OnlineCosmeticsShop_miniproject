@@ -9,7 +9,8 @@
 </head>
 <body>
     <header>
-        <h1>Product List</h1>
+        <h1>BeauteCart</h1>
+        
     </header>
     <div class="product-container">
         {% for product in products %}
@@ -17,12 +18,20 @@
             <img src="{{ product.image.url }}" alt="{{ product.name }}">
             <div class="product-details">
                 <h2>{{ product.name }}</h2>
-                <p>{{ product.description }}</p>
+                <!-- <p>{{ product.description }}</p> -->
                 <p>Price: ${{ product.price }}</p>
-                <p>Category: {{ product.category }}</p>
-                <p>Subcategory: {{ product.subcategory }}</p>
+                <!-- <p>Category: {{ product.category }}</p>
+                <p>Subcategory: {{ product.subcategory }}</p> -->
                 <p>Brand: {{ product.brand }}</p>
-                <p>Stock Quantity: {{ product.stock_quantity }}</p>
+                <p>Stock Quantity: {{ product.quantity }}</p>
+                <p>Status: 
+                    {% if product.status == "active" %}
+                        <span class="active-status">Active</span>
+                    {% else %}
+                        <span class="inactive-status">Inactive</span>
+                    {% endif %}
+                </p>
+
             </div>
         </div>
         {% empty %}

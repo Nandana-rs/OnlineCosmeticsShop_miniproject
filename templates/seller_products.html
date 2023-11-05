@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        th.actions {
+            background-color: #ff0000;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+        }
+
+        .btn-danger {
+            background-color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Products</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Subcategory</th>
+                    <th>Brand</th>
+                    <th>Stock Quantity</th>
+                    <th>Image</th>
+                    <th class="actions">Edit</th>
+                    <th class="actions">Deactivate</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in seller_products %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.description }}</td>
+                        <td>${{ product.price }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.subcategory }}</td>
+                        <td>{{ product.brand }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td><img src="{{ product.image.url }}" alt="{{ product.name }}"></td>
+                        <td class="actions"><a href="{% url 'edit_product' product.id %}" class="btn btn-primary">Edit</a></td>
+                        <td class="actions"><a href="{% url 'deactivate_product' product.id %}" class="btn btn-danger">Deactivate</a></td>
+                        
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="10">You have no products.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

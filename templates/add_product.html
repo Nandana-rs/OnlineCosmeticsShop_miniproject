@@ -15,7 +15,8 @@
             </div>
             <div class="form-group">
                 <label for="productDescription">Product Description</label>
-                <textarea id="productDescription" name="product_description" required></textarea>
+                <textarea id="productDescription" name="product_description" required maxlength="500"></textarea>
+                <p class="description-limit">Maximum 500 characters.</p>
             </div>
             <div class="form-group">
                 <label for="productPrice">Price</label>
@@ -47,6 +48,13 @@
                     <option value="L'Oréal">L'Oréal</option>
                     <option value="Plum">Plum</option>
                     <option value="Lakme">Lakme</option>
+                    <option value="Dot & key">Dot & key</option>
+                    <option value="Minimalist">Minimalist</option>
+                    <option value="Garnier">Garnier</option>
+                    <option value="Maybelline">Maybelline</option>
+                    <option value="MCaffeine">MCaffeine</option>
+                    <option value="Philips">Philips</option>
+                    <option value="Panasonic">Panasonic</option>
                     <!-- Add more brand options here -->
                 </select>
             </div>
@@ -57,6 +65,25 @@
             <div class="form-group">
                 <label for="productImage">Product Image (JPEG, JPG, PNG only)</label>
                 <input type="file" id="productImage" name="product_image" accept=".jpeg, .jpg, .png" required>
+            </div>
+            <div class="form-group">
+                <label for="productSeller">Seller</label>
+                <select id="productSeller" name="product_seller" required>
+                    <option value="">Select a Seller</option>
+                    {% for seller in sellers %}
+                        <option value="{{ seller.id }}">{{ seller.shop_name }}</option>
+                    {% endfor %}
+                    <!-- Options for sellers should be populated from your database -->
+                    
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productStatus">Status</label>
+                <select id="productStatus" name="product_status" required>
+                    <option value="">Select a Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
             </div>
             <div class="form-group">
                 <button type="submit" id="addProductButton" disabled>Add Product</button>

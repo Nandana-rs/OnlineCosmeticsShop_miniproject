@@ -16,6 +16,11 @@ from django.views.decorators.cache import never_cache
 # from .models import Product  # Import your Product model
 # from django.http import JsonResponse
 from .models import Product, Category, Subcategory, Brand
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
+from django.http import HttpResponse
+
 
 
 @never_cache
@@ -91,19 +96,15 @@ def login(request):
             if user is not None:
                 auth_login(request,user)
             
-                if request.user.user_types==CustomUser.CUSTOMER:
+                if request.user.user_type==CustomUser.CUSTOMER:
                 #     #here session start
                 #     request.session["username"]=user.username
                 # #here session end
                     return redirect('home2')
-                elif request.user.user_types == CustomUser.SELLER:
-                #      #here session start
-                #     request.session["username"]=user.username
-                # #here session end
+                elif request.user.user_type == CustomUser.SELLER:
                     return redirect('seller_template')
-                #     print("user is therapist")
-                #     return redirect(reverse('therapist'))
-                elif request.user.user_types == CustomUser.ADMIN:
+                
+                elif request.user.user_type == CustomUser.ADMIN:
                     print("user is admin")                   
                     return redirect('http://127.0.0.1:8000/admin/')
                 # else:
@@ -116,7 +117,9 @@ def login(request):
             messages.success(request,("Please fill out all fields."))
         
     return render(request, 'login.html')
- #here session started @never_cache
+ #here session started
+ 
+#@never_cache
 @login_required(login_url='login')
 def logout_view(request):
     logout(request)
@@ -136,27 +139,27 @@ def sellerRegistration(request):
         phone = request.POST.get('phone', None)
         shop_address = request.POST.get('shopAddress', None)
         tax_id = request.POST.get('taxID', None)
-        user_typeS='SELLER'
+
         # Check if required fields are provided
         if shop_name and user_name and email and password and confirm_password and phone and shop_address and tax_id:
             if password != confirm_password:
                 messages.success(request, "Passwords don't match. Please try again.")
             else:
                 # Create a new seller user
-                user = CustomUser.objects.create_user(username=user_name, email=email, password=password,user_typeS=user_typeS)
+                user = CustomUser.objects.create_user(username=user_name, email=email, password=password, user_type=CustomUser.SELLER)
                 user.shop_name = shop_name
                 user.phone = phone
                 user.shop_address = shop_address
                 user.tax_id = tax_id
-                user.user_types = CustomUser.SELLER
                 user.save()
 
                 messages.success(request, "Seller registration successful. You can now login.")
-                return redirect('login')
+                return redirect('/login')
         else:
-            messages.success(request, "Please fill out all fields.")
+            messages.success(request, "Please fill out all fields")
 
     return render(request, 'sellerRegistration.html')
+
 
 #admin add products
 def product_list(request):
@@ -167,7 +170,8 @@ def product_list(request):
 
 #adding prodcuts
 
-from .models import Product, Category, Subcategory, Brand
+# from .models import Product, Category, Subcategory, Brand
+
 
 def add_product(request):
     if request.method == 'POST':
@@ -181,16 +185,27 @@ def add_product(request):
         stock_quantity = request.POST.get('stock_quantity')
         product_image = request.FILES['product_image']
 
+        # Get the selected seller from the form data
+        seller_id = request.POST.get('product_seller')
+  # Assuming you have a 'seller' input field in your form
+
         # Check if the category, subcategory, and brand exist, if not, create them
         category, _ = Category.objects.get_or_create(name=product_category)
         subcategory, _ = Subcategory.objects.get_or_create(category=category, name=product_subcategory)
         brand, _ = Brand.objects.get_or_create(name=product_brand)
 
-        # Create the new product
+        # Use the seller_id to get the seller object
+        try:
+            seller = CustomUser.objects.get(pk=seller_id)
+        except CustomUser.DoesNotExist:
+            seller = None  # Handle the case where the seller is not found
+
+        # Create the new product, associating it with the selected seller
         product = Product(
             category=category,
             subcategory=subcategory,
             brand=brand,
+            seller=seller,  # Associate the seller with the product
             name=product_name,
             quantity=stock_quantity,
             image=product_image,
@@ -202,7 +217,94 @@ def add_product(request):
         messages.success(request, "Product added successfully.")
         return redirect('seller_template')
 
-    return render(request, 'add_product.html')
+    # Retrieve the list of sellers from your database
+    sellers = CustomUser.objects.filter(user_type=4)
 
-#SELLER VIWEING PRODUCTS
+    return render(request, 'add_product.html', {'sellers': sellers})
+
+
+
+#SELLER VIWEING PRODUCTS VIA SELLER DASHBOARD
+@login_required
+def seller_products(request):
+    # Query the seller's products from the database
+    seller = request.user  # Assuming the seller is a logged-in user
+    seller_products = Product.objects.filter(seller=seller)
+
+    return render(request, 'seller_products.html', {'seller_products': seller_products})
+
+#edit prodcut option for seller
+# def edit_product(request, product_id):
+#     product = get_object_or_404(Product, id=product_id)  # Fetch the product by its ID
+#     # Other view logic if needed
+#     return render(request, 'edit_product.html', {'product': product})
+def edit_product(request, product_id):
+    # Retrieve the product using get_object_or_404 to handle cases where the product doesn't exist
+    product = get_object_or_404(Product, pk=product_id)
+    
+
+    if request.method == 'POST':
+        print(request.POST) 
+        # Handle form submission and update the product
+        # You can access form data using request.POST and request.FILES
+        # Perform validation and update the product data in the database
+
+        # Get the category and subcategory names from the form data
+        category_name = request.POST['product_category']
+        subcategory_name = request.POST['product_subcategory']
+
+        # Retrieve the Category and Subcategory instances that correspond to the names
+        category = Category.objects.get(name=category_name)
+        subcategory = Subcategory.objects.get(name=subcategory_name)
+
+        # Update the product fields
+        product.product_name = request.POST['product_name']
+        product.category = category
+        product.subcategory = subcategory
+        product.quantity = request.POST['stock_quantity']
+        product.description = request.POST['product_description']
+        product.price = request.POST['product_price']
+        product.status = request.POST['product_status']
+
+        # Handle product image upload if needed
+        if 'product_image' in request.FILES:
+            product.image = request.FILES['product_image']
+
+        # Save the updated product
+        product.save()
+
+        # Redirect to a product detail page or a success page
+        # You need to replace 'seller_products' with the actual URL pattern name for your product list page
+        return redirect('seller_products')
+
+    # If the request method is GET, render the edit product form
+    return render(request, 'edit_product.html', {'product': product})
+
+#deactivate option for seller
+def deactivate_product(request, product_id):
+    # Retrieve the product using get_object_or_404
+    product = get_object_or_404(Product, pk=product_id)
+
+    # Check if the current status is 'active'
+    if product.status == 'active':
+        # Change the status to 'inactive'
+        product.status = 'inactive'
+        product.save()
+
+    # Redirect back to the seller's product list
+    return redirect('seller_products')
+
+#customers profile view in home2.html
+def user_profile(request):
+    # Your profile view logic here
+    return render(request, 'user_profile.html')
+#customer changing password
+def change_password(request):
+    # Your profile view logic here
+    return render(request, 'change_password.html')
+#seller viewing profile
+def seller_profile(request):
+    # Your view logic here
+    return render(request, 'seller_template/seller_profile.html')
+
 

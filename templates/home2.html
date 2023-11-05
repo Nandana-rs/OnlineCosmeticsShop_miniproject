@@ -16,27 +16,18 @@
  
   <header style="background-image: url({% static 'images/nrsbackground6.jpeg' %});" >
     
-      <!-- <div class="nav-icons">
-        <ul>
-         <li><i class="fa fa-twitter"></i></li> 
-         <li><i class="fa fa-instagram"></i></li> 
-         <!-- <li><a href= "{% url 'login' %}">Login</a></li>
-         <li><a href="{% url 'registration'%}">Signup</a></li> -->
-         <!-- <li><a href="{% url 'sellerRegistration' %}">Become a Seller</a></li> -->
-         <!-- <li><a href="{% url 'logout' %}">Logout</a></li>
-        
-        </ul>
-      </div> --> 
-
-      <!-- here_session start -->
 
       <div class="nav-icons">
         <ul>
             {% if user.is_authenticated %}
                 <li>Welcome, {{ user.username }}!</li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="{% url 'user_profile' %}">Profile</a></li>
+             
+
             {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li>
+                
             {% endif %}
         </ul>
     </div>
