@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 
 from .models import CustomUser
-from .models import Category, Subcategory, Brand, Product
+from .models import Category, Subcategory, Brand, Product ,WishlistItem
 # Register your models here.
 #admin.site.register (CustomUser)
 
@@ -23,4 +23,5 @@ admin.site.register(Category)
 admin.site.register(Subcategory)
 admin.site.register(Brand)
 admin.site.register(Product)
+admin.site.register(WishlistItem)
 

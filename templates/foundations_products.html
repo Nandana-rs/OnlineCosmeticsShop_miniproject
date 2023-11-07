@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundations</title>
+    <!-- Add your meta tags, links to CSS/JS, or other head content here if needed -->
+</head>
+<body>
+    <h2>Foundations</h2>
+    <hr class="title-underline">
+    <style>
+        /* Add your CSS styles here for this template */
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Add more CSS styles as needed */
+    </style>
+    <div class="product-list">
+        {% for product in products %}
+        <div class="product">
+            <a href="{% url 'product_detail' product.id %}">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            </a>
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description }}</p>
+            <p>Price: ${{ product.price }}</p>
+            <!-- Add more product details as needed -->
+        </div>
+        {% empty %}
+        <p>No Foundations available.</p>
+        {% endfor %}
+    </div>
+    <a class="button" href="{% url 'product_list' %}">View All Skincare Products</a>
+    <!-- Include your JavaScript here if needed -->
+</body>
+</html>

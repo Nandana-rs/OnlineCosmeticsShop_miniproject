@@ -15,8 +15,8 @@ from django.views.decorators.cache import never_cache
 # admin adding product
 # from .models import Product  # Import your Product model
 # from django.http import JsonResponse
-from .models import Product, Category, Subcategory, Brand
-from django.shortcuts import render, get_object_or_404
+from .models import Product, Category, Subcategory, Brand , WishlistItem
+from django.shortcuts import render, get_object_or_404 , reverse
 from django.http import HttpResponseRedirect
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from django.http import HttpResponse
@@ -308,3 +308,77 @@ def seller_profile(request):
     return render(request, 'seller_template/seller_profile.html')
 
 
+#page for displaying subcategory serums
+
+def serums_products(request):
+    # Get the Category instance for "Skincare"
+    skincare_category = Category.objects.get(name="Skincare")
+
+    # Get the Subcategory instance for "Serums" within the "Skincare" category
+    serums_subcategory = Subcategory.objects.get(name="Serums", category=skincare_category)
+
+    # Retrieve all products with this subcategory
+    products = Product.objects.filter(subcategory=serums_subcategory, status="active")
+
+    return render(request, 'serums_products.html', {'products': products})
+
+#page for displaying subcategoery foundations
+def foundations_products(request):
+    # Get the Category instance for "Face Makeup"
+    face_makeup_category = Category.objects.get(name="Face Makeup")
+
+    # Get the Subcategory instance for "Foundations" within the "Face Makeup" category
+    foundations_subcategory = Subcategory.objects.get(name="Foundations", category=face_makeup_category)
+
+    # Retrieve all products with this subcategory
+    products = Product.objects.filter(subcategory=foundations_subcategory, status="active")
+
+    return render(request, 'foundations_products.html', {'products': products})
+
+#viewing product details by clciking prodcut image 
+
+def product_detail(request, product_id):
+    # Get the product by its ID, or return a 404 error if not found
+    product = get_object_or_404(Product, id=product_id)
+
+    return render(request, 'product_detail.html', {'product': product})
+
+
+#add to wishlist
+def add_to_wishlist(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    # Implement your wishlist functionality here (e.g., store in session or a database table)
+    return redirect('wishlist')
+
+@login_required
+def add_to_wishlist(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    # Get or create the user's wishlist
+    wishlist, created = WishlistItem.objects.get_or_create(user=request.user, product=product)
+    return HttpResponseRedirect(reverse('wishlist'))
+
+def wishlist(request):
+    # Get the wishlist items for the currently logged-in user
+    wishlist_items = WishlistItem.objects.filter(user=request.user)
+
+    # Pass the wishlist_items to the template
+    return render(request, 'wishlist.html', {'wishlist_items': wishlist_items})
+
+@login_required
+def remove_from_wishlist(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    # Remove the product from the user's wishlist
+    WishlistItem.objects.filter(user=request.user, product=product).delete()
+    return redirect('wishlist')
+
+
+
+#add to cart
+def add_to_cart(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    # Implement your cart functionality here (e.g., store in session or a database table)
+    return redirect('cart')
+
+def cart(request):
+    # Logic to display cart items, if any
+    return render(request, 'cart.html')

@@ -56,6 +56,19 @@ urlpatterns =  [
     path('change_password/', views.change_password, name='change_password'),
 #seller viewing profile 
     path('seller_template/seller_profile', views.seller_profile, name='seller_profile'),
+#page for displaying subcategory serums
+    path('serums_products/', views.serums_products, name='serums_products'),
+#page for displaying subcategory foundations
+    path('foundations_products/', views.foundations_products, name='foundations_products'),
+ #page for wishlist and cart   
+    path('product/<int:product_id>/', views.product_detail, name='product_detail'),
+    path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    path('add_to_wishlist/<int:product_id>/', views.add_to_wishlist, name='add_to_wishlist'),
+    
+    path('cart/', views.cart, name='cart'),
+    path('wishlist/', views.wishlist, name='wishlist'),
+    path('remove_from_wishlist/<int:product_id>/', views.remove_from_wishlist, name='remove_from_wishlist'),
+
     
 
     

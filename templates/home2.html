@@ -14,7 +14,7 @@
 </head>
 <body>
  
-  <header style="background-image: url({% static 'images/nrsbackground6.jpeg' %});" >
+  <header style="background-image: url({% static 'images/nrsbackground7.jpeg' %});" >
     
 
       <div class="nav-icons">
@@ -23,7 +23,7 @@
                 <li>Welcome, {{ user.username }}!</li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
                 <li><a href="{% url 'user_profile' %}">Profile</a></li>
-             
+                
 
             {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li>
@@ -40,6 +40,7 @@
           <a class="LINK" href="#products">Our Products</a>
           <a class="LINK"href="{% static '#Artists' %}">Artists</a> 
           <a class="LINK" href="{% static 'flawless' %}">FLAWLESS</a>
+          
         </div>
       </div>
       <i class="fa fa-bars fa-2x" id="bars"></i>
@@ -50,22 +51,23 @@
         <li class="mobileLinks"><a href="{% static 'home.html' %}">Home</a></li>
         <li class="mobileLinks"><a href="{% static '#products'  %}">Products</a></li>
         <li class="mobileLinks"><a href="{% static 'about.html' %}">About</a></li>
+        
    
 
 
       </ul>
     </div>
     <div class="main">
-      <q>Hi there!</q>
-      <h1 style="background-image: url('{% static 'images/text back.png' %}');">With BeauteCart, Glow like never before!</h1>
-      <p class="description">
+      <!-- <q>BeauteCart</q> -->
+      <h1 style="background-image: url('{% static 'images/text back.png' %}');"></h1>
+      <!-- <p class="description">
         Looking young and beautiful never comes without using the best cosmetics.
         Here we have compiled the best skincare products by the best brands.
       </p>
       <p class="promotion">
         10% OFF FOR FIRST PURCHASE
-      </p>
-      <a class="more" href="{% static '#viewmore' %}">SEE OUR COLLECTIONS.</a>
+      </p> -->
+      <!-- <a class="more" href="{% static '#viewmore' %}">SEE OUR COLLECTIONS.</a> -->
     </div>
   </header>
   <section class="products" id="products" style="background-image: url({% static 'images/products bck.png' %});">
@@ -77,16 +79,37 @@
         <h3>Cleansers</h3>
         <p class="explication">Our cleansers help remove excess oil, makeup, sweat, dirt and dead skin.</p>
       </div>
-      <div class="skincare">
+     
+      <div class="skincare" id="serums-div">
         <img class="product-image" src="{% static '/images/serum.png' %}" alt="serum">
         <h3>Serums</h3>
-        <p class="explication">By using our serums, your skin will be more radiant,full of colour and it'll be less dry.</p>
-      </div>
-      <div class="skincare">
+        <p class="explication">By using our serums, your skin will be more radiant, full of color, and it'll be less dry.</p>
+    </div>
+    
+    <script>
+      document.getElementById('serums-div').addEventListener('click', function() {
+          window.location.href = "{% url 'serums_products' %}";
+      });
+   </script>
+  
+      <!-- <div class="skincare">
         <img class="product-image" src="{% static '/images/bodylotion.png ' %}" alt="lotion">
-        <h3>Lotions</h3>
-        <p class="explication">Use our body lotions daily and you'll notice a difference in your skin's hydration levels.</p>
-      </div>
+        <h3>Foundations</h3>
+        <p class="explication">Discover Your Perfect Shade for a Flawless Complexion.</p>
+      </div> -->
+
+      <div class="skincare" id="foundations-div">
+        <img class="product-image" src="{% static '/images/bodylotion.png ' %}" alt="lotion">
+        <h3>Foundations</h3>
+        <p class="explication">Discover Your Perfect Shade for a Flawless Complexion.</p>
+    </div>
+    
+    <script>
+    document.getElementById("foundations-div").addEventListener("click", function() {
+        window.location.href = "{% url 'foundations_products' %}";
+    });
+    </script>
+    
       <div class="skincare">
         <img class="product-image" src="{% static '/images/nails.png' %}" alt="nails">
         <h3>Nails</h3>
