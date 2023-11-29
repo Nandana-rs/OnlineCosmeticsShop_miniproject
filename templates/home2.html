@@ -21,8 +21,11 @@
         <ul>
             {% if user.is_authenticated %}
                 <li>Welcome, {{ user.username }}!</li>
+                 <li><a href="{% url 'wishlist' %}"><i class="fa fa-heart"></i> Wishlist</a></li>
+               <li><a href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+               <li><a href="{% url 'user_profile' %}"><i class="fa fa-user"></i> Profile</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
-                <li><a href="{% url 'user_profile' %}">Profile</a></li>
+                
                 
 
             {% else %}
@@ -31,15 +34,39 @@
             {% endif %}
         </ul>
     </div>
+
+    <!-- <div class="nav-icons">
+      <ul>
+          {% if user.is_authenticated %}
+              <li>Welcome, {{ user.username }}!</li>
+              <li><a href="{% url 'wishlist' %}"><i class="fa fa-heart"></i> Wishlist</a></li>
+              <li>
+                  <a href="{% url 'cart' %}" class="view-cart-link">
+                      <i class="fa fa-shopping-cart"></i> Cart
+                  </a>
+                  {% if cart_count > 0 %}
+                      <span class="cart-count">{{ cart_count }}</span>
+                  {% endif %}
+              </li>
+              <li><a href="{% url 'user_profile' %}"><i class="fa fa-user"></i> Profile</a></li>
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% endif %}
+      </ul>
+  </div> -->
+  
     <!-- here_session end -->
       
       <div class="nav-bar">
         <a href="home.html"><img class="click" src="{% static '/images/logo.png' %}" alt="logo"></a>
         <div class="nav-links">
           <a class="LINK" href="{% url 'about'%}">About</a>
-          <a class="LINK" href="#products">Our Products</a>
+          
+          <a class="LINK" href="{% url 'product_list' %}">Our Products</a>
           <a class="LINK"href="{% static '#Artists' %}">Artists</a> 
           <a class="LINK" href="{% static 'flawless' %}">FLAWLESS</a>
+          <a class="LINK" href="{% url 'chatbot' %}">BeauteBot</a>
+          <a class="LINK" href="{% url 'Brideindex' %}">BridalDreams</a>
+          
           
         </div>
       </div>
@@ -130,10 +157,136 @@
   <div class="artists" id="Artists">
     <h2 class="arts">Our Beautician Artists</h2>
     <hr class="title-underline">
-    <div class="artist-wrapper"></div>
+    <!-- <div class="artist-wrapper"></div> -->
+
+  <!-- beautician from js -->
+  <div class="artist-wrapper">
+
+    <!-- Beautician 1 -->
+    <div class="artist-card">
+      <div class="artist-description">
+        <div class="artist">
+          <div class="imgs">
+            <img class="artist-image" src="{% static '/images/Esthetician .png' %}" alt="Marleine Tshel" />
+            <img class="back-img" src="{% static '/images/squre photo.png' %}" alt="background" />
+          </div>
+          <div class="art-desc">
+            <h4>Marleine Tshel</h4>
+            <figcaption> <em>Internatioal esthetician and over 8 years of experience as an esthetician.</em></figcaption>
+            <hr class="artist-underline">
+            <p class="artist-paragraph">Finished her esthetician studies and got her certificate in 2012. She provides services for your skin care needs.</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <button class="artist-button">MORE <i class="fa fa-chevron-down"></i></button>
+  
+    <!-- Beautician 2 -->
+    <div class="artist-card">
+      <div class="artist-description">
+        <div class "artist">
+          <div class="imgs">
+            <img class="artist-image" src="{% static '/images/Makeup artist .png' %}" alt="Anabelle Slovy" />
+            <img class="back-img" src="{% static '/images/squre photo.png' %}" alt="background" />
+          </div>
+          <div class="art-desc">
+            <h4>Anabelle Slovy</h4>
+            <figcaption> <em>Part of the DMFA Makeup Academy Tutors at Harvard University.</em></figcaption>
+            <hr class="artist-underline">
+            <p class="artist-paragraph">Anabelle has always been passionate about art and one of the most exquisite expressions of makeup.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Beautician 3 -->
+    <div class="artist-card">
+      <div class="artist-description">
+        <div class="artist">
+          <div class="imgs">
+            <img class="artist-image" src="{% static '/images/eshetician2.png' %}" alt="Virgile Bual" />
+            <img class="back-img" src="{% static '/images/squre photo.png' %}" alt="background" />
+          </div>
+          <div class="art-desc">
+            <h4>Virgile Bual</h4>
+            <figcaption> <em>Internatioal esthetician and over 8 years of experience as an esthetician.</em></figcaption>
+            <hr class="artist-underline">
+            <p class="artist-paragraph">Finished her esthetician studies and got her certificate in 2012. She provides services for your skin care needs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Beautician 4 -->
+    <!-- Repeat the structure below for each remaining beautician -->
+    <!-- ... -->
+  
+    <div class="artist-card">
+      <div class="artist-description">
+        <div class="artist">
+          <div class="imgs">
+            <img class="artist-image" src="{% static '/images/eshetician3.png' %}" alt="Van Glor" />
+            <img class="back-img" src="{% static '/images/squre photo.png' %}" alt="background" />
+          </div>
+          <div class="art-desc">
+            <h4>Van Glor</h4>
+            <figcaption> <em>Part of the DMFA Makeup Academy Tutors at Harvard University.</em></figcaption>
+            <hr class="artist-underline">
+            <p class="artist-paragraph">Van has always been passionate about art and one of the most exquisite expressions of makeup.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Beautician 5 -->
+    <!-- Repeat the structure below for each remaining beautician -->
+    <!-- ... -->
+  
+    <div class="artist-card">
+      <div class="artist-description">
+        <div class="artist">
+          <div class="imgs">
+            <img class="artist-image" src="{% static '/images/make up artist.png' %}" alt="Elizabeth Beth" />
+            <img class="back-img" src="{% static '/images/squre photo.png' %}" alt="background" />
+          </div>
+          <div class="art-desc">
+            <h4>Elizabeth Beth</h4>
+            <figcaption> <em>Part of the DMFA Makeup Academy Tutors at Harvard University.</em></figcaption>
+            <hr class="artist-underline">
+            <p class="artist-paragraph">Beth has always been passionate about art and one of the most exquisite expressions of makeup.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Beautician 6 -->
+    <!-- Repeat the structure below for each remaining beautician -->
+    <!-- ... -->
+  
+    <div class="artist-card">
+      <div class="artist-description">
+        <div class="artist">
+          <div class="imgs">
+            <img class="artist-image" src="{% static '/images/spa artist.png' %}" alt="Lauraine Abdob" />
+            <img class="back-img" src="{% static '/images/squre photo.png' %}" alt="background" />
+          </div>
+          <div class="art-desc">
+            <h4>Lauraine Abdob</h4>
+            <figcaption> <em>Internatioal esthetician and over 8 years of experience as an esthetician.</em></figcaption>
+            <hr class="artist-underline">
+            <p class="artist-paragraph">Finished her esthetician studies and got her certificate in 2012. She provides services for your skin care needs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Repeat for other beauticians -->
+  
   </div>
+  
+  
+    <!-- </div>
+    <button class="artist-button">MORE <i class="fa fa-chevron-down"></i></button>
+  </div> -->
   <div class="PARTNER">
     <h2>Partners</h2>
     <hr class="title-underline">

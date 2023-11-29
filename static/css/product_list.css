@@ -12,6 +12,23 @@ header {
     padding: 10px 0;
 }
 
+.category-links {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.category-links a {
+    margin: 0 15px;
+    text-decoration: none; /* Remove underlines */
+    color: #007bff; /* Primary color for links */
+    font-weight: bold;
+}
+
+.category-links a:hover {
+    color: #0056b3; /* Darker color on hover */
+}
+
 .product-container {
     display: flex;
     flex-wrap: wrap;
@@ -43,5 +60,3 @@ header {
     font-size: 16px;
     margin-top: 20px;
 }
-
-/* Add more styling as needed */

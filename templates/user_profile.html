@@ -1,363 +1,179 @@
 {% load static %}
+
 <!DOCTYPE html>
-<html>
-<!-- jQuery UI CSS for the date picker -->
-<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<html lang="en">
+
 <head>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <style>
-        /* Style for the form container */
-        .form-container {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 20px;
-            width: 80%;
-            margin: 0 auto;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        body {
-            background-image: url('{% static 'images/dp4.jpg' %}');
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-
-        /* Style for form labels */
-        .form-group label {
-            font-weight: bold;
-        }
-
-        /* Style for form inputs */
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
-
-        /* Style for form buttons */
-        .btn-primary {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
+        /* Add your custom CSS styles here */
 
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
         }
 
-        .hero_area {
-            /* Your hero area styles go here */
-        }
-
-        .header_section {
-            /* Your header styles go here */
-        }
-
-        .custom_nav-container {
-            /* Your navigation styles go here */
-        }
-
-        .navbar-toggler {
-            /* Your navbar toggler styles go here */
-        }
-
-        .navbar-nav {
-            /* Your navbar-nav styles go here */
-        }
-
-        .nav-link {
-            /* Your nav-link styles go here */
-        }
-
-        .nav_search-btn {
-            /* Your search button styles go here */
-        }
-
-        .inner_page_head {
-            /* Your inner page head styles go here */
-        }
-
-        /* Add your sidebar styles here */
         .sidebar {
-            width: 20%;
-            background-color: #94b9c9;
+            width: 250px;
             padding: 20px;
-            position: fixed;
-            height: 100%;
-            overflow: auto;
-            bottom: 0.4;
-            overflow: auto;
-            z-index: 2;
-            
-        }
-
-        .sidebar-item {
-            margin-bottom: 20px;
-            padding: 20px;
-            background-color: #94b9c9;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            bottom: 0.5;
-            margin-top: 40px;
-        }
-
-        .sidebar-item:hover {
-            background-color: #ddd;
-            bottom: 0.5;
-        }
-
-        .account-settings {
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            padding: 20px;
-        }
-        
-
-        .account-box {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-top: 10px;
-        }
-
-        /* Additional styles for content on the right side */
-        .content {
-            
-            margin-left: 20%;
-            padding: 20px;
-            margin-top: 50px;
-        }
-        .header {
-            background-color: #94b9c9; /* Dark green color for the header */
+            background-color: #333;
             color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1;
-            
+            height: 100vh;
         }
-        .Cart-icon{
-            position: absolute;
-            right: 0;
-            top:50px;
 
+        .sidebar h2 {
+            color: #4caf50;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            padding: 8px;
+            font-size: 18px;
+            border-bottom: 1px solid #4caf50;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .sidebar li:hover {
+            background-color: #4caf50;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .profile-details {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .datepicker {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
         }
     </style>
-</head>
-<div class="header">
-    <h2> Customer Profile</h2>
-    <a href="{% url 'home' %}"><img src="{% static 'images/log4.png' %}" alt="Cart" class="Cart-icon" style="margin-right: 10px;"></a>
-</div>
 
-<body class="sub_page">
-    <div class="hero_area">
-        <header class="header_section">
-            
-        </header>
-    </div>
-    <section class="inner_page_head">
-        <div class="container_fuild">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="full">
-                        <h3></h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="sidebar">
-        <div class="sidebar-item">MY ORDERS</div>
-        <div class="sidebar-item">
-            ACCOUNT SETTINGS
-            <div class="account-box">
-                <div class="content-item" onclick="loadProfileForm()">Profile Information</div>
-            </div>
-            <div class="account-box">
-                <div class="content-item" onclick="loadManageAddressesForm()">Manage Address</div>
-            </div>
-        </div>
-        <div class="sidebar-item">PAYMENT</div>
-    </div>
-
-    <!-- Middle Content -->
-    <div class="content" id="middle-content">
-        <!-- Content will be loaded here dynamically using JavaScript -->
-    </div>
-
-    <!-- JavaScript to load the form and initialize the date picker -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        function loadProfileForm() {
-            // You can load your form content here
-            const middleContent = document.getElementById("middle-content");
-            middleContent.innerHTML = `
-                <div class="form-container">
-                    <h2>Profile Information Form</h2>
-                    <form onsubmit="return validateProfileForm();">
-                        <div class="form-group">
-                            <label for="full-name">Full Name</label>
-                            <input type="text" id="fullname" name="fullname" class="form-control" required>
-                        </div>
+        // Add your custom JavaScript code here
 
-                        <!-- Add the Gender field here as radio buttons with labels -->
-                        <!-- Add the Gender field here as radio buttons -->
-                        <div class="form-group">
-                            <label> Gender</label><br>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" id="male" name="gender" class="form-check-input" value="male" required>
-                                <label for="male" class="form-check-label">Male</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" id="female" name="gender" class="form-check-input" value="female" required>
-                                <label for="female" class="form-check-label">Female</label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="date-of-birth">Date of Birth</label>
-                            <div class="input-group">
-                                <input type="text" id="date-of-birth" name="date-of-birth" class="form-control" placeholder="mm/dd/yyyy" required>
-                                <span class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </span>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="tel" id="phone" name="phone" class="form-control" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="reset" class="btn btn-primary">Reset</button>
-                    </form>
-                </div>
-            `;
-
-            // Initialize the date picker
-            $("#date-of-birth").datepicker();
-        }
-
-        function loadManageAddressesForm() {
-            const middleContent = document.getElementById("middle-content");
-            middleContent.innerHTML = `
-                <div class="form-container" id="address-form">
-                    <h2>Manage Addresses</h2>
-                    <form onsubmit="return validateAddressForm();">
-                        <div class="form-group">
-                            <label for="fullname">Full Name</label>
-                            <input type="text" id="fullname" name="fullname" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="pincode">PIN Code</label>
-                            <input type="text" id="pincode" name="pincode" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="address">Address</label>
-                            <input type="text" id="address" name="address" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="landmark">Landmark (Optional)</label>
-                            <input type="text" id="landmark" name="landmark" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="city">City</label>
-                            <input type="text" id="city" name="city" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="state">State</label>
-                            <input type="text" id="state" name="state" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="address-type">Address Type</label>
-                            <select id="address-type" name="address-type" class="form-control" required>
-                                <option value="home">Home</option>
-                                <option value="work">Work</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save Address</button>
-                        <button type="reset" class="btn btn-primary">Reset</button>
-                        <button type="update" class="btn btn-primary">Update</button>
-
-                    </form>
-                </div>
-            `;
-        }
-
-        function validateFullName() {
-            const fullNameInput = document.getElementById('fullname');
-            const fullNameValue = fullNameInput.value.trim();
-            const fullNameRegex = /^[a-zA-Z\s]+$/; // Regular expression to match alphabets and spaces
-
-            if (!fullNameRegex.test(fullNameValue)) {
-                alert('Please enter a valid full name containing only alphabets and spaces.');
-                fullNameInput.focus();
-                return false;
-            }
-
-            return true;
-        }
-
-        function validatePhoneNumber() {
-            const phoneInput = document.getElementById('phone');
-            const phoneValue = phoneInput.value.trim();
-            const phoneRegex = /^\d{10}$/; // Regular expression to match 10-digit phone number
-
-            if (!phoneRegex.test(phoneValue)) {
-                alert('Please enter a valid 10-digit phone number.');
-                phoneInput.focus();
-                return false;
-            }
-
-            return true;
-        }
-
-        function validateProfileForm() {
-            const isFullNameValid = validateFullName();
-            const isPhoneNumberValid = validatePhoneNumber();
-
-            if (isFullNameValid && isPhoneNumberValid) {
-                // Form is valid, you can submit it or perform other actions here
-                return true;
-            } else {
-                // Form is not valid, prevent submission
-                return false;
-            }
-        }
-
-        function validateAddressForm() {
-            // Add any additional validation for the address form here if needed
-        }
+        $(function () {
+            // Initialize datepicker
+            $("#dob").datepicker({
+                dateFormat: "yy-mm-dd",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0" // Allow selection of the last 100 years
+            });
+        });
     </script>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="{% url 'user_details' %}">My Profile</a></li>
+            <li><a href="{% url 'change_password' %}">Change Password</a></li>
+            <li><a href="#">My Orders</a></li>
+            <li><a href="{% url 'wishlist' %}">My Wishlist</a></li>
+            
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <h1>User Profile</h1>
+            <div class="profile-details">
+                <label for="user_name">Username</label>
+                <input type="text" id="user_name" name="Username" value="{{ user.username }}" readonly>
+
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" value="{{ user.email }}" readonly>
+            </div>
+
+            <form method="post" action="{% url 'save_profile' %}">
+
+                {% csrf_token %}
+
+                <!-- Fields for ProfileUser -->
+                <label for="phone_number">Phone Number</label>
+                <input type="text" id="phone_number" name="phone_number" value="{{ user.profileuser.phone_number }}">
+
+                <label for="pincode">Pincode</label>
+                <input type="text" id="pincode" name="pincode" value="{{ user.profileuser.pincode }}">
+
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" value="{{ user.profileuser.address }}">
+
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" value="{{ user.profileuser.city }}">
+
+                <label for="state">State</label>
+                <input type="text" id="state" name="state" value="{{ user.profileuser.state }}">
+
+                <label for="gender">Gender</label>
+                <input type="text" id="gender" name="gender" value="{{ user.profileuser.gender }}">
+
+                <button type="submit">Save</button>
+
+            </form>
+        </div>
+    </div>
+
 </body>
 
 </html>

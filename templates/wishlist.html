@@ -1,57 +1,95 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wishlist</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <style>
         /* Style for the entire page */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
         /* Style for the wishlist container */
         .wishlist-container {
             width: 80%;
-            margin: 0 auto;
+            margin: 20px;
             background-color: #fff;
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
         /* Style for each wishlist item */
         .wishlist-item {
             display: flex;
             align-items: center;
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .wishlist-item:hover {
+            transform: scale(1.02);
         }
 
         .wishlist-item img {
             max-width: 100px;
             max-height: 100px;
             margin-right: 20px;
+            border-radius: 8px;
+        }
+
+        /* Style for the text content in each wishlist item */
+        .wishlist-item-text {
+            flex: 1;
+        }
+
+        .wishlist-item-text p {
+            margin: 5px 0;
         }
 
         /* Style for the "Remove from Wishlist" link */
         .remove-link {
-            color: #ff0000;
+            color: #ff3333;
             text-decoration: none;
             margin-left: auto;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .remove-link:hover {
+            color: #b30000;
+            text-decoration: underline;
+        }
+
+        /* Style for the wishlist item image as a link */
+        .wishlist-item img.linkable {
+            cursor: pointer;
         }
 
         /* Style for the "No items in wishlist" message */
         .no-items-message {
             text-align: center;
             color: #777;
+            font-size: 18px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
         }
     </style>
 </head>
@@ -62,10 +100,15 @@
             <ul>
                 {% for item in wishlist_items %}
                     <li class="wishlist-item">
-                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
-                        <p>{{ item.product.name }}</p>
-                        <p>Price: ${{ item.product.price }}</p>
-                        <a class="remove-link" href="{% url 'remove_from_wishlist' item.product.id %}">Remove from Wishlist</a>
+                        <a href="{% url 'product_detail' item.product.id %}">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="linkable">
+                        </a>
+                        <div class="wishlist-item-text">
+                            <p>{{ item.product.name }}</p>
+                            <p>Price: {{ item.product.price }}</p>
+                            
+                            <a class="remove-link" href="{% url 'remove_from_wishlist' item.product.id %}">Remove from Wishlist</a>
+                        </div>
                     </li>
                 {% endfor %}
             </ul>

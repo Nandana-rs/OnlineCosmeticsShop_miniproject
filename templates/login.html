@@ -11,7 +11,7 @@
     </head>
     <body>
         <div class="login-container">
-            <!--<div class="brand-text">PlantPulse</div>-->
+       
             <h2>Login</h2>
         <form class="login-form"  method="POST" onsubmit="return validateForm()">
         {% csrf_token %}
@@ -38,8 +38,8 @@
         function validateForm() {
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
-            var usernameRegex = /^[a-zA-Z]{6,}$/; // Username should be 6 or more alphabetic characters
-            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&!*])[A-Za-z\d@#$%^&!*]{6,}$/; // Password requirements
+            // var usernameRegex = /^[a-zA-Z]{6,}$/; // Username should be 6 or more alphabetic characters
+            // var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&!*])[A-Za-z\d@#$%^&!*]{6,}$/; // Password requirements
 
             // Get error message elements
             var usernameError = document.getElementById('username-error');
@@ -57,12 +57,12 @@
             //     isValid = false;
             // }
 
-            if (!password.match(passwordRegex)) {
-                passwordError.textContent = "Password should be at least 6 characters long and contain one uppercase letter, one lowercase letter, one digit, and one special character.";
-                isValid = false;
-            }
+            // if (!password.match(passwordRegex)) {
+            //     passwordError.textContent = "Password should be at least 6 characters long and contain one uppercase letter, one lowercase letter, one digit, and one special character.";
+            //     isValid = false;
+            // }
 
-            return isValid;
+            // return isValid;
         }
 
       

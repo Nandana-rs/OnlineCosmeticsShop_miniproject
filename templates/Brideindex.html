@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bridal Dreams</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8e9d6; /* Pastel Orange */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            color: #333;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .navbar-nav {
+            display: flex;
+            justify-content: space-between;
+            width: 60%;
+        }
+
+        .nav-link {
+            color: #333;
+            margin: 0 1rem;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #e44d26;
+        }
+
+        .container {
+            margin-top: 2rem;
+            flex: 1;
+        }
+
+        .card {
+            background-color: #fff;
+            color: #333;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-text {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .py-5 {
+            background-color: #e44d26;
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Add styles for the Bridal Makeup section */
+        .bridal-section {
+            background-color: #fff;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .bridal-section h2 {
+            color: #333;
+        }
+
+        .bridal-section p {
+            color: #555;
+            font-size: 1.2rem;
+        }
+
+        .bridal-section .btn-primary {
+            background-color: #e44d26;
+            border: none;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/Bridal_makeup/">Bridal Dreams</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        
+                        <a class="LINK" href="{% url 'home2' %}">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- <a class="nav-link" href="/Bridal_makeup/Brideabout.html">About us</a> -->
+                    </li>
+                    <li class="nav-item">
+                        <!-- <a class="nav-link" href="/Bridal_makeup/Bridecontact.html">Contact us</a> -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Bridal Makeup Section -->
+    <section class="bridal-section">
+        <div class="container">
+            <h2>Bridal Makeup Services</h2>
+            <p>Discover the epitome of elegance with our exquisite bridal makeup services. Book your appointment today.</p>
+            <a href="#" class="btn btn-primary">Explore Bridal Packages</a>
+        </div>
+    </section>
+
+    <!-- Cards -->
+    <div class="container my-4">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <!-- <div class="card">
+                    <img src="{% static 'images/bg4.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Bridal Hair Style</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit iusto
+                            voluptates earum.</p>
+                        <a href="#" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div> -->
+            <!-- You can add more bridal makeup cards here -->
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- The JS directly in the template -->
+    <script>
+        // Your custom JavaScript here
+        console.log('Custom JavaScript loaded!');
+    </script>
+</body>
+
+</html>

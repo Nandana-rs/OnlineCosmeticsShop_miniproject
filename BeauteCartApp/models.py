@@ -6,6 +6,8 @@
 from datetime import date
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+from django.contrib.auth import get_user_model
+
 
 
 
@@ -150,3 +152,91 @@ class WishlistItem(models.Model):
 
     def __str__(self):
         return self.product.name
+    
+#models for cart
+
+class Cart(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    
+    quantity = models.PositiveIntegerField(null=True, default=0)
+
+   
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    status = models.CharField(max_length=20, choices=(("active", "Active"), ("inactive", "Inactive")))
+
+    def __str__(self):
+        return f"{self.user.username}'s Cart"
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(null=True, default=0)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.product.name} in {self.cart.user.username}'s Cart"
+    
+
+#model for user profile
+CustomUser = get_user_model()
+
+class ProfileUser(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    username = models.CharField(max_length=50, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    pincode = models.CharField(max_length=10, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    gender = models.CharField(max_length=10, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)  # New field
+    state = models.CharField(max_length=50, blank=True, null=True)  # New field
+
+    def __str__(self):
+        return self.user.username
+    
+
+
+# razorpay payment
+class Order(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product, through='OrderItem')
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_id = models.CharField(max_length=100, null=True, blank=True)
+    payment_status = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Order {self.id} by {self.user.username}"
+    
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    item_total = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        # Calculate item total before saving
+        self.item_total = self.product.price * self.quantity
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.product.name} in Order {self.order.id}"
+    
+
+
+
+
+#nandana new cart
+class CartItem1(models.Model):
+    cart = models.ForeignKey('Cart1', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.product.name}"
+
+class Cart1(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product, through='CartItem1')
+
+    def __str__(self):
+        return f"Cart for {self.user.username}"

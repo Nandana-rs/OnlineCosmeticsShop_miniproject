@@ -6,34 +6,241 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product List</title>
     <link rel="stylesheet" href="{% static 'css/product_list.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Use flex display for main container */
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 20px; /* Adjusted padding for the header */
+            width: 250px; /* Adjusted width for the header */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+
+        /* Add this to your existing styles */
+
+.search-bar {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.search-bar form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-bar input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-bar button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+
+        .main-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping to the next line */
+        }
+
+        .sidebar {
+            flex: 0 0 250px; /* Fixed width for the sidebar */
+            padding: 10px;
+        }
+
+        .category-links {
+            display: flex;
+            flex-direction: column; /* Arrange links vertically */
+        }
+
+        .category-links a {
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-size: 16px;
+            position: relative;
+        }
+
+        .category-links a:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #007bff;
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .category-links a:hover:before {
+            visibility: visible;
+            transform: scaleX(1);
+        }
+
+        .category-dropdowns {
+            margin-top: 10px;
+        }
+
+        .category-dropdown {
+            margin-bottom: 10px;
+        }
+
+        select {
+            margin-top: 5px;
+            background-color: #fff;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        select::-ms-expand {
+            display: none;
+        }
+
+        select::after {
+            content: '\25BC';
+            font-size: 12px;
+            color: #555;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+        select option {
+            background-color: #fff;
+            color: #333;
+        }
+
+        select:hover {
+            border-color: #007bff;
+        }
+
+        select:hover::after {
+            color: #007bff;
+        }
+
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+            flex: 1; /* Take the remaining space */
+        }
+
+        .product-card {
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin: 10px;
+            padding: 20px;
+            width: 300px;
+            border-radius: 5px;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product-details h2 {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .no-products {
+            text-align: center;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>BeauteCart</h1>
+        <div class="search-bar">
+            <form method="get" action="{% url 'product_list' %}">
+                <input type="text" name="search" placeholder="Search products">
+                <button type="submit">Search</button>
+            </form>
+        </div>
     </header>
-    <div class="product-container">
-        {% for product in products %}
-        <div class="product-card">
-            <a href="{% url 'product_detail' product.id %}">
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
-            </a>
-            <div class="product-details">
-                <h2>{{ product.name }}</h2>
-                <p>Price: ${{ product.price }}</p>
-                <p>Brand: {{ product.brand }}</p>
-                <p>Stock Quantity: {{ product.quantity }}</p>
-                <p>Status: 
-                    {% if product.status == "active" %}
-                        <span class="active-status">Active</span>
-                    {% else %}
-                        <span class="inactive-status">Inactive</span>
-                    {% endif %}
-                </p>
+
+    <div class="main-container">
+        <!-- Step 2: Update Product List Template -->
+        <div class="sidebar">
+            <div class="category-links">
+                <a href="{% url 'product_list' %}">All</a>
+                {% for category in categories %}
+                    <a href="{% url 'product_list_by_category' category.id %}">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+            <div class="category-dropdowns">
+                {% for category in categories %}
+                    <div class="category-dropdown">
+                        <p>{{ category.name }}</p>
+                        <select onchange="location = this.value;">
+                            <option value="{% url 'product_list_by_category' category.id %}">All</option>
+                            {% for subcategory in category.subcategory_set.all %}
+                                <option value="{% url 'product_list_by_subcategory' category.id subcategory.id %}">{{ subcategory.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% endfor %}
             </div>
         </div>
-        {% empty %}
-        <p class="no-products">No products available.</p>
-        {% endfor %}
+
+        
+
+        <div class="product-container">
+            {% for product in products %}
+                <div class="product-card">
+                    <a href="{% url 'product_detail' product.id %}">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    </a>
+                    <div class="product-details">
+                        <h2>{{ product.name }}</h2>
+                        <p>Price: {{ product.price }}</p>
+                        <p>Brand: {{ product.brand }}</p>
+                        <p>Stock Quantity: {{ product.quantity }}</p>
+                        <p>Status: 
+                            {% if product.status == "active" %}
+                                <span class="active-status">Active</span>
+                            {% else %}
+                                <span class="inactive-status">Inactive</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="no-products">No products available.</p>
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>

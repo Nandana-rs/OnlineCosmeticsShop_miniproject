@@ -24,6 +24,35 @@ from django.urls import path, include
 from . import views
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import LogoutView
+from .views import user_profile
+from .views import save_profile  # Import your view
+from .views import user_details
+
+# from .views import checkout
+# #proceed to payement -> checkout
+
+# from .views import checkout_success
+# from .views import process_checkout
+# #proceed to payement -> checkout
+
+from .views import product_list
+from .views import product_detail
+
+from .views import admin_dashboard ,user_view
+from .views import change_password 
+from .views import add_to_cart
+from .views import remove_from_cart
+from .views import view_cart
+from .views import increase_cart_item
+from .views import decrease_cart_item
+from .views import fetch_cart_count
+from .views import create_order
+from .views import handle_payment
+from .views import checkout
+
+
+
+
 
 
 urlpatterns =  [
@@ -35,6 +64,9 @@ urlpatterns =  [
     path('logout/', views.logout_view, name='logout'),
     path('home2/', views.home2, name='home2'),
     path('seller_template/',views.seller_template ,name='seller_template'),
+    path('adminpanel/', admin_dashboard, name='adminpanel'),
+
+    path('user/', user_view, name='user'),
     path('add_product/', views.add_product, name='add_product'),
   
    #here google starts
@@ -45,17 +77,20 @@ urlpatterns =  [
     path('sellerRegistration/', views.sellerRegistration, name='sellerRegistration'),
 
     #admin adding products
-    path('product_list/', views.product_list, name='product_list'),
+    #prodcut_list.html
+    # path('product_list/', views.product_list, name='product_list'),
+    path('products/', product_list, name='product_list'),
+    path('products/<int:category_id>/', product_list, name='product_list_by_category'),
+    path('products/<int:category_id>/<int:subcategory_id>/', product_list, name='product_list_by_subcategory'),
+    path('products/<int:pk>/', product_detail, name='product_detail'),
+
     #seller viewing added products
     path('seller/products/', views.seller_products, name='seller_products'),
     path('edit_product/<int:product_id>/', views.edit_product, name='edit_product'),
     path('deactivate_product/<int:product_id>/', views.deactivate_product, name='deactivate_product'),
-#customers profile view in home2.html
-    path('user_profile/', views.user_profile, name='user_profile'),
-#customer changing passwird
-    path('change_password/', views.change_password, name='change_password'),
-#seller viewing profile 
-    path('seller_template/seller_profile', views.seller_profile, name='seller_profile'),
+
+    
+
 #page for displaying subcategory serums
     path('serums_products/', views.serums_products, name='serums_products'),
 #page for displaying subcategory foundations
@@ -65,9 +100,72 @@ urlpatterns =  [
     path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('add_to_wishlist/<int:product_id>/', views.add_to_wishlist, name='add_to_wishlist'),
     
-    path('cart/', views.cart, name='cart'),
+    
     path('wishlist/', views.wishlist, name='wishlist'),
     path('remove_from_wishlist/<int:product_id>/', views.remove_from_wishlist, name='remove_from_wishlist'),
+
+    # Remove product from cart
+    #  path('cart/', views.cart, name='cart'),
+    
+    # path('remove_from_cart/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
+    
+    # # Clear the cart
+    # path('clear_cart/', views.clear_cart, name='clear_cart'),
+    
+    # # Proceed to checkout
+    # path('checkout/', views.checkout, name='checkout'),
+
+
+    # Add the user profile URL
+ 
+    path('user_profile/', user_profile, name='user_profile'),
+    path('save_profile/', save_profile, name='save_profile'),
+    path('userdetails/', user_details, name='user_details'),
+    path('change_password/', change_password, name='change_password'),
+    
+
+# #proceed to payement -> checkout
+#     path('checkout/', checkout, name='checkout'),
+#     path('checkout/success/', checkout_success, name='checkout_success'),
+#     path('process_checkout/', process_checkout, name='process_checkout'),
+#proceed to payement -> checkout
+
+
+
+
+#nandana new cart
+    path('add-to-cart/<int:product_id>/', add_to_cart, name='add-to-cart'),
+    path('remove-from-cart/<int:product_id>/', remove_from_cart, name='remove-from-cart'),
+    path('cart/', view_cart, name='cart'),
+    path('increase-cart-item/<int:product_id>/', increase_cart_item, name='increase-cart-item'),
+    path('decrease-cart-item/<int:product_id>/', decrease_cart_item, name='decrease-cart-item'),    
+    path('fetch-cart-count/', fetch_cart_count, name='fetch-cart-count'),
+   
+    path('create-order/', create_order, name='create-order'),
+    path('handle-payment/', handle_payment, name='handle-payment'),
+    path('checkout/', checkout, name='checkout'),
+
+
+    #chatbot
+    path('chatbot/', views.chatbot, name='chatbot'),
+    path('get_dialogflow_response/', views.get_dialogflow_response, name='get_dialogflow_response'),
+  
+  
+    
+
+    #bridalmakeup booking
+    # path('Bridal_makeup/', views.Brideindex, name='Brideindex'),
+    # path('Bridal_makeup/about.html', views.Brideabout, name='Brideabout'),
+    # path('Bridal_makeup/contact.html', views.Bridecontact, name='Bridecontact'),
+
+    path('Brideindex/', views.bride_index_view, name='Brideindex'), 
+      # Replace 'bride_index_view' with the actual view function
+    path('Bridal_makeup/about.html', views.bride_about_view, name='Brideabout'),  # Replace 'bride_about_view' with the actual view function
+    path('Bridal_makeup/contact.html', views.bride_contact_view, name='Bridecontact'),  # Replace 'bride_contact_view' with the actual view function
+
+    
+   
+    
 
     
 

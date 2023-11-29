@@ -3,60 +3,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Your head content, including CSS and other resources -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - Product Detail</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600&display=swap">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        .product-detail {
-            text-align: center;
-            margin: 20px;
+        .product-box {
+            display: flex;
+            gap: 20px;
+        }
+
+        .product-image,
+        .product-info {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .product-image img:hover {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
         }
 
         h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .price {
             font-size: 24px;
-            margin: 10px 0;
+            color: #e44d26; /* Orange color */
+            margin-bottom: 15px;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            margin: 10px 0;
+        .description {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #555;
         }
 
-        p {
-            font-size: 16px;
-            margin: 10px 0;
+        .buttons {
+            display: flex;
+            gap: 10px;
         }
 
-        a {
+        .btn {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: #fff;
+            padding: 15px 30px;
             text-decoration: none;
-            margin: 10px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+            cursor: pointer;
         }
 
-        a:hover {
-            background-color: #0056b3;
+        .btn-cart {
+            background-color: #e44d26; /* Orange color */
+            color: #fff;
+        }
+
+        .btn-wishlist {
+            background-color: #007BFF; /* Blue color */
+            color: #fff;
+        }
+
+        .btn:hover {
+            background-color: #333;
+            color: #fff;
         }
     </style>
 </head>
 <body>
-    <div class="product-detail">
-        <h2>{{ product.name }}</h2>
-        <img src="{{ product.image.url }}" alt="{{ product.name }}">
-        <p>Description: {{ product.description }}</p>
-        <p>Price: ${{ product.price }}</p>
-        
-        <!-- Add to Cart Button -->
-        <a href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
-        
-        <!-- Add to Wishlist Button -->
-        <a href="{% url 'add_to_wishlist' product.id %}">Add to Wishlist</a>
-        
+    <div class="product-box">
+        <div class="product-image">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        </div>
+        <div class="product-info">
+            <h2>{{ product.name }}</h2>
+            <p class="price">{{ product.price }}</p>
+            
+            
+            <p class="description">{{ product.description }}</p>
+            <div class="buttons">
+                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-cart">Add to Cart</a>
+                <a href="{% url 'add_to_wishlist' product.id %}" class="btn btn-wishlist">Add to Wishlist</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

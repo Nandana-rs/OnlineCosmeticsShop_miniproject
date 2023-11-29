@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+#razorpay payment
+# from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +49,10 @@ INSTALLED_APPS = [
     'allauth.account',
     #heregoogleends
     
+
+    #razorpay payment
+    # 'razorpay',
+    
 ]
 
 MIDDLEWARE = [
@@ -77,6 +84,7 @@ TEMPLATES = [
                 #heregooglestarts
                 'social_django.context_processors.backends',
                 #heregoogleends
+                
             ],
         },
     },
@@ -152,6 +160,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+#razorpay
+RAZOR_KEY_ID = 'rzp_test_CJegkMCy3Kn5Rr'
+RAZOR_KEY_SECRET = 'iWFW3jm1HLhZaPLWsZNGpOEW'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
@@ -202,3 +213,17 @@ AUTH_PERMISSIONS = {
         'add_product': 'Can add product',
     },
 }
+
+DIALOGFLOW_PROJECT_ID = 'beautebot-pomb'
+DIALOGFLOW_LANGUAGE_CODE = 'en'  # Update with your language code
+DIALOGFLOW_CREDENTIALS_PATH = 'C:\\Users\\91730\\Downloads\\beautebot-pomb-e99bf2952742.json'
+
+
+
+
+
+
+
+
+
+
