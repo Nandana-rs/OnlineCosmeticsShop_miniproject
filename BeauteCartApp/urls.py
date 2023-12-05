@@ -27,6 +27,7 @@ from django.contrib.auth.views import LogoutView
 from .views import user_profile
 from .views import save_profile  # Import your view
 from .views import user_details
+from .views import order_history
 
 # from .views import checkout
 # #proceed to payement -> checkout
@@ -49,6 +50,12 @@ from .views import fetch_cart_count
 from .views import create_order
 from .views import handle_payment
 from .views import checkout
+
+from .views import bill_invoice
+from .views import seller_orders
+
+
+
 
 
 
@@ -88,6 +95,7 @@ urlpatterns =  [
     path('seller/products/', views.seller_products, name='seller_products'),
     path('edit_product/<int:product_id>/', views.edit_product, name='edit_product'),
     path('deactivate_product/<int:product_id>/', views.deactivate_product, name='deactivate_product'),
+    path('seller-orders/', seller_orders, name='seller_orders'),
 
     
 
@@ -122,6 +130,8 @@ urlpatterns =  [
     path('save_profile/', save_profile, name='save_profile'),
     path('userdetails/', user_details, name='user_details'),
     path('change_password/', change_password, name='change_password'),
+    path('order_history/', order_history, name='order_history'),
+
     
 
 # #proceed to payement -> checkout
@@ -144,6 +154,8 @@ urlpatterns =  [
     path('create-order/', create_order, name='create-order'),
     path('handle-payment/', handle_payment, name='handle-payment'),
     path('checkout/', checkout, name='checkout'),
+    path('billinvoice/', bill_invoice, name='bill_invoice'),
+     
 
 
     #chatbot

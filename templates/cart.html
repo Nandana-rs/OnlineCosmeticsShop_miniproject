@@ -6,159 +6,152 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Shopping Cart</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
+       body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+header {
+            background-color: #333;
+            color: #fff;
             padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .cart-header {
             text-align: center;
-            margin-bottom: 20px;
         }
 
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .cart-item img {
-            max-width: 80px;
-            margin-right: 10px;
-        }
-
-        .cart-item-details {
-            display: flex;
-            align-items: center;
-        }
-
-        .cart-item-name {
-            font-weight: bold;
-            margin-right: 10px;
-            flex: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .remove-from-cart-btn,
-        .quantity-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .remove-from-cart-btn:hover,
-        .quantity-btn:hover {
-            background-color: #c82333;
-        }
-
-        .cart-item-quantity {
-            display: flex;
-            align-items: center;
-            margin-right: 10px;
-        }
-
-        .cart-item-price {
-            font-weight: bold;
-        }
-
-        .continue-shopping-link,
-        .checkout-button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            border-radius: 4px;
+        header a {
+            color: #fff;
             text-decoration: none;
             font-weight: bold;
-            transition: background-color 0.3s;
+            margin-right: 0.005px;
+            margin-right: unset;
         }
 
-        .continue-shopping-link:hover,
-        .checkout-button:hover {
-            text-decoration: underline;
-        }
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-        .continue-shopping-link {
-            color: #3498db;
-            background-color: #fff;
-            border: 1px solid #3498db;
-            margin-right: 10px;
-        }
+.cart-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        .checkout-button {
-            color: #fff;
-            background-color: #28a745;
-        }
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f8f8f8;
+    margin-bottom: 20px;
+    transition: transform 0.3s;
+}
 
-        .total-price-data {
-            text-align: right;
-            font-weight: bold;
-            margin-top: 20px;
-        }
+.cart-item:hover {
+    transform: scale(1.02);
+}
 
-        .price-details-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+.cart-item img {
+    max-width: 100px;
+    border-radius: 8px;
+}
 
-        .order-summary {
-            text-align: center;
-        }
+.cart-item-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 20px;
+}
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 10px;
-            }
+.cart-item-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 18px;
+    color: #333;
+}
 
-            .cart-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+.remove-from-cart-btn,
+.quantity-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-            .cart-item img {
-                max-width: 100%;
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
+.remove-from-cart-btn:hover,
+.quantity-btn:hover {
+    background-color: #c0392b;
+}
 
-            .cart-item-details {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
 
-            .cart-item-quantity {
-                margin-top: 10px;
-            }
+.cart-item-quantity button {
+    margin: 0 5px;
+    font-size: 16px;
+}
 
-            .checkout-button,
-            .continue-shopping-link {
-                width: 100%;
-                margin-right: 0;
-            }
-        }
+.cart-item-price {
+    font-weight: bold;
+    font-size: 18px;
+    color: #2ecc71;
+}
+
+.total-price-data {
+    text-align: right;
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 20px;
+    color: #333;
+}
+
+.continue-shopping-link,
+.checkout-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.continue-shopping-link:hover,
+.checkout-button:hover {
+    text-decoration: underline;
+}
+
+.continue-shopping-link {
+    color: #3498db;
+    background-color: #fff;
+    border: 2px solid #3498db;
+    margin-right: 10px;
+}
+
+.checkout-button {
+    color: #fff;
+    background-color: #27ae60;
+}
+
     </style>
 </head>
 <body>
+    <header>
+        <a href="{% url 'home2' %}">Home</a>
+    </header>
+    
    <div class="container">
         <div class="cart-header">
             <h1>Your Cart</h1>
@@ -195,19 +188,20 @@
             </ul>
             <p class="total-price-data">Total amount: Rs. <span id="total-price">{{ total_amount }}</span></p>
             <a class="continue-shopping-link" href="{% url 'product_list' %}">Continue Shopping</a>
+            <a class="checkout-button" href="{% url 'checkout' %}">Checkout</a>
         {% else %}
             <p>Your cart is empty.</p>
         {% endif %}
     </div>
 
-    <div class="price-details-container">
+    <!-- <div class="price-details-container">
         <div class="order-summary">
             <h3>Price Details</h3>
             <p class="total-price-data">Total amount: Rs. <span id="total-price">{{ total_amount }}</span></p>
             <a class="continue-shopping-link" href="{% url 'product_list' %}">Continue Shopping</a>
             <a class="checkout-button" href="{% url 'checkout' %}">Checkout</a>
         </div>
-    </div>
+    </div> -->
 
     <script src="{% static 'cart.js' %}"></script>
 </body>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Orders</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #3498db;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #ffffff;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        p {
+            margin: 0;
+            margin-top: 10px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Seller Orders</h1>
+
+    {% if orders %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>User</th>
+                    <th>Email</th>
+                    <!-- Add more details as needed -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for order_item in orders %}
+                    <tr>
+                        <td>{{ order_item.order.id }}</td>
+                        <td>{{ order_item.product.name }}</td>
+                        <td>{{ order_item.quantity }}</td>
+                        <td>{{ order_item.order.user.username }}</td>
+                        <td>{{ order_item.order.user.email }}</td>
+                        <!-- Add more details as needed -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No orders found for your products.</p>
+    {% endif %}
+    <button onclick="window.print()">Print</button>
+</body>
+</html>

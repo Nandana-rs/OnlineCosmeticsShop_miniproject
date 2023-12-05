@@ -1,10 +1,15 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+<header>
+    <a href="{% url 'home2' %}">Home</a>
+</header>
 <div class="container">
     <div id="order-placed-section" style="display: none;">
         <h2>Order Placed</h2>
         <p id="order-success-message"></p>
+        <P><a href="{% url 'bill_invoice'  %}" target="_blank">View Invoice</a></P>
+
     </div>
     <h1>Checkout</h1>
     <p>Order Summary :</p>
@@ -14,8 +19,24 @@
         {% endfor %}
     </ul>
     <p>Total Amount: &#8377<span id="total_item_amount">{{total_amount}}</span></p>
+    <!-- Display user details -->
+    <p>Email: {{ user.email }}</p>
+    <p>Full Name: {{ user.username }}</p>
+    <!-- <p>Phone Number: {{ phone_number }}</p>
+    <p>Pincode: {{ pincode }}</p>
+    <p>Address: {{ address }}</p>
+    <p>Gender: {{ gender }}</p>
+    <p>City: {{ city }}</p>
+    <p>State: {{ state }}</p> -->
+
+
+
 
     <button id="rzp-button1">Pay with Razorpay</button>
+    
+    
+    
+
 </div>
 <div id="checkout-data" data-email="{{ email }}" data-fullname="{{ full_name }}">
 </div>

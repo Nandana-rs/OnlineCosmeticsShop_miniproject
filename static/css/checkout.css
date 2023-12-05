@@ -1,3 +1,19 @@
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 0.005px;
+    margin-right: unset;
+}
+
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
@@ -80,3 +96,4 @@ button#rzp-button1:active {
 #order-success-message {
     color: green;
 }
+

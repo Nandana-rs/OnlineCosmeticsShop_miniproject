@@ -34,8 +34,28 @@ import razorpay
 import json
 from django.views.decorators.csrf import csrf_exempt
 
-
 #razorpay import ends
+
+
+#order history
+@login_required
+def order_history(request):
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'order_history.html', {'orders': orders})
+
+def bill_invoice(request):
+    # Fetch the latest order for the logged-in user (or implement your logic)
+    order = Order.objects.filter(user=request.user).latest('created_at')
+    return render(request, 'billinvoice.html', {'order': order})
+
+def seller_orders(request):
+    # Fetch products associated with the logged-in seller
+    seller_products = Product.objects.filter(seller=request.user)
+
+    # Fetch orders related to the seller's products
+    orders = OrderItem.objects.filter(product__in=seller_products).select_related('order__user')
+
+    return render(request, 'seller_orders.html', {'orders': orders})
 
 
 #chatbot begins
@@ -681,12 +701,31 @@ def get_cart_count(request):
         # If the user is not authenticated, return 0
         return 0
 
+
+@login_required(login_url='login')
+
 def checkout(request):
-    # Assuming you have a one-to-one relationship between CustomUser and Cart1
     try:
         cart = request.user.cart1
         cart_items = CartItem1.objects.filter(cart=cart)
         total_amount = sum(item.product.price * item.quantity for item in cart_items)
+
+        # Fetch user details from ProfileUser model
+        try:
+            user_profile = ProfileUser.objects.get(user=request.user)
+            user_details = {
+                'email': user_profile.email,
+                'full_name': user_profile.username,
+                'phone_number': user_profile.phone_number,
+                'pincode': user_profile.pincode,
+                'address': user_profile.address,
+                
+                'city': user_profile.city,
+                'state': user_profile.state,
+            }
+        except ProfileUser.DoesNotExist:
+            # Handle the case where user profile doesn't exist
+            user_details = {}
 
         cart_count = get_cart_count(request)
 
@@ -694,13 +733,17 @@ def checkout(request):
             'cart_count': cart_count,
             'cart_items': cart_items,
             'total_amount': total_amount,
+            **user_details,  # Add user details to the context
+            
         }
+        
         return render(request, 'checkout.html', context)
 
     except Cart1.DoesNotExist:
         # Handle the case where the user does not have a cart
         # You might want to redirect them to the cart page or handle it in some way
         return HttpResponse("You don't have a cart.")
+
 
 @csrf_exempt
 def handle_payment(request):
@@ -767,14 +810,7 @@ def get_dialogflow_response(request):
 
 
 #bridal makeup booking
-# def Brideindex(request):
-#     return render(request, 'Brideindex.html')
 
-# def Brideabout(request):
-#     return render(request, 'Brideabout.html')
-
-# def Bridecontact(request):
-#     return render(request, 'Bridecontact.html')
 
 def bride_index_view(request):
     return render(request, 'Brideindex.html')
@@ -784,4 +820,6 @@ def bride_about_view(request):
 
 def bride_contact_view(request):
     return render(request, 'Bridecontact.html')
+
+
 

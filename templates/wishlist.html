@@ -91,9 +91,26 @@
             text-align: center;
             color: #333;
         }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 0.005px;
+            margin-right: unset;
+        }
     </style>
 </head>
 <body>
+    <header>
+        <a href="{% url 'home2' %}">Home</a>
+    </header>
     <div class="wishlist-container">
         <h1>Your Wishlist</h1>
         {% if wishlist_items %}

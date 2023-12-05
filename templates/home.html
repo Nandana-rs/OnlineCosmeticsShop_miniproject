@@ -33,7 +33,7 @@
         <a href="home.html"><img class="click" src="{% static '/images/logo.png' %}" alt="logo"></a>
         <div class="nav-links">
           <a class="LINK" href="{% url 'about'%}">About</a>
-          <a class="LINK" href="#products">Our Products</a>
+          <a class="LINK" href="{% url 'product_list' %}">Our Products</a>
           <a class="LINK"href="{% static '#Artists' %}">Artists</a> 
           <a class="LINK" href="{% static 'flawless' %}">FLAWLESS</a>
         </div>
@@ -58,10 +58,10 @@
         Looking young and beautiful never comes without using the best cosmetics.
         Here we have compiled the best skincare products by the best brands.
       </p>
-      <p class="promotion">
+      <!-- <p class="promotion">
         10% OFF FOR FIRST PURCHASE
-      </p>
-      <a class="more" href="{% static '#viewmore' %}">SEE OUR COLLECTIONS.</a>
+      </p> -->
+      <a class="more" href="{% url 'product_list' %}">SEE OUR COLLECTIONS.</a>
     </div>
   </header>
   <section class="products" id="products" style="background-image: url({% static 'images/products bck.png' %});">
