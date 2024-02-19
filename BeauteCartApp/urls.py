@@ -57,7 +57,7 @@ from .views import seller_orders
 from .views import add_edit_service , view_bridal_packages
 from .views import BeauticianCRUD, edit_beautician
 from .views import service_detail
-from .views import beautician_profile_form 
+from .views import beautician_profile_form , beautician_profile
 from .views import chatgpt, generate_response
 
 from .views import upload_video
@@ -214,6 +214,7 @@ urlpatterns =  [
      path('display_videos/', display_videos, name='display_videos'),
     
     path('beauticians/', beautician_list, name='beautician_list'),
+    path('view-profile/', beautician_profile, name='beautician_profile'),
     
     
     

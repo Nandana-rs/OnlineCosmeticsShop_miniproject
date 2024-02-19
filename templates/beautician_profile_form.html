@@ -120,10 +120,14 @@
     <header>
         
         <h1>Beautician Profile</h1>
-
+        <div>
+            <a class="navbar-brand" href="#">__________________________________________________________________________________________________</a>
+            <a class="navbar-brand" href="{% url 'beautician_profile' %}">Beautician</a>
+        </div>
 
 
         <a class="back-link" href="javascript:history.back()">Back</a>
+        
     </header>
     <main>
         <form action="/submit-profile/" method="post">

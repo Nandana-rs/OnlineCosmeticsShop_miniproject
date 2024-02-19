@@ -1166,3 +1166,12 @@ from .models import Beautician
 
 def beautician_list(request):
     return render(request, 'beautician_list.html')
+
+
+from .models import Beautician
+
+def beautician_profile(request):
+    # Retrieve the logged-in beautician's profile
+    beautician = Beautician.objects.get(user=request.user)
+
+    return render(request, 'beautician_profile.html', {'beautician': beautician})
