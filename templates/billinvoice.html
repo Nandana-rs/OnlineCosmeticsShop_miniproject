@@ -7,47 +7,79 @@
     <title>Bill Invoice</title>
 
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+           body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
             padding: 20px;
+            text-align: center;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 10px;
         }
 
         h1 {
             color: #3498db;
+            text-align: center;
+            margin-top: 20px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #ddd;
-            padding: 10px;
+            padding: 15px;
             text-align: left;
         }
 
         th {
             background-color: #f2f2f2;
         }
+
         button {
-            background-color: blue;
+            background-color: #3498db;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 30px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            display: block;
+            margin: 20px auto;
         }
 
         button:hover {
-            background-color: darkblue;
+            background-color: #2980b9;
         }
-
     </style>
 </head>
 <body>
-    <h1>Bill Invoice</h1>
+    <header>
+        
+        <a class="LINK" href="#">BeauteCart</a>
+        <a href="#">:)</a>
+        <a href="#">_____________________________________________________________________________________________________________</a>
+    
+        <a href="{% url 'home2' %}">Home</a>
+    </header>
+    <h1> BeauteCart Bill Invoice</h1>
 
     {% if order %}
         <table>

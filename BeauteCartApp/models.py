@@ -11,11 +11,13 @@ from django.contrib.auth import get_user_model
 
 
 
+
 class CustomUser(AbstractUser):
     ADMIN = 1
     CUSTOMER = 2
     DELIVERYTEAM = 3
     SELLER = 4
+    
 
     USER_TYPES = (
         (ADMIN, 'Admin'),
@@ -33,6 +35,13 @@ class CustomUser(AbstractUser):
     password = models.CharField(max_length=128)
     phone = models.CharField(max_length=12, blank=True)
     shop_address = models.CharField(max_length=255, null=True)
+    tax_id = models.CharField(max_length=20, null=True)
+
+     # Additional fields for the MAKEUP ARTIST user type
+    parlour_name = models.CharField(max_length=255, null=True)
+    password = models.CharField(max_length=128)
+    phone = models.CharField(max_length=12, blank=True)
+    parlour_address = models.CharField(max_length=255, null=True)
     tax_id = models.CharField(max_length=20, null=True)
 
     is_admin = models.BooleanField(default=False)
@@ -240,3 +249,60 @@ class Cart1(models.Model):
 
     def __str__(self):
         return f"Cart for {self.user.username}"
+
+
+
+        #BRIDAL MAKEUP BOOKING
+# BRIDAL MAKEUP BOOKING
+class Beautician(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True)
+    phone_number = models.CharField(max_length=15, blank=True)
+    address = models.TextField(blank=True)
+    website = models.URLField(blank=True)
+    social_media_links = models.TextField(blank=True)
+    experience_years = models.PositiveIntegerField(blank=True, null=True)
+    certifications = models.TextField(blank=True)
+    availability = models.TextField(blank=True)
+    # Add any other relevant fields for your Beautician model
+
+    def __str__(self):
+        return self.user.username
+
+class Service(models.Model):
+    beautician = models.ForeignKey(Beautician, on_delete=models.CASCADE)
+    makeup_type = models.CharField(max_length=255)
+    pricing = models.DecimalField(max_digits=10, decimal_places=2)
+    portfolio_images = models.ImageField(upload_to='portfolio/', blank=True)
+    service_offerings = models.TextField()
+    # Add any other relevant fields for your Service model
+
+    def __str__(self):
+        return f"{self.beautician.user.username}'s {self.makeup_type} Service"
+
+class Booking(models.Model):
+    beautician = models.ForeignKey(Beautician, on_delete=models.CASCADE)
+    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    location = models.CharField(max_length=255)
+    special_requests = models.TextField(blank=True)
+    status = models.CharField(max_length=20, default='pending')  # 'pending', 'confirmed', 'completed', etc.
+    
+    # Add any other relevant fields for your Booking model
+
+    def __str__(self):
+        return f"{self.customer.username}'s Booking with {self.beautician.user.username} for {self.service.makeup_type} on {self.date}"
+
+
+#how to upload videao
+class Video(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()  # Add a description field
+    video_file = models.FileField(upload_to='videos/')
+    # Add any other fields you need, such as tags, etc.
+
+    def __str__(self):
+        return self.title

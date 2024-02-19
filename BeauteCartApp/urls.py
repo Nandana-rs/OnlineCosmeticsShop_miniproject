@@ -54,7 +54,18 @@ from .views import checkout
 from .views import bill_invoice
 from .views import seller_orders
 
+from .views import add_edit_service , view_bridal_packages
+from .views import BeauticianCRUD, edit_beautician
+from .views import service_detail
+from .views import beautician_profile_form 
+from .views import chatgpt, generate_response
 
+from .views import upload_video
+from .views import display_videos
+from .views import beautician_profile_form, submit_profile
+
+from .views import success_page
+from .views import beautician_list
 
 
 
@@ -82,6 +93,9 @@ urlpatterns =  [
     #here google ends
 
     path('sellerRegistration/', views.sellerRegistration, name='sellerRegistration'),
+    path('MakeupArtist/', views.MakeupArtist, name='MakeupArtist'),
+    path('MakeupArtistTemplate/', views.MakeupArtistTemplate, name='MakeupArtistTemplate'),
+    
 
     #admin adding products
     #prodcut_list.html
@@ -165,16 +179,43 @@ urlpatterns =  [
   
     
 
-    #bridalmakeup booking
-    # path('Bridal_makeup/', views.Brideindex, name='Brideindex'),
-    # path('Bridal_makeup/about.html', views.Brideabout, name='Brideabout'),
-    # path('Bridal_makeup/contact.html', views.Bridecontact, name='Bridecontact'),
+   # bridalmakeup booking
+    
 
     path('Brideindex/', views.bride_index_view, name='Brideindex'), 
       # Replace 'bride_index_view' with the actual view function
     path('Bridal_makeup/about.html', views.bride_about_view, name='Brideabout'),  # Replace 'bride_about_view' with the actual view function
     path('Bridal_makeup/contact.html', views.bride_contact_view, name='Bridecontact'),  # Replace 'bride_contact_view' with the actual view function
+    path('MakeupArtistTemplate/add_edit_service.html', add_edit_service, name='add_edit_service'),
+    path('customer/bridal-packages/', view_bridal_packages, name='customer_bridal_packages'),
+  
 
+    path('MakeupArtistTemplate/beautician_crud.html', BeauticianCRUD.as_view(), name='beautician_crud'),
+    path('edit_beautician/', edit_beautician, name='edit_beautician'),  # Without service_id
+    # path('edit_beautician/<int:service_id>/', edit_beautician, name='edit_beautician_with_id'),  # With service_id
+    path('edit_beautician/<int:service_id>/', edit_beautician, name='edit_beautician'),
+    path('service_detail/<int:service_id>/', service_detail, name='service_detail'),
+    path('MakeupArtistTemplate/beautician_profile_form.html', beautician_profile_form, name='beautician_profile_form'),
+
+    path('beautician-profile-form/', beautician_profile_form, name='beautician_profile_form'),
+    path('submit-profile/', submit_profile, name='submit_profile'),
+
+    path('success/', success_page, name='success_page'),
+
+
+
+    #chatgpt nrs
+
+    path('chatgpt/', chatgpt, name='chatgpt'),
+    path('generate-response/', generate_response, name='generate_response'),
+
+    # videao upload
+     path('MakeupArtistTemplate/upload_video.html', upload_video, name='upload_video'),
+     path('display_videos/', display_videos, name='display_videos'),
+    
+    path('beauticians/', beautician_list, name='beautician_list'),
+    
+    
     
    
     

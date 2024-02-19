@@ -22,6 +22,8 @@ from django.http import HttpResponseRedirect
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from django.http import HttpResponse
 from django.contrib.auth import update_session_auth_hash
+from .models import Service
+from django.views.generic.base import View
 
 
 #razorpay import begins
@@ -86,6 +88,10 @@ def about(request):
 #sellers home page
 def seller_template(request):
      return render(request, 'seller_template.html')
+
+#makeup artist template
+def MakeupArtistTemplate(request):
+     return render(request, 'MakeupArtistTemplate.html')
    
 #user registartion page
 @never_cache 
@@ -193,6 +199,76 @@ def sellerRegistration(request):
             messages.success(request, "Please fill out all fields")
 
     return render(request, 'sellerRegistration.html')
+
+#here Makeup Artist Registration view start
+
+def MakeupArtist(request):
+    if request.method == 'POST':
+        parlour_name = request.POST.get('shopName')
+        user_name = request.POST.get('userName')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirmPassword')
+        phone = request.POST.get('phone')
+        parlour_address = request.POST.get('shopAddress')
+        tax_id = request.POST.get('taxID')
+
+        if not all([parlour_name, user_name, email, password, confirm_password, phone, parlour_address, tax_id]):
+            messages.error(request, "Please fill out all fields.")
+        elif password != confirm_password:
+            messages.error(request, "Passwords don't match. Please try again.")
+        else:
+            try:
+                user = CustomUser.objects.create_user(username=user_name, email=email, password=password, user_type=CustomUser.SELLER)
+                user.parlour_name = parlour_name
+                user.phone = phone
+                user.parlour_address = parlour_address
+                user.tax_id = tax_id
+                user.save()
+
+                messages.success(request, "Makeup Artist registration successful. You can now login.")
+                return redirect('/login')
+            except Exception as e:
+                messages.error(request, f"An error occurred during registration: {e}")
+
+    return render(request, 'MakeupArtist.html')
+
+# def MakeupArtist(request):
+     
+
+
+#     if request.method == 'POST':
+       
+#         parlour_name = request.POST.get('shopName', None)
+#         user_name = request.POST.get('userName', None)
+#         email = request.POST.get('email', None)
+#         password = request.POST.get('password', None)
+#         confirm_password = request.POST.get('confirmPassword', None)
+#         phone = request.POST.get('phone', None)
+#         parlour_address = request.POST.get('shopAddress', None)
+#         tax_id = request.POST.get('taxID', None)
+
+        
+#         if parlour_name and user_name and email and password and confirm_password and phone and parlour_address and tax_id:
+#             if password != confirm_password:
+#                 messages.success(request, "Passwords don't match. Please try again.")
+#             else:
+                
+#                 user = CustomUser.objects.create_user(username=user_name, email=email, password=password, user_type=CustomUser.SELLER)
+#                 user.parlour_name = parlour_name
+#                 user.phone = phone
+#                 user.parlour_address = parlour_address
+#                 user.tax_id = tax_id
+#                 user.save()
+
+#                 messages.success(request, "Makeup Artist registration successful. You can now login.")
+#                 return redirect('/login')
+#         else:
+#             messages.success(request, "Please fill out all fields")
+
+#         return render(request, 'MakeupArtist.html')
+    
+
 
 
 
@@ -822,4 +898,271 @@ def bride_contact_view(request):
     return render(request, 'Bridecontact.html')
 
 
+from django.forms import ModelForm
 
+# from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import Service
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def add_edit_service(request, service_id=None):
+    # Fetch the existing service if editing
+    if service_id:
+        service = Service.objects.get(id=service_id)
+    else:
+        service = None
+
+    if request.method == 'POST':
+        makeup_type = request.POST.get('makeup_type')
+        pricing = request.POST.get('pricing')
+        portfolio_images = request.FILES.get('portfolio_images')
+        service_offerings = request.POST.get('service_offerings')
+
+        # Assuming the user is a beautician
+        beautician = request.user.beautician
+
+        # Create or update the service
+        if service:
+            service.makeup_type = makeup_type
+            service.pricing = pricing
+            service.portfolio_images = portfolio_images
+            service.service_offerings = service_offerings
+            service.save()
+        else:
+            service = Service.objects.create(
+                beautician=beautician,
+                makeup_type=makeup_type,
+                pricing=pricing,
+                portfolio_images=portfolio_images,
+                service_offerings=service_offerings
+            )
+
+        return redirect('MakeupArtistTemplate')  # Redirect to the beautician's dashboard or a relevant page
+
+    else:
+        # Handle the GET request and render the form
+        return render(request, 'add_edit_service.html', {'service': service})
+    
+def view_bridal_packages(request):
+    services = Service.objects.all()
+    return render(request, 'BridalPackage.html', {'services': services})
+
+#hey
+
+
+
+class BeauticianCRUD(View):
+    template_name = 'beautician_crud.html'
+
+    def get(self, request, *args, **kwargs):
+        beautician = request.user.beautician
+        services = Service.objects.filter(beautician=beautician)
+        context = {'beautician': beautician, 'services': services}
+        return render(request, self.template_name, context)
+    
+
+    from .models import Service
+from django import forms  # Import Django forms module
+
+@login_required
+def edit_beautician(request, service_id):
+    service = Service.objects.get(id=service_id)
+
+    class ServiceForm(forms.ModelForm):
+        class Meta:
+            model = Service
+            fields = ['makeup_type', 'pricing', 'portfolio_images', 'service_offerings']
+
+    if request.method == 'POST':
+        form = ServiceForm(request.POST, request.FILES, instance=service)
+        if form.is_valid():
+            edited_service = form.save(commit=False)
+            edited_service.save()
+            return redirect('beautician_crud')
+    else:
+        form = ServiceForm(instance=service)
+
+    return render(request, 'edit_beautician.html', {'form': form, 'service': service})
+
+
+
+from .models import Service
+
+def service_detail(request, service_id):
+    service = get_object_or_404(Service, id=service_id)
+    return render(request, 'service_detail.html', {'service': service})
+
+
+def beautician_profile_form(request):
+    if request.method == 'POST':
+        # Handle form submission here
+        # You can access form data using request.POST.get('field_name')
+
+        # For example, you can print the data for now
+        print('Bio:', request.POST.get('bio'))
+        print('Phone Number:', request.POST.get('phone_number'))
+        # Add similar lines for other fields
+
+        return HttpResponse('Form submitted successfully')  # You can redirect or render another page
+    else:
+        return render(request, 'beautician_profile_form.html')  # Change the template name as needed
+    
+
+
+    #chatgpt nrs
+    # chatapp/views.py
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+model_name = "gpt2"
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+model = GPT2LMHeadModel.from_pretrained(model_name)
+
+@csrf_exempt
+def chatgpt(request):
+    return render(request, 'chatgpt.html')
+
+# @csrf_exempt
+# def generate_response(request):
+#     if request.method == 'POST':
+#         user_input = request.POST.get('user_input')
+#         response = generate_gpt2_response(user_input)
+#         return JsonResponse({'response': response})
+#     else:
+#         return JsonResponse({'error': 'Invalid request method'})
+
+def generate_response(request):
+    if request.method == 'POST':
+
+        user_input = request.POST.get('user_input').lower()
+        if 'beautecart' in user_input:
+            response_data = {'response': "BeauteCart is your go-to destination for high-quality cosmetics! How can I assist you today?"}
+        elif 'products' in user_input:
+            response_data = {'response': "We offer a wide range of beauty products, including makeup, skincare, and more. Browse our collection online!"}
+        elif 'hi' in user_input:
+            response_data = {'response': "hellooo"}
+        elif 'skincare for oily skin' in user_input:
+            response_data = {'response': "For oily skin, we recommend starting with a gentle cleanser, followed by a toner to balance oil production. Consider using a lightweight, oil-free moisturizer and a mattifying sunscreen during the day. "}
+        elif 'makeup brands' in user_input:
+            response_data = {'response': "Beautecart proudly offers a wide range of renowned makeup brands, including but not limited to MAC, Maybelline, NYX, and Urban Decay. Explore our collection to find your favorite brands and discover new ones!"}
+        elif 'bridal makeup booking' in user_input:
+            response_data = {'response': "Booking a bridal makeup session is easy! Log in ,navigate to the 'Bookings' section, and choose your preferred date and time. Select a skilled beautician, and you're all set! "}
+        elif ' return policy' in user_input:
+            response_data = {'response': "We want you to be satisfied with your purchase! Our return policy allows for returns within 30 days of delivery."}
+        elif 'offers' in user_input or 'discounts' in user_input:
+            response_data = {'response': "Check out our latest offers and discounts on premium beauty products. Don't miss out on great deals!"}
+        elif 'order' in user_input or 'delivery' in user_input:
+            response_data = {'response': "For information about your order or delivery, please contact our customer support at support@beautecart.com."}
+        else:
+            
+            response_data = {'response': "Sorry Idk"}
+            # response = generate_gpt2_response(user_input)
+            # response_data = {'response': response}
+
+        return JsonResponse(response_data)
+    else:
+        return JsonResponse({'error': 'Invalid request method'})
+
+def generate_gpt2_response(user_input, max_length=100):
+    input_ids = tokenizer.encode(user_input, return_tensors="pt")
+    output = model.generate(input_ids, max_length=max_length, num_beams=5, no_repeat_ngram_size=2, top_k=50, top_p=0.95)
+    response = tokenizer.decode(output[0], skip_special_tokens=True)
+    return response
+
+
+# upload videaos
+from .forms import VideoForm
+
+def upload_video(request):
+    if request.method == 'POST':
+        form = VideoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home2')  # Update with your template name
+    else:
+        form = VideoForm()
+    
+    return render(request, 'upload_video.html', {'form': form})
+
+from .models import Video
+
+def display_videos(request):
+    videos = Video.objects.all()
+    return render(request, 'display_videos.html', {'videos': videos})
+
+from django.shortcuts import render, redirect
+from .models import Beautician
+from .forms import BeauticianProfileForm
+
+def beautician_profile_form(request):
+    return render(request, 'beautician_profile_form.html')
+
+# def submit_profile(request):
+#     if request.method == 'POST':
+        
+#         form = BeauticianProfileForm(request.POST)
+
+#         if form.is_valid():
+#             # Save the form data to the Beautician model
+#             beautician = Beautician(
+#                 bio=form.cleaned_data['bio'],
+#                 phone_number=form.cleaned_data['phone_number'],
+#                 address=form.cleaned_data['address'],
+#                 website=form.cleaned_data['website'],
+#                 social_media_links=form.cleaned_data['social_media_links'],
+#                 experience_years=form.cleaned_data['experience_years'],
+#                 certifications=form.cleaned_data['certifications'],
+#                 availability=form.cleaned_data['availability']
+#             )
+#             beautician.save()
+
+#             # Redirect to a success page or any other desired page
+#             return redirect('success_page')  # Update with your desired URL name
+#     else:
+#         form = BeauticianProfileForm()
+
+#     return render(request, 'beautician_profile_form.html', {'form': form})
+
+from django.shortcuts import render, redirect
+from .models import Beautician
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def submit_profile(request):
+    if request.method == 'POST':
+        # Assuming the user is already logged in
+        user = request.user
+
+        # Retrieve or create the Beautician instance for the user
+        beautician, created = Beautician.objects.get_or_create(user=user)
+
+        # Update the Beautician instance with the form data
+        beautician.bio = request.POST.get('bio', '')
+        beautician.phone_number = request.POST.get('phone_number', '')
+        beautician.address = request.POST.get('address', '')
+        beautician.website = request.POST.get('website', '')
+        beautician.social_media_links = request.POST.get('social_media_links', '')
+        beautician.experience_years = request.POST.get('experience_years', '')
+        beautician.certifications = request.POST.get('certifications', '')
+        beautician.availability = request.POST.get('availability', '')
+
+        # Save the updated Beautician instance
+        beautician.save()
+
+        return redirect('success_page')  # Redirect to a success page
+
+    return render(request, 'beautician_profile_form.html')  # Adjust the template name as needed
+
+
+def success_page(request):
+    return render(request, 'success_page.html')
+
+
+
+from .models import Beautician
+
+def beautician_list(request):
+    return render(request, 'beautician_list.html')

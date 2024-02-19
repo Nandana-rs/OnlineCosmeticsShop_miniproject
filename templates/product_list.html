@@ -183,6 +183,9 @@
 <body>
     <header>
         <h1>BeauteCart</h1>
+       
+        
+        <a href="{% url 'home2' %}">Home</a>
         <div class="search-bar">
             <form method="get" action="{% url 'product_list' %}">
                 <input type="text" name="search" placeholder="Search products">

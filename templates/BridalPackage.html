@@ -1,0 +1,159 @@
+{% load static %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services for Customers</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        main {
+            display: flex;
+            flex-grow: 1;
+            margin: 20px;
+        }
+
+        aside {
+            width: 250px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        li {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 250px;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        li:hover {
+            transform: scale(1.05);
+        }
+
+        strong {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .makeup-type {
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .pricing {
+            color: #333;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .portfolio-image {
+            max-width: 100%;
+            max-height: 150px; /* Set the maximum height */
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .larger-portfolio-image {
+            max-height: 300px; /* Set a larger maximum height */
+        }
+
+        .book-now-btn {
+            margin-top: auto;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .book-now-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        Bridal Services-----------------------------------------------------------------------------------------------------------------------------------------
+        <a href="{% url 'home2' %}" style="color: #fff; text-decoration: none;">Home</a>
+    </header>
+    <main>
+        <aside>
+            <h2>Filter Options</h2>
+            <ul>
+                <li>Category: Bridal</li>
+                <li>Price Range: $50 - $200</li>
+                <!-- Add more filter options as needed -->
+            </ul>
+        </aside>
+        <section>
+            <ul>
+                {% for service in services %}
+                    <li>
+                        <strong>{{ service.beautician.user.username }}</strong>
+                        <p class="makeup-type">{{ service.makeup_type }}</p>
+                        <p class="pricing">RS.{{ service.pricing }}</p>
+                        <!-- {{ service.service_offerings }} -->
+                        {% if service.portfolio_images %}
+                            <!-- Use a larger-portfolio-image class for larger images -->
+                            <img class="portfolio-image larger-portfolio-image" src="{{ service.portfolio_images.url }}" alt="Portfolio Image">
+                        {% endif %}
+                        <button class="book-now-btn">Book Now</button>
+                        <!-- Add this link to each service in your loop -->
+                        <a href="{% url 'service_detail' service_id=service.id %}">View Details</a>
+                       
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+</body>
+
+</html>

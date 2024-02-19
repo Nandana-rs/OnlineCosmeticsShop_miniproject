@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Parlour Dashboard</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f0e5e5; /* Pastel pink background */
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            background-color:#007bff; /* Pastel pink */
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .doctor-info {
+            text-align: right;
+            margin-left: auto; /* Shifts the logout button to the right */
+            margin-right: 20px;
+        }
+
+        .doctor-name {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .logout-button {
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 12px;
+            background-color: #333;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background-color: #555;
+        }
+
+        /* Dashboard Container Styles */
+        .dashboard-container {
+            display: flex;
+            height: calc(100vh - 40px); /* Adjust height based on your header size */
+        }
+
+        /* Sidebar Styles */
+        aside {
+            background-color: #007bff; /* Pastel pink */
+            padding: 20px;
+            width: 200px;
+        }
+
+        .sidebar-link {
+            display: block;
+            padding: 12px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar-link:hover {
+            background-color: #555;
+        }
+
+        /* Main Content Styles */
+        main {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #ffb6c1; /* Pastel pink */
+        }
+    </style>
+</head>
+
+<body>
+   
+    <!-- Header Section -->
+    <header>
+        <div class="doctor-info">
+            <div class="doctor-name">HEY , {% if user.is_authenticated %}{{ user.username }}{% endif %}</div>
+            <!-- <a href="{% url 'logout' %}" class="logout-button">Logout</a> -->
+         
+
+        </div>
+
+        <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+    </header>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside>
+            <a href="add_edit_service.html" class="sidebar-link" onclick="showDashboard()">Add Services</a>
+            <a href="beautician_crud.html" class="sidebar-link" onclick="showScheduling()">View services</a>
+            <a href="#" class="sidebar-link" onclick="showAppointments()">Appointments</a>
+            <a href="#" class="sidebar-link" onclick="showScheduling()">Scheduling</a>
+            <a href="beautician_profile_form.html" class="sidebar-link" onclick="showScheduling()">Profile</a>
+            <a href="{% url 'upload_video' %}" class="sidebar-link" onclick="showScheduling()">Upload Video</a>
+
+            
+            
+        </aside>
+
+        <!-- Main Content -->
+        <main id="dashboard-content">
+            <!-- Default content or dynamically loaded content goes here -->
+            <h2>Welcome to the Beauty Parlour Dashboard!</h2>
+        </main>
+    </div>
+
+    <script>
+        // Your JavaScript functions for handling sidebar clicks and changing content
+        function showDashboard() {
+            document.getElementById('dashboard-content').innerHTML = '<h2>Dashboard Content Goes Here</h2>';
+        }
+
+        function showAppointments() {
+            document.getElementById('dashboard-content').innerHTML = '<h2>Appointments Content Goes Here</h2>';
+        }
+
+        function showScheduling() {
+            document.getElementById('dashboard-content').innerHTML = `
+            
+            <div class="container">
+                <h1>Beauty Parlour Schedule</h1>
+                <form class="schedule-form" method="post" action="#">
+                    {% csrf_token %}
+
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" required>
+
+                    <label for="time_slot">Time slot:</label>
+                    <select name="time_slot" required>
+                        <!-- Add your time slot options here -->
+                    </select>
+
+                    <button type="submit">Add Schedule</button>
+                </form>
+
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!-- Display existing schedules in a table -->
+                <div class="schedules-table">
+                    <h2>Existing Schedules</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Start Time</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Iterate over doctor_schedules and display the schedules -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            `;
+        }
+    </script>
+</body>
+
+</html>

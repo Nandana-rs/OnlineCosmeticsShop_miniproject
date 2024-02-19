@@ -48,12 +48,16 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     #heregoogleends
+    'crispy_forms',
+
+    
     
 
     #razorpay payment
     # 'razorpay',
     
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,6 +70,7 @@ MIDDLEWARE = [
     #heregooglestarts
     'allauth.account.middleware.AccountMiddleware',
     #heregoogleends
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = 'BeauteCart.urls'

@@ -197,4 +197,43 @@ from django.test import TestCase
 #     unittest.main()
 
 
-#test4 userprofile.
+ #test4 Search bar
+import unittest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+class ProductListSearchTest(unittest.TestCase):
+
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        self.driver.implicitly_wait(10)
+        self.live_server_url = 'http://127.0.0.1:8000/products/'  # Update with your actual URL
+
+    def tearDown(self):
+        self.driver.quit()
+
+    def test_search_bar(self):
+        driver = self.driver
+        driver.get(self.live_server_url)  # Update with your actual URL
+
+        # Find the search input and button
+        search_input = driver.find_element(By.CSS_SELECTOR, '.search-bar > form:nth-child(1) > input:nth-child(1)')
+        search_button = driver.find_element(By.CSS_SELECTOR, '.search-bar > form:nth-child(1) > button:nth-child(2)')
+
+        # Perform a search
+        search_input.send_keys('Blue')  # Replace with your search term
+        search_button.click()
+
+        # Wait for the search results to load
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'product-card'))
+        )
+
+        # Assert that the search results are displayed
+        search_results = driver.find_elements(By.CLASS_NAME, 'product-card')
+        self.assertGreater(len(search_results), 0, "No search results found.")
+
+if __name__ == "__main__":
+    unittest.main()

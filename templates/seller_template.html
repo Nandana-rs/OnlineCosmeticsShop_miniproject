@@ -14,7 +14,11 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Hey Seller..!</a>
+        <a class="navbar-brand" href="#">Hey Vendor...!</a>
+        <div>
+            <a class="navbar-brand" href="#">__________________________________________________________________________________________________</a>
+            <a class="navbar-brand" href="{% url 'MakeupArtistTemplate' %}">Beautician</a>
+        </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -95,8 +99,13 @@
                         View Products
                     </div>
                     <div class="block-icon">
-                        <img src="{% static 'images/card_icon.png' %}" alt="Orders Received">
-                        Orders Received
+                        <!-- <img src="{% static 'images/card_icon.png' %}" alt="Makeup Artist">
+                       Makeup Artist -->
+                       <!-- <a href="{% url 'MakeupArtistTemplate' %}" class="block-icon"> -->
+                        <img src="{% static 'images/card_icon.png' %}" alt="Makeup Artist">
+                        payments
+                    </a>
+                    
                     </div>
                 </div>
             </main>

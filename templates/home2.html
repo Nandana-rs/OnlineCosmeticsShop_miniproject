@@ -63,9 +63,12 @@
           
           <a class="LINK" href="{% url 'product_list' %}">Our Products</a>
           <a class="LINK"href="{% static '#Artists' %}">Artists</a> 
-          <a class="LINK" href="{% static 'flawless' %}">FLAWLESS</a>
-          <a class="LINK" href="{% url 'chatbot' %}">BeauteBot</a>
+          <!-- <a class="LINK" href="{% url 'upload_video' %}">FLAWLESS</a> -->
+          <a class="LINK" href="{% url 'chatgpt' %}">BeauteBot</a>
           <a class="LINK" href="{% url 'Brideindex' %}">BridalDreams</a>
+          <a class="LINK" href="{% url 'display_videos' %}">Beauty Advice</a>
+
+        
           
           
         </div>
@@ -304,6 +307,11 @@
   </div>
   <script type="text/javascript">
     DJANGO_STATIC_URL = '{{ STATIC_URL }}';
+
+   
+
+  
+
 </script>
   <script src="{% static 'script.js' %}"></script>
   <script src="{% static 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous' %}"></script>

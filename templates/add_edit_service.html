@@ -1,0 +1,190 @@
+<!-- BeauteCartApp/templates/add_edit_service.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Service</title>
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        /* body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa; /* Light gray background */
+        
+
+        body {
+        font-family: 'Arial', sans-serif;
+        margin: 20px;
+        padding: 20px;
+        background-image: url('{% static "images/nrsbackground2.jpeg" %}'); /* Add the correct path to your image */
+        background-size: cover; /* Cover the entire background */
+        background-position: center; /* Center the background image */
+    }
+
+
+        h2 {
+            color: #343a40; /* Dark gray text */
+        }
+
+        
+        .navbar {
+            background-color: #4caf50; /* Green color */
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: #fff; /* White text */
+        }
+
+        form {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input,
+        textarea,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ced4da; /* Light gray border */
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #28a745; /* Dark green color */
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838; /* Slightly darker green on hover */
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            background-color: #007bff; /* Bootstrap primary color */
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 4px;
+        }
+    </style>
+      <script>
+        
+        // JavaScript for client-side validations
+        document.addEventListener('DOMContentLoaded', function () {
+            var makeupTypeInput = document.getElementById('id_makeup_type');
+            var pricingInput = document.getElementById('id_pricing');
+            var portfolioImagesInput = document.getElementById('id_portfolio_images');
+            var serviceOfferingsInput = document.getElementById('id_service_offerings');
+
+            makeupTypeInput.addEventListener('input', validateMakeupType);
+            pricingInput.addEventListener('input', validatePricing);
+            portfolioImagesInput.addEventListener('change', validatePortfolioImages);
+            serviceOfferingsInput.addEventListener('input', validateServiceOfferings);
+
+            function validateMakeupType() {
+                var value = makeupTypeInput.value;
+                var isValid = /^[a-zA-Z\s]+$/.test(value); // Only alphabets and spaces allowed
+                displayError('makeupTypeError', isValid ? '' : 'Only alphabets and spaces allowed');
+            }
+
+            function validatePricing() {
+                var value = parseFloat(pricingInput.value);
+                var isValid = !isNaN(value) && value <= 20000; // Price should be a number and <= 20000
+                displayError('pricingError', isValid ? '' : 'Price should be a number and <= 20000');
+            }
+
+            function validatePortfolioImages() {
+                var allowedExtensions = ['.jpg', '.jpeg', '.png'];
+                var fileName = portfolioImagesInput.value.toLowerCase();
+                var isValid = allowedExtensions.some(ext => fileName.endsWith(ext)); // Check file extension
+                displayError('portfolioImagesError', isValid ? '' : 'Only jpg, jpeg, and png allowed');
+            }
+
+            function validateServiceOfferings() {
+                var value = serviceOfferingsInput.value;
+                var isValid = value.length <= 300; // Service offerings should not exceed 300 characters
+                displayError('serviceOfferingsError', isValid ? '' : 'Service offerings should not exceed 300 characters');
+            }
+
+            function displayError(elementId, message) {
+                var errorElement = document.getElementById(elementId);
+                if (errorElement) {
+                    errorElement.innerHTML = message;
+                }
+            }
+        });
+    </script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">BeauteCart</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link back-button" href="javascript:history.back()">Back</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        <!-- <h2>Add Service</h2> -->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+          
+            <label for="id_makeup_type">Makeup Type:</label>
+            <input type="text" name="makeup_type" id="id_makeup_type" required>
+
+      
+            <label for="id_pricing">Pricing:</label>
+            <input type="number" name="pricing" id="id_pricing" step="0.01" required>
+
+           
+            <label for="id_portfolio_images">Portfolio Images:</label>
+            <input type="file" name="portfolio_images" id="id_portfolio_images">
+
+            
+            <label for="id_service_offerings">Service Offerings:</label>
+            <textarea name="service_offerings" id="id_service_offerings" required></textarea>
+
+            <button type="submit" class="btn btn-success">Save</button>
+        </form>
+    </div>
+
+  
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+     
