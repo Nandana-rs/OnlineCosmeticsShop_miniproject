@@ -1,0 +1,122 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<!-- width="200px" hight="200px" -->
+<!-- https://source.unsplash.com/1400x400/?makeup -->
+<!-- class="bd-placeholder-img" width="200" height="250" -->
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-danger">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/Bridal_makeup/">Sital Makeup</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/Bridal_makeup/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/Bridal_makeup/about.html">About us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Bridal_makeup/contact.html">Contact us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Follow us
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="https://www.instagram.com/facebyshitalmishra/"
+                                    target="_blank">Instagram </a></li>
+                            <li><a class="dropdown-item" href="#">Facebook</a></li>
+                            <li><a class="dropdown-item" href="#">Twitter</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- about page -->
+    <div class="px-4 text-center">
+        <img src="{% static 'images/bg8.jpg' %}" width="300" class="my-2" height="300" alt="">
+        <h1 class="display-5 fw-bold">SITAL MISHRA</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima laboriosam blanditiis ullam provident veniam, debitis delectus, optio autem consequuntur libero velit id mollitia nostrum nesciunt nam illum atque! Vel, odio.</p>
+          <!-- <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Primary button</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button>
+          </div> -->
+        </div>
+      </div>
+
+      <!-- Spciality -->
+      <div class="container px-4 py-5" id="featured-3">
+        <h2 class="pb-2 border-bottom">Speciality In Bridal Makeup</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+          <div class="feature col">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-primary bg-gradient text-white fs-2 mb-3">
+              <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"></use></svg>
+            </div>
+            <h2>Face Makeup</h2>
+            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+            <a href="#" class="icon-link d-inline-flex align-items-center">
+              Call to action
+              <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
+            </a>
+          </div>
+          <div class="feature col">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-primary bg-gradient text-white fs-2 mb-3">
+              <svg class="bi" width="1em" height="1em"><use xlink:href="#people-circle"></use></svg>
+            </div>
+            <h2>Eye Makeup</h2>
+            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+            <a href="#" class="icon-link d-inline-flex align-items-center">
+              Call to action
+              <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
+            </a>
+          </div>
+          <div class="feature col">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-primary bg-gradient text-white fs-2 mb-3">
+              <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"></use></svg>
+            </div>
+            <h2>Hair Styling</h2>
+            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+            <a href="#" class="icon-link d-inline-flex align-items-center">
+              Call to action
+              <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    <!-- Footer -->
+
+    <footer class="text-muted py-5">
+        <div class="container">
+            <p class="float-end mb-1">
+                <a href="#">Back to top</a>
+            </p>
+            <p class="mb-1">All Makeup done by our team </p>
+            <p class="mb-0">first visit here?<a href="/">Visit the homepage</a> or read our <a
+                    href="/docs/5.2/getting-started/introduction/">About page</a>.</p>
+        </div>
+    </footer>
+    <!-- The JS from bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
