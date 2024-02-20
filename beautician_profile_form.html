@@ -1,0 +1,164 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautician Profile Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            /* Background Image */
+           
+            background-image: url('{% static "images/nrsbackground3.jpeg" %}');
+            background-size: cover;
+            background-position: center;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 5px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        main {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="url"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="url"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            grid-column: span 2;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: #007bff;
+            font-size: 1rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        
+        <h1>Beautician Profile</h1>
+
+
+
+        <a class="back-link" href="javascript:history.back()">Back</a>
+    </header>
+    <main>
+        <form action="/submit-profile/" method="post">
+            <!-- CSRF token for security -->
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+            <!-- Form Fields -->
+            <label for="bio">Bio:</label>
+            <textarea id="bio" name="bio"></textarea>
+
+            <label for="phone_number">Phone Number:</label>
+            <input type="text" id="phone_number" name="phone_number" placeholder="XXX-XXX-XXXX">
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address"></textarea>
+
+            <label for="website">Website:</label>
+            <input type="url" id="website" name="website">
+
+            <label for="social_media_links">Social Media Links:</label>
+            <textarea id="social_media_links" name="social_media_links"></textarea>
+
+            <label for="experience_years">Experience Years:</label>
+            <input type="number" id="experience_years" name="experience_years">
+
+            <label for="certifications">Certifications:</label>
+            <textarea id="certifications" name="certifications"></textarea>
+
+            <label for="availability">Availability:</label>
+            <textarea id="availability" name="availability"></textarea>
+
+            <!-- Submit Button -->
+            <button type="submit">Save Profile</button>
+        </form>
+    </main>
+</body>
+
+</html>
