@@ -202,6 +202,11 @@ def sellerRegistration(request):
 
 #here Makeup Artist Registration view start
 
+from .models import CustomUser, Beautician
+from django.views.decorators.csrf import csrf_protect
+
+@csrf_protect
+
 def MakeupArtist(request):
     if request.method == 'POST':
         parlour_name = request.POST.get('shopName')
@@ -219,12 +224,16 @@ def MakeupArtist(request):
             messages.error(request, "Passwords don't match. Please try again.")
         else:
             try:
+                # Create a CustomUser
                 user = CustomUser.objects.create_user(username=user_name, email=email, password=password, user_type=CustomUser.SELLER)
                 user.parlour_name = parlour_name
                 user.phone = phone
                 user.parlour_address = parlour_address
                 user.tax_id = tax_id
                 user.save()
+
+                # Create a corresponding Beautician object
+                Beautician.objects.create(user=user)
 
                 messages.success(request, "Makeup Artist registration successful. You can now login.")
                 return redirect('/login')
@@ -900,9 +909,52 @@ def bride_contact_view(request):
 
 from django.forms import ModelForm
 
-# from django.shortcuts import render, redirect
+# # from django.shortcuts import render, redirect
+# from django.http import HttpResponse
+# from .models import Service
+# from django.contrib.auth.decorators import login_required
+
+# @login_required
+# def add_edit_service(request, service_id=None):
+#     # Fetch the existing service if editing
+#     if service_id:
+#         service = Service.objects.get(id=service_id)
+#     else:
+#         service = None
+
+#     if request.method == 'POST':
+#         makeup_type = request.POST.get('makeup_type')
+#         pricing = request.POST.get('pricing')
+#         portfolio_images = request.FILES.get('portfolio_images')
+#         service_offerings = request.POST.get('service_offerings')
+
+#         # Assuming the user is a beautician
+#         beautician = request.user.beautician
+
+#         # Create or update the service
+#         if service:
+#             service.makeup_type = makeup_type
+#             service.pricing = pricing
+#             service.portfolio_images = portfolio_images
+#             service.service_offerings = service_offerings
+#             service.save()
+#         else:
+#             service = Service.objects.create(
+#                 beautician=beautician,
+#                 makeup_type=makeup_type,
+#                 pricing=pricing,
+#                 portfolio_images=portfolio_images,
+#                 service_offerings=service_offerings
+#             )
+
+#         return redirect('MakeupArtistTemplate')  # Redirect to the beautician's dashboard or a relevant page
+
+#     else:
+#         # Handle the GET request and render the form
+#         return render(request, 'add_edit_service.html', {'service': service})
 from django.http import HttpResponse
-from .models import Service
+from django.shortcuts import render, redirect
+from .models import Service, Beautician
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -913,14 +965,18 @@ def add_edit_service(request, service_id=None):
     else:
         service = None
 
+    # Ensure the user has a Beautician object
+    try:
+        beautician = request.user.beautician
+    except Beautician.DoesNotExist:
+        # Redirect or handle the case where Beautician object doesn't exist
+        return HttpResponse("You are not registered as a beautician.")
+
     if request.method == 'POST':
         makeup_type = request.POST.get('makeup_type')
         pricing = request.POST.get('pricing')
         portfolio_images = request.FILES.get('portfolio_images')
         service_offerings = request.POST.get('service_offerings')
-
-        # Assuming the user is a beautician
-        beautician = request.user.beautician
 
         # Create or update the service
         if service:
@@ -943,6 +999,7 @@ def add_edit_service(request, service_id=None):
     else:
         # Handle the GET request and render the form
         return render(request, 'add_edit_service.html', {'service': service})
+
     
 def view_bridal_packages(request):
     services = Service.objects.all()

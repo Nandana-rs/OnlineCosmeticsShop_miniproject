@@ -8,16 +8,20 @@
     <title>Bridal Dreams</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-            background-color: #f8e9d6; /* Pastel Orange */
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+       body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8e9d6; /* Pastel Orange */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url('{% static "images/nrs6.jpg" %}');
+    background-size: cover; /* Cover the entire background */
+    background-position: center; /* Center the background image */
+}
+
 
         .navbar {
             background-color: #fff;
@@ -95,6 +99,7 @@
             background-color: #fff;
             padding: 3rem 0;
             text-align: center;
+            background-image: url('{% static "images/background1.png" %}');
         }
 
         .bridal-section h2 {

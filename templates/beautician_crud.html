@@ -103,7 +103,7 @@
                 {% for service in services %}
                     <tr>
                         <td>{{ service.makeup_type }}</td>
-                        <td>${{ service.pricing }}</td>
+                        <td>RS.{{ service.pricing }}</td>
                         <td>
                             {% if service.portfolio_images %}
                                 <img src="{{ service.portfolio_images.url }}" alt="Portfolio Image">

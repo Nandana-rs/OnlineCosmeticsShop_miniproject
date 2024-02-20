@@ -15,6 +15,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh; /* Ensure the body takes at least the full height of the viewport */
+            background-image: url('{% static "images/nrsbackground1.jpeg" %}');
         }
 
         header, footer {
@@ -96,7 +97,7 @@
     <header>
         <h1>Beautician Details</h1>
         <div>
-            <a href="#" class="back-button">Back</a>
+            <a href="{% url 'Brideindex' %}" class="back-button">Back</a>
         </div>
     </header>
 
