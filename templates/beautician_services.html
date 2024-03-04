@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautician Services</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url('{% static "images/nrsbackground1.jpeg" %}');
+        }
+
+        header, footer {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .service-box {
+            background-color: #d4edda;
+            border: 1px solid #6c757d;
+            border-radius: 8px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 400px; /* Increased width */
+            height: 700px; /* Increased height */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .service-type {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .service-details {
+            font-size: 14px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 300px; /* Set a fixed height for consistency */
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .book-now-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-now-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .back-button {
+            background-color: #fff;
+            color: #007bff;
+            padding: 2px 5px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Beautician Services</h1>
+        <div>
+            <a href="{% url 'beautician_list' %}" class="back-button">Back to Beauticians</a>
+        </div>
+    </header>
+
+    <main>
+        {% for service in beautician_services %}
+        <div class="service-box">
+            <div class="service-type">{{ service.makeup_type }}</div>
+            <div class="service-details">
+                <p>Price: {{ service.pricing }}</p>
+                <p>Service Offerings: {{ service.service_offerings }}</p>
+                {% if service.portfolio_images %}
+                <img class="portfolio-image" src="{{ service.portfolio_images.url }}" alt="Portfolio Image">
+                {% endif %}
+                <button class="btn btn-primary book-now-btn">Book Now</button>
+                <a href="{% url 'service_detail' service_id=service.id %}" class="btn btn-secondary">View Details</a>
+            </div>
+        </div>
+        {% endfor %}
+    </main>
+
+</body>
+
+</html>

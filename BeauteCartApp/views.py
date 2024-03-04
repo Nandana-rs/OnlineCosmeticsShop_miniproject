@@ -8,6 +8,7 @@ from django.contrib import messages
 #here session
 from django.contrib.auth.decorators import login_required 
 from django.views.decorators.cache import never_cache
+from django.contrib.sessions.models import Session
 #here sesssion end
 
 # from django.contrib.auth.models import User
@@ -1067,67 +1068,60 @@ def beautician_profile_form(request):
     
 
 
-    #chatgpt nrs
+    #chatgpt nrs commented which is useful
     # chatapp/views.py
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
-from transformers import GPT2LMHeadModel, GPT2Tokenizer
+# from django.http import JsonResponse
+# from django.views.decorators.csrf import csrf_exempt
+# from django.shortcuts import render
+# from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
-model_name = "gpt2"
-tokenizer = GPT2Tokenizer.from_pretrained(model_name)
-model = GPT2LMHeadModel.from_pretrained(model_name)
-
-@csrf_exempt
-def chatgpt(request):
-    return render(request, 'chatgpt.html')
+# model_name = "gpt2"
+# tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+# model = GPT2LMHeadModel.from_pretrained(model_name)
 
 # @csrf_exempt
+# def chatgpt(request):
+#     return render(request, 'chatgpt.html')
+
+
+
 # def generate_response(request):
 #     if request.method == 'POST':
-#         user_input = request.POST.get('user_input')
-#         response = generate_gpt2_response(user_input)
-#         return JsonResponse({'response': response})
+
+#         user_input = request.POST.get('user_input').lower()
+#         if 'beautecart' in user_input:
+#             response_data = {'response': "BeauteCart is your go-to destination for high-quality cosmetics! How can I assist you today?"}
+#         elif 'products' in user_input:
+#             response_data = {'response': "We offer a wide range of beauty products, including makeup, skincare, and more. Browse our collection online!"}
+#         elif 'hi' in user_input:
+#             response_data = {'response': "hellooo"}
+#         elif 'skincare for oily skin' in user_input:
+#             response_data = {'response': "For oily skin, we recommend starting with a gentle cleanser, followed by a toner to balance oil production. Consider using a lightweight, oil-free moisturizer and a mattifying sunscreen during the day. "}
+#         elif 'makeup brands' in user_input:
+#             response_data = {'response': "Beautecart proudly offers a wide range of renowned makeup brands, including but not limited to MAC, Maybelline, NYX, and Urban Decay. Explore our collection to find your favorite brands and discover new ones!"}
+#         elif 'bridal makeup booking' in user_input:
+#             response_data = {'response': "Booking a bridal makeup session is easy! Log in ,navigate to the 'Bookings' section, and choose your preferred date and time. Select a skilled beautician, and you're all set! "}
+#         elif ' return policy' in user_input:
+#             response_data = {'response': "We want you to be satisfied with your purchase! Our return policy allows for returns within 30 days of delivery."}
+#         elif 'offers' in user_input or 'discounts' in user_input:
+#             response_data = {'response': "Check out our latest offers and discounts on premium beauty products. Don't miss out on great deals!"}
+#         elif 'order' in user_input or 'delivery' in user_input:
+#             response_data = {'response': "For information about your order or delivery, please contact our customer support at support@beautecart.com."}
+#         else:
+            
+#             response_data = {'response': "Sorry Idk"}
+#             # response = generate_gpt2_response(user_input)
+#             # response_data = {'response': response}
+
+#         return JsonResponse(response_data)
 #     else:
 #         return JsonResponse({'error': 'Invalid request method'})
 
-def generate_response(request):
-    if request.method == 'POST':
-
-        user_input = request.POST.get('user_input').lower()
-        if 'beautecart' in user_input:
-            response_data = {'response': "BeauteCart is your go-to destination for high-quality cosmetics! How can I assist you today?"}
-        elif 'products' in user_input:
-            response_data = {'response': "We offer a wide range of beauty products, including makeup, skincare, and more. Browse our collection online!"}
-        elif 'hi' in user_input:
-            response_data = {'response': "hellooo"}
-        elif 'skincare for oily skin' in user_input:
-            response_data = {'response': "For oily skin, we recommend starting with a gentle cleanser, followed by a toner to balance oil production. Consider using a lightweight, oil-free moisturizer and a mattifying sunscreen during the day. "}
-        elif 'makeup brands' in user_input:
-            response_data = {'response': "Beautecart proudly offers a wide range of renowned makeup brands, including but not limited to MAC, Maybelline, NYX, and Urban Decay. Explore our collection to find your favorite brands and discover new ones!"}
-        elif 'bridal makeup booking' in user_input:
-            response_data = {'response': "Booking a bridal makeup session is easy! Log in ,navigate to the 'Bookings' section, and choose your preferred date and time. Select a skilled beautician, and you're all set! "}
-        elif ' return policy' in user_input:
-            response_data = {'response': "We want you to be satisfied with your purchase! Our return policy allows for returns within 30 days of delivery."}
-        elif 'offers' in user_input or 'discounts' in user_input:
-            response_data = {'response': "Check out our latest offers and discounts on premium beauty products. Don't miss out on great deals!"}
-        elif 'order' in user_input or 'delivery' in user_input:
-            response_data = {'response': "For information about your order or delivery, please contact our customer support at support@beautecart.com."}
-        else:
-            
-            response_data = {'response': "Sorry Idk"}
-            # response = generate_gpt2_response(user_input)
-            # response_data = {'response': response}
-
-        return JsonResponse(response_data)
-    else:
-        return JsonResponse({'error': 'Invalid request method'})
-
-def generate_gpt2_response(user_input, max_length=100):
-    input_ids = tokenizer.encode(user_input, return_tensors="pt")
-    output = model.generate(input_ids, max_length=max_length, num_beams=5, no_repeat_ngram_size=2, top_k=50, top_p=0.95)
-    response = tokenizer.decode(output[0], skip_special_tokens=True)
-    return response
+# def generate_gpt2_response(user_input, max_length=100):
+#     input_ids = tokenizer.encode(user_input, return_tensors="pt")
+#     output = model.generate(input_ids, max_length=max_length, num_beams=5, no_repeat_ngram_size=2, top_k=50, top_p=0.95)
+#     response = tokenizer.decode(output[0], skip_special_tokens=True)
+#     return response
 
 
 # upload videaos
@@ -1149,6 +1143,60 @@ from .models import Video
 def display_videos(request):
     videos = Video.objects.all()
     return render(request, 'display_videos.html', {'videos': videos})
+
+
+from .models import Video
+
+def video_list(request):
+    videos = Video.objects.all()
+    return render(request, 'videos.html', {'videos': videos})
+
+def delete_video(request, video_id):
+    video = get_object_or_404(Video, id=video_id)
+    if request.method == 'POST':
+        video.delete()
+        return redirect('video_list')
+    return redirect('video_list')  # Redirect to video list page
+
+from .models import Video
+
+def video_list(request):
+    videos = Video.objects.all()
+    return render(request, 'videos.html', {'videos': videos})
+
+
+def edit_video(request, video_id):
+    # Fetch video details based on video_id and pass it to the template
+    video = Video.objects.get(id=video_id)
+    return render(request, 'edit_video.html', {'video': video})
+
+from django.core.files.base import ContentFile
+import os
+
+def save_edits(request, video_id):
+    if request.method == 'POST':
+        # Fetch the video instance
+        video = Video.objects.get(id=video_id)
+
+        # Update title and description
+        video.title = request.POST.get('title')
+        video.description = request.POST.get('description')
+
+        # Handle video file upload
+        if 'video_file' in request.FILES:
+            # Delete the existing video file if it exists
+            if video.video_file:
+                os.remove(video.video_file.path)
+            # Get the new video file from the request
+            video_file = request.FILES['video_file']
+            # Save the new video file
+            video.video_file.save(video_file.name, video_file)
+
+        # Save the updated video
+        video.save()
+
+        # Redirect back to the videos page
+        return redirect('videos')
 
 from django.shortcuts import render, redirect
 from .models import Beautician
@@ -1222,7 +1270,8 @@ def success_page(request):
 from .models import Beautician
 
 def beautician_list(request):
-    return render(request, 'beautician_list.html')
+    beauticians = Beautician.objects.all()
+    return render(request, 'beautician_list.html', {'beauticians': beauticians})
 
 
 from .models import Beautician
@@ -1232,3 +1281,331 @@ def beautician_profile(request):
     beautician = Beautician.objects.get(user=request.user)
 
     return render(request, 'beautician_profile.html', {'beautician': beautician})
+
+def blog_view(request):
+    return render(request, 'blog.html')
+
+def nandanablog(request):
+    return render(request, 'nandanablog.html')
+
+
+
+from .models import Beautician, Service
+
+def beautician_services(request, beautician_id):
+    beautician = get_object_or_404(Beautician, id=beautician_id)
+    beautician_services = Service.objects.filter(beautician=beautician)
+
+    context = {
+        'beautician_services': beautician_services,
+    }
+
+    return render(request, 'beautician_services.html', context)
+
+
+def naveen_view(request):
+    return render(request, 'naveen.html')
+
+from django.http import JsonResponse
+from .models import MakeupType
+
+def get_makeup_types(request):
+    makeup_types = MakeupType.objects.all()
+    data = [{'id': type.id, 'category': type.category} for type in makeup_types]
+    return JsonResponse(data, safe=False)
+
+from .models import MakeupType
+
+def your_view_name(request):
+    makeup_types = MakeupType.objects.all()
+    return render(request, 'naveen.html', {'makeup_types': makeup_types})
+
+
+#booking starts
+# views.py
+from django.shortcuts import render, redirect
+from .models import Service, Booking
+from .forms import BookingForm
+
+def book_service(request, service_id):
+    service = Service.objects.get(pk=service_id)
+
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.customer = request.user
+            booking.beautician = service.beautician
+            booking.service = service
+            booking.save()
+            return redirect('booking_confirmation', booking_id=booking.id)  # Pass booking_id to confirmation page
+    else:
+        form = BookingForm()
+
+    return render(request, 'book_service.html', {'form': form, 'service': service})
+
+def booking_confirmation(request, booking_id):
+    # Retrieve the booking using the provided booking_id
+    booking = Booking.objects.get(pk=booking_id)
+
+    # Your existing code to handle booking confirmation
+    # ...
+
+    return render(request, 'booking_confirmation.html', {'booking': booking})
+# views.py
+from django.shortcuts import render
+
+def book_checkout(request):
+    # Add any logic to fetch details for checkout if needed
+    total_amount = 1000  # Replace with your actual total amount
+    return render(request, 'book_checkout.html', {'total_amount': total_amount})
+
+# views.py
+
+# from .models import CustomizeBooking
+# from .forms import CustomizeBookingForm
+
+# def customise_booking(request):
+#     if request.method == 'POST':
+#         form = CustomizeBookingForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             # Add a success message
+#             messages.success(request, 'Requested Successfully')
+#             return redirect('home2')  # Redirect to the desired page
+#     else:
+#         form = CustomizeBookingForm()
+
+#     return render(request, 'customise_booking.html', {'form': form})
+
+
+from .models import CustomizeBooking
+from .forms import CustomizeBookingForm
+
+from .models import CustomizeBooking
+from .forms import CustomizeBookingForm
+
+def customise_booking(request,beautician_id):
+    if request.method == 'POST':
+        form = CustomizeBookingForm(request.POST)
+        if form.is_valid():
+            # Check if the logged-in user has a beautician profile
+            beautician, created = CustomUser.objects.get_or_create(id=beautician_id)
+
+            customize_booking = form.save(commit=False)
+            customize_booking.beautician = beautician
+            customize_booking.save()
+
+            # Add a success message
+            messages.success(request, 'Requested Successfully')
+            return redirect('home2')  # Redirect to the desired page
+    else:
+        form = CustomizeBookingForm()
+
+    return render(request, 'customise_booking.html', {'form': form})
+#appointments
+
+# views.py
+# BeauteCartApp/views.py
+
+
+# def appointments(request):
+#     # Your logic to retrieve appointments
+#     return render(request, 'appointments.html')
+
+
+# views.py
+from django.shortcuts import get_object_or_404
+
+def beautician_appointments(request, beautician_id):
+    beautician_appointments = CustomizeBooking.objects.filter(beautician_id=beautician_id)
+    
+    context = {
+        'beautician_appointments': beautician_appointments,
+    }
+    
+    return render(request, 'appointments.html', context)
+   
+
+   #customer viewing his booking details
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from .models import CustomizeBooking
+
+@login_required
+def my_bookings(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    # Print debug information
+    print(f"User Username: {request.user.username}")
+    
+    # Fetch and print customer bookings
+    customer_bookings = CustomizeBooking.objects.filter(name= request.user.username)
+    print(f"Customer Bookings: {customer_bookings}")
+
+    context = {
+        'customer_bookings': customer_bookings,
+    }
+
+    return render(request, 'mybookings.html', context)
+
+
+
+#nandananaveen
+
+# views.py
+
+# from django.shortcuts import redirect, get_object_or_404
+# from .models import CustomizeBooking
+
+# def handle_appointment(request, booking_id):
+#     booking = get_object_or_404(CustomizeBooking, id=booking_id)
+
+#     if request.method == 'POST':
+#         action = request.POST.get('action')
+
+#         if action == 'accept':
+#             # Implement your logic for accepting the appointment here
+#             booking.status = 'Approved'
+#             # You may want to implement additional logic for payment here
+
+#         elif action == 'reject':
+#             # Implement your logic for rejecting the appointment here
+#             booking.status = 'Rejected'
+
+#         booking.save()
+
+#     # Redirect back to the appointments page
+#     return redirect('beautician_appointments', beautician_id=booking.beautician.id)
+
+
+
+# views.py
+from django.core.mail import send_mail
+from .models import CustomizeBooking
+from django.shortcuts import redirect, get_object_or_404
+
+def send_approval_email(customer_email, status):
+    subject = f'Your Request Status - {status}'
+    message = f'Your request for services has been {status.lower()}.'
+    message += f'For more details contact me on 99946095781'
+   
+    from_email = 'nandanars2024b@mca.ajce.in'
+    recipient_list = [customer_email]
+
+    send_mail(subject, message, from_email, recipient_list)
+
+def handle_appointment(request, booking_id):
+    booking = get_object_or_404(CustomizeBooking, id=booking_id)
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'accept':
+            booking.status = 'Approved'
+            send_approval_email(booking.email, 'Approved')
+            # Additional logic for payment here if needed
+
+        elif action == 'reject':
+            booking.status = 'Rejected'
+            send_approval_email(booking.email, 'Rejected')
+
+        booking.save()
+
+    return redirect('beautician_appointments', beautician_id=booking.beautician_id)
+    
+
+# def handle_appointment(request, booking_id):
+#     booking = get_object_or_404(CustomizeBooking, id=booking_id)
+
+#     if request.method == 'POST':
+#         action = request.POST.get('action')
+
+#         if action == 'accept':
+#             booking.status = 'Approved'
+#             send_approval_email(booking.email, 'Approved')
+
+#             # Additional logic for payment here
+#             client = razorpay.Client(auth=(settings.RAZORPAY_API_KEY, settings.RAZORPAY_API_SECRET))
+
+#             order_amount = int(booking.total_price * 100)  # Example amount
+#             data = {
+#                 "amount": order_amount,
+#                 "currency": "INR",
+#                 "receipt": f"order_rcptid_{booking.id}"  # Use booking ID to generate a unique receipt ID
+#             }
+
+#             payment = client.order.create(data=data)
+
+#             new_payment = BookingPayment(
+#                 order=booking,
+#                 razor_pay_order_id=payment['id'],
+#                 amount=booking.total_price,
+#                 is_paid=False,
+#                 customer=request.user
+#             )
+#             new_payment.save()
+
+#         elif action == 'reject':
+#             booking.status = 'Rejected'
+#             send_approval_email(booking.email, 'Rejected')
+
+#         booking.save()
+
+#     return redirect('beautician_appointments', beautician_id=booking.beautician_id)
+
+# views.py
+
+
+from django.shortcuts import render, get_object_or_404
+from .models import CustomizeBooking, BookingPayment
+
+def payment_info(request, booking_id):
+    try:
+        booking = get_object_or_404(CustomizeBooking, id=booking_id)
+        payment = BookingPayment.objects.filter(order=booking).first()
+        if not payment:
+            print(f"No payment found for booking {booking_id}.")
+    except CustomizeBooking.DoesNotExist:
+        print(f"Booking with ID {booking_id} does not exist.")
+        booking = None
+        payment = None
+
+    return render(request, 'payment_info.html', {'booking': booking, 'payment': payment, 'rzp_api_key': 'your_razorpay_api_key'})
+
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .models import BookingPayment
+
+@csrf_exempt
+def razorpay_webhook(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        event = data.get('event')
+        payment_id = data.get('payload', {}).get('payment', {}).get('entity', {}).get('id')
+
+        if event == 'payment.authorized':
+            # Payment authorized, update BookingPayment model
+            try:
+                payment = BookingPayment.objects.get(razor_pay_order_id=payment_id)
+                payment.is_paid = True
+                payment.save()
+            except BookingPayment.DoesNotExist:
+                print(f"Payment with ID {payment_id} not found.")
+
+        return HttpResponse(status=200)
+    return HttpResponse(status=400)
+
+
+
+
+
+
+
+def payment_success(request):
+    return render(request, 'payment_success.html')
+
+
+

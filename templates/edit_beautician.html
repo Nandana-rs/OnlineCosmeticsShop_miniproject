@@ -85,6 +85,62 @@
 
 </head>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var form = document.querySelector('form');
+
+        form.addEventListener('submit', function (event) {
+            // Validate Makeup Type
+            var makeupTypeInput = document.getElementById('id_makeup_type');
+            var makeupTypeValue = makeupTypeInput.value.trim();
+            if (!/^[a-zA-Z]+$/.test(makeupTypeValue)) {
+                alert("Use alphabets only for Makeup Type.");
+                event.preventDefault();
+                return;
+            }
+
+            if (makeupTypeValue.length > 30) {
+                alert("Exceeded more than 30 characters for Makeup Type.");
+                event.preventDefault();
+                return;
+            }
+
+            // Validate Pricing
+            var pricingInput = document.getElementById('id_pricing');
+            var pricingValue = parseFloat(pricingInput.value);
+            if (isNaN(pricingValue) || pricingValue === 0) {
+                alert("Price must be a non-zero number.");
+                event.preventDefault();
+                return;
+            }
+
+            if (pricingValue > 20000) {
+                alert("Maximum price reached. Please enter a value less than 20,000.");
+                event.preventDefault();
+                return;
+            }
+
+            // Validate Portfolio Images
+            var portfolioImagesInput = document.getElementById('id_portfolio_images');
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            if (portfolioImagesInput.value.trim() !== "" && !allowedExtensions.exec(portfolioImagesInput.value)) {
+                alert("Only jpeg, jpg, or png images can be uploaded.");
+                event.preventDefault();
+                return;
+            }
+
+            // Validate Service Offerings
+            var serviceOfferingsInput = document.getElementById('id_service_offerings');
+            if (serviceOfferingsInput.value.trim().split(/\s+/).length > 200) {
+                alert("Exceeded more than 200 words for Service Offerings.");
+                event.preventDefault();
+                return;
+            }
+        });
+    });
+</script>
+
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">BeauteCart</a>

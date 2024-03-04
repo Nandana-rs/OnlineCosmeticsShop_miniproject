@@ -116,7 +116,8 @@
         <aside>
             <a href="add_edit_service.html" class="sidebar-link" onclick="showDashboard()">Add Services</a>
             <a href="beautician_crud.html" class="sidebar-link" onclick="showScheduling()">View services</a>
-            <a href="#" class="sidebar-link" onclick="showAppointments()">Appointments</a>
+            <a href="{% url 'beautician_appointments' beautician_id=request.user.id %}" class="sidebar-link">Beautician Appointments</a>
+            <!-- <a href="#" class="sidebar-link" onclick="showAppointments()">Appointments</a> -->
             <a href="#" class="sidebar-link" onclick="showScheduling()">Scheduling</a>
             <a href="beautician_profile_form.html" class="sidebar-link" onclick="showScheduling()">Profile</a>
             <a href="{% url 'upload_video' %}" class="sidebar-link" onclick="showScheduling()">Upload Video</a>

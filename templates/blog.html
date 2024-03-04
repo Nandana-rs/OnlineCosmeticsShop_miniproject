@@ -1,0 +1,157 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin:  0;
+    padding:  0;
+  }
+  header {
+    background-color: #f8f9fa;
+    padding:  10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .back-button {
+    cursor: pointer;
+  }
+  .category {
+    margin:  20px;
+  }
+  .category-title {
+    font-size:  24px;
+    font-weight: bold;
+    margin-bottom:  10px;
+  }
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(3,  1fr);
+    gap:  20px;
+  }
+  .post {
+    border:  1px solid #dee2e6;
+    padding:  10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .post img {
+    width:  100%;
+    height: auto;
+  }
+  .post:hover {
+    background-color: #f8f9fa;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Blog</h1>
+  <div class="back-button" onclick="goBack()">
+    <i class="fas fa-arrow-left"></i>
+  </div>
+</header>
+
+<div class="category">
+  <div class="category-title">POPULAR POSTS</div>
+  <div class="post-grid">
+    <div class="post" onclick="window.location.href='{% url 'nandanablog' %}'">
+      <img src="{% static 'images/naveen1.jpg' %}" alt="Post  1">
+      <h2>Must-Try Eye & Lip Combinations for This New Year</h2>
+      <p>Written by Nandana RS | Dec  19,  2023</p>
+    </div>
+    <div class="post" onclick="window.location.href='appublog.html'">
+      <img src="{% static 'images/naveen2.jpg' %}" alt="Post  2">
+      <h2>The Best Tips On How To Wear Deep Dark Red Lipstick</h2>
+      <p>Written by Damayanti Ray | Mar  01,  2023</p>
+    </div>
+    <div class="post" onclick="window.location.href='sandhublog.html'">
+      <img src="{% static 'images/naveen3.jpg' %}" alt="Post  3">
+      <h2>Mix, Match, and Slay With The Latest Mascara Cocktailing Hack</h2>
+      <p>Written by Megan Alphonso | Sep  12,  2023</p>
+    </div>
+  </div>
+</div>
+
+<div class="category">
+  <div class="category-title">MAKEUP</div>
+  <div class="post-grid">
+    <!-- Add your makeup posts here -->
+    <div class="post" onclick="window.location.href='{% url 'nandanablog' %}'">
+      <img src="{% static 'images/naveen4.jpg' %}" alt="Post  1">
+      <h2>Must-Try Eye & Lip Combinations for This New Year</h2>
+      <p>Written by Nandana RS | Dec  19,  2023</p>
+    </div>
+    <div class="post" onclick="window.location.href='appublog.html'">
+      <img src="{% static 'images/naveen5.jpg' %}" alt="Post  2">
+      <h2>The Best Tips On How To Wear Deep Dark Red Lipstick</h2>
+      <p>Written by Damayanti Ray | Mar  01,  2023</p>
+    </div>
+    <div class="post" onclick="window.location.href='sandhublog.html'">
+      <img src="{% static 'images/naveen6.jpg' %}" alt="Post  3">
+      <h2>Mix, Match, and Slay With The Latest Mascara Cocktailing Hack</h2>
+      <p>Written by Megan Alphonso | Sep  12,  2023</p>
+    </div>
+  </div>
+</div>
+
+<div class="category">
+  <div class="category-title">SKIN</div>
+  <div class="post-grid">
+    <!-- Add your skin posts here -->
+    <div class="post" onclick="window.location.href='{% url 'nandanablog' %}'">
+      <img src="{% static 'images/naveen7.jpg' %}" alt="Post  1">
+      <h2>Must-Try Eye & Lip Combinations for This New Year</h2>
+      <p>Written by Nandana RS | Dec  19,  2023</p>
+    </div>
+    <div class="post" onclick="window.location.href='appublog.html'">
+      <img src="{% static 'images/naveen8.jpg' %}" alt="Post  2">
+      <h2>The Best Tips On How To Wear Deep Dark Red Lipstick</h2>
+      <p>Written by Damayanti Ray | Mar  01,  2023</p>
+    </div>
+    <div class="post" onclick="window.location.href='sandhublog.html'">
+      <img src="{% static 'images/naveen9.jpg' %}" alt="Post  3">
+      <h2>Mix, Match, and Slay With The Latest Mascara Cocktailing Hack</h2>
+      <p>Written by Megan Alphonso | Sep  12,  2023</p>
+    </div>
+  </div>
+</div>
+
+<div class="category">
+  <div class="category-title">HAIR</div>
+  <div class="post-grid">
+    <!-- Add your hair posts here -->
+    <div class="post" onclick="window.location.href='{% url 'nandanablog' %}'">
+      <img src="{% static 'images/naveen10.jpg' %}" alt="Post  1">
+      <h2>Must-Try Eye & Lip Combinations for This New Year</h2>
+      <p>Written by Nandana RS | Dec  19,  2023</p>
+    </div>
+    <div class="post" onclick="window.location.href='appublog.html'">
+      <img src="{% static 'images/naveen11.jpg' %}" alt="Post  2">
+      <h2>The Best Tips On How To Wear Deep Dark Red Lipstick</h2>
+      <p>Written by Damayanti Ray | Mar  01,  2023</p>
+    </div>
+    <div class="post" onclick="window.location.href='sandhublog.html'">
+      <img src="{% static 'images/naveen12.jpg' %}" alt="Post  3">
+      <h2>Mix, Match, and Slay With The Latest Mascara Cocktailing Hack</h2>
+      <p>Written by Megan Alphonso | Sep  12,  2023</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function goBack() {
+    window.history.back();
+  }
+</script>
+
+</body>
+</html>

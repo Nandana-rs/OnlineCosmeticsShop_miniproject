@@ -1,0 +1,264 @@
+<!-- {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautician Appointments</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+        }
+
+        header {
+          background: linear-gradient(to right,#071e36,#007bff);
+            color: #ffffff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        h2 {
+            margin: 0;
+        }
+
+        a.back-button {
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #007bff;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        a.back-button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #495057;
+            color: #ffffff;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button.reject {
+            background-color: #dc3545;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h2>Beautician Appointments</h2>
+        <a href="{% url 'MakeupArtistTemplate' %}" class="back-button">Back</a>
+    </header>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Phone</th>
+                <th>Location</th>
+                <th>Email</th>
+                <th>Makeup Type</th>
+                <th>Budget</th>
+                <th>Event Date</th>
+                <th>Specific Requirements</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in beautician_appointments %}
+                <tr>
+                    <td>{{ booking.name }}</td>
+                    <td>{{ booking.phone }}</td>
+                    <td>{{ booking.location }}</td>
+                    <td>{{ booking.email }}</td>
+                    <td>{{ booking.makeup_type }}</td>
+                    <td>{{ booking.budget }}</td>
+                    <td>{{ booking.event_date }}</td>
+                    <td>{{ booking.specific_requirements }}</td>
+                    <td>
+                        <button>Accept</button>
+                        <button class="reject">Reject</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+
+</html> -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautician Appointments</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+        }
+
+        header {
+            background: linear-gradient(to right, #071e36, #007bff);
+            color: #ffffff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        h2 {
+            margin: 0;
+        }
+
+        a.back-button {
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #007bff;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        a.back-button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #495057;
+            color: #ffffff;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button.reject {
+            background-color: #dc3545;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h2>Beautician Appointments</h2>
+        <a href="{% url 'MakeupArtistTemplate' %}" class="back-button">Back</a>
+    </header>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Phone</th>
+                <th>Location</th>
+                <th>Email</th>
+                <th>Makeup Type</th>
+                <th>Budget</th>
+                <th>Event Date</th>
+                <th>Specific Requirements</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in beautician_appointments %}
+                <tr>
+                    <td>{{ booking.name }}</td>
+                    <td>{{ booking.phone }}</td>
+                    <td>{{ booking.location }}</td>
+                    <td>{{ booking.email }}</td>
+                    <td>{{ booking.makeup_type }}</td>
+                    <td>{{ booking.budget }}</td>
+                    <td>{{ booking.event_date }}</td>
+                    <td>{{ booking.specific_requirements }}</td>
+                    <td>
+                        <form method="post" action="{% url 'handle_appointment' booking.id %}">
+                            {% csrf_token %}
+                            <button type="submit" name="action" value="accept">Accept</button>
+                            <button type="submit" name="action" value="reject" class="reject">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+
+</html>
+

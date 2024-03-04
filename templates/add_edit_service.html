@@ -1,4 +1,3 @@
-<!-- BeauteCartApp/templates/add_edit_service.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -8,39 +7,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Service</title>
 
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <style>
-        /* body {
+        body {
             font-family: 'Arial', sans-serif;
             margin: 20px;
             padding: 20px;
-            background-color: #f8f9fa; /* Light gray background */
-        
-
-        body {
-        font-family: 'Arial', sans-serif;
-        margin: 20px;
-        padding: 20px;
-        background-image: url('{% static "images/nrsbackground2.jpeg" %}');
-        background-size: cover; 
-        background-position: center; 
-    }
-
-
-        h2 {
-            color: #343a40; /* Dark gray text */
+            background-image: url('{% static "images/nrsbackground2.jpeg" %}');
+            background-size: cover;
+            background-position: center;
         }
 
-        
+        h2 {
+            color: #343a40;
+        }
+
         .navbar {
-            background-color: #4caf50; /* Green color */
+            background-color: #4caf50;
         }
 
         .navbar-brand,
         .nav-link {
-            color: #fff; /* White text */
+            color: #fff;
         }
 
         form {
@@ -64,75 +53,118 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 16px;
-            border: 1px solid #ced4da; /* Light gray border */
+            border: 1px solid #ced4da;
             border-radius: 4px;
             box-sizing: border-box;
         }
 
         button {
-            background-color: #28a745; /* Dark green color */
+            background-color: #28a745;
             color: #fff;
             cursor: pointer;
         }
 
         button:hover {
-            background-color: #218838; /* Slightly darker green on hover */
+            background-color: #218838;
         }
 
         .back-button {
             display: inline-block;
             margin-bottom: 20px;
             text-decoration: none;
-            background-color: #007bff; /* Bootstrap primary color */
+            background-color: #007bff;
             color: #fff;
             padding: 10px 15px;
             border-radius: 4px;
         }
+
+        /* Additional styles for error messages */
+        .error-message {
+            color: #dc3545;
+            margin-top: 5px;
+        }
     </style>
-      <script>
-        
-        // JavaScript for client-side validations
-        document.addEventListener('DOMContentLoaded', function () {
+
+    <script>
+          document.addEventListener('DOMContentLoaded', function () {
             var makeupTypeInput = document.getElementById('id_makeup_type');
             var pricingInput = document.getElementById('id_pricing');
             var portfolioImagesInput = document.getElementById('id_portfolio_images');
             var serviceOfferingsInput = document.getElementById('id_service_offerings');
+            var submitButton = document.querySelector('button[type="submit"]');
 
             makeupTypeInput.addEventListener('input', validateMakeupType);
             pricingInput.addEventListener('input', validatePricing);
             portfolioImagesInput.addEventListener('change', validatePortfolioImages);
             serviceOfferingsInput.addEventListener('input', validateServiceOfferings);
 
+            function showError(inputId, message) {
+                var errorElement = document.getElementById(inputId + 'Error');
+                if (errorElement) {
+                    errorElement.innerHTML = message;
+                }
+            }
+
+            function isAlphabetic(value) {
+                return /^[a-zA-Z\s]+$/.test(value);
+            }
+
+            function exceedsWordLimit(value, limit) {
+                return value.trim().split(/\s+/).length > limit;
+            }
+
             function validateMakeupType() {
                 var value = makeupTypeInput.value;
-                var isValid = /^[a-zA-Z\s]+$/.test(value); // Only alphabets and spaces allowed
-                displayError('makeupTypeError', isValid ? '' : 'Only alphabets and spaces allowed');
+                if (!isAlphabetic(value)) {
+                    showError('makeup_type', 'Use alphabets only');
+                } else if (exceedsWordLimit(value, 30)) {
+                    showError('makeup_type', 'Exceeded more than 30 words');
+                } else {
+                    showError('makeup_type', '');
+                }
+                checkFormValidity();
             }
 
             function validatePricing() {
                 var value = parseFloat(pricingInput.value);
-                var isValid = !isNaN(value) && value <= 20000; // Price should be a number and <= 20000
-                displayError('pricingError', isValid ? '' : 'Price should be a number and <= 20000');
+                if (isNaN(value) || value <= 0) {
+                    showError('pricing', 'Price cannot be zero');
+                } else if (value > 20000) {
+                    showError('pricing', 'Maximum price reached (20000)');
+                } else {
+                    showError('pricing', '');
+                }
+                checkFormValidity();
             }
 
             function validatePortfolioImages() {
                 var allowedExtensions = ['.jpg', '.jpeg', '.png'];
                 var fileName = portfolioImagesInput.value.toLowerCase();
-                var isValid = allowedExtensions.some(ext => fileName.endsWith(ext)); // Check file extension
-                displayError('portfolioImagesError', isValid ? '' : 'Only jpg, jpeg, and png allowed');
+                if (!allowedExtensions.some(ext => fileName.endsWith(ext))) {
+                    showError('portfolio_images', 'Only jpg, jpeg, and png allowed');
+                } else {
+                    showError('portfolio_images', '');
+                }
+                checkFormValidity();
             }
 
             function validateServiceOfferings() {
                 var value = serviceOfferingsInput.value;
-                var isValid = value.length <= 300; // Service offerings should not exceed 300 characters
-                displayError('serviceOfferingsError', isValid ? '' : 'Service offerings should not exceed 300 characters');
+                if (value.length > 200) {
+                    showError('service_offerings', 'Service offerings should not exceed 200 characters');
+                } else {
+                    showError('service_offerings', '');
+                }
+                checkFormValidity();
             }
 
-            function displayError(elementId, message) {
-                var errorElement = document.getElementById(elementId);
-                if (errorElement) {
-                    errorElement.innerHTML = message;
-                }
+            function checkFormValidity() {
+                var isValid = makeupTypeInput.checkValidity() &&
+                    pricingInput.checkValidity() &&
+                    portfolioImagesInput.checkValidity() &&
+                    serviceOfferingsInput.checkValidity();
+
+                submitButton.disabled = !isValid;
             }
         });
     </script>
@@ -156,35 +188,32 @@
     </nav>
 
     <div class="container mt-3">
-        <!-- <h2>Add Service</h2> -->
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
-          
             <label for="id_makeup_type">Makeup Type:</label>
             <input type="text" name="makeup_type" id="id_makeup_type" required>
+            <div id="makeup_typeError" class="error-message"></div>
 
-      
             <label for="id_pricing">Pricing:</label>
             <input type="number" name="pricing" id="id_pricing" step="0.01" required>
+            <div id="pricingError" class="error-message"></div>
 
-           
             <label for="id_portfolio_images">Portfolio Images:</label>
             <input type="file" name="portfolio_images" id="id_portfolio_images">
+            <div id="portfolio_imagesError" class="error-message"></div>
 
-            
             <label for="id_service_offerings">Service Offerings:</label>
             <textarea name="service_offerings" id="id_service_offerings" required></textarea>
+            <div id="service_offeringsError" class="error-message"></div>
 
             <button type="submit" class="btn btn-success">Save</button>
         </form>
     </div>
 
-  
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
-     

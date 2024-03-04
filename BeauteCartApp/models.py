@@ -7,6 +7,7 @@ from datetime import date
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 
 
@@ -306,3 +307,90 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
+    
+#UPDATIONS
+
+class MakeupType(models.Model):
+    category = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.category
+    
+# models.py
+
+class Service1(models.Model):
+    beautician = models.ForeignKey(Beautician, on_delete=models.CASCADE)
+    makeup_type = models.ForeignKey(MakeupType, on_delete=models.CASCADE)
+    pricing = models.DecimalField(max_digits=10, decimal_places=2)
+    portfolio_images = models.ImageField(upload_to='portfolio/', blank=True)
+    service_offerings = models.TextField()
+
+    def __str__(self):
+        return f"{self.beautician.user.username}'s {self.makeup_type.category} Service"
+
+
+#customised bridal makeup booking
+    
+class CustomizeBooking(models.Model):
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Approved', 'Approved'),
+        ('Rejected', 'Rejected'),
+    ]
+    beautician = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    phone = models.CharField(max_length=15)
+    location = models.CharField(max_length=255)
+    email = models.EmailField()
+    makeup_type = models.CharField(max_length=255, choices=[
+        ('Bridal Makeup', 'Bridal Makeup'),
+        ('Engagement Makeup', 'Engagement Makeup'),
+        ('Reception Makeup', 'Reception Makeup'),
+        ('Party Makeup', 'Party Makeup'),
+        ('Mehndi Makeup', 'Mehndi Makeup'),
+        ('Others', 'Others'),
+    ])
+    budget = models.CharField(max_length=255)
+    event_date = models.DateField()
+    specific_requirements = models.TextField()
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
+
+    def __str__(self):
+        return f"{self.name}'s Customized Booking for {self.makeup_type} on {self.event_date}"
+   
+
+   #booking payments
+    
+class BeautyServiceBooking(models.Model):
+    # Your existing fields for beauty service booking...
+    beautician = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='bookings')
+    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='customer_bookings')
+    status = models.CharField(max_length=255)  # You might have a field like this to store the booking status
+    requires_payment = models.BooleanField(default=False)  # Add this field to indicate if payment is required for the booking
+
+class BeautyServicePayment(models.Model):
+    booking = models.ForeignKey(BeautyServiceBooking, on_delete=models.CASCADE)
+    razor_pay_order_id = models.CharField(max_length=255)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)  # You can adjust the precision as needed
+    is_paid = models.BooleanField(default=False)
+    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    # Other fields specific to payment...
+
+    def __str__(self):
+        return f"Payment for Beauty Service Booking: {self.booking.id}"
+    
+
+class BookingPayment(models.Model):
+    order = models.ForeignKey(CustomizeBooking, on_delete=models.CASCADE)
+    razor_pay_order_id = models.CharField(max_length=255)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)  # Adjust as per your requirements
+    is_paid = models.BooleanField(default=False)
+    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    # other fields...
+
+    def __str__(self):
+        return f"Payment for Booking: {self.order.user.username}'s Customize Booking"

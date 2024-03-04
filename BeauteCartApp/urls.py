@@ -28,6 +28,7 @@ from .views import user_profile
 from .views import save_profile  # Import your view
 from .views import user_details
 from .views import order_history
+from django.urls import path, re_path  # Add re_path import
 
 # from .views import checkout
 # #proceed to payement -> checkout
@@ -58,7 +59,8 @@ from .views import add_edit_service , view_bridal_packages
 from .views import BeauticianCRUD, edit_beautician
 from .views import service_detail
 from .views import beautician_profile_form , beautician_profile
-from .views import chatgpt, generate_response
+ #chatgpt nrs which is commented
+# from .views import chatgpt, generate_response
 
 from .views import upload_video
 from .views import display_videos
@@ -67,8 +69,12 @@ from .views import beautician_profile_form, submit_profile
 from .views import success_page
 from .views import beautician_list
 
-
-
+from .views import blog_view , nandanablog 
+from .views import beautician_services ,book_service ,booking_confirmation  ,book_checkout ,customise_booking
+from .views import beautician_appointments
+from .views import my_bookings
+# from .views import make_payment, payment_success
+from .views import payment_info , payment_success
 
 
 
@@ -204,21 +210,58 @@ urlpatterns =  [
 
 
 
-    #chatgpt nrs
+    #chatgpt nrs which is commented
 
-    path('chatgpt/', chatgpt, name='chatgpt'),
-    path('generate-response/', generate_response, name='generate_response'),
+    # path('chatgpt/', chatgpt, name='chatgpt'),
+    # path('generate-response/', generate_response, name='generate_response'),
 
     # videao upload
      path('MakeupArtistTemplate/upload_video.html', upload_video, name='upload_video'),
      path('display_videos/', display_videos, name='display_videos'),
+     path('MakeupArtistTemplate/upload_video.html', views.video_list, name='video_list'),
+    path('videos/delete/<int:video_id>/',views.delete_video, name='delete_video'),
+    path('videos/', views.video_list, name='videos'),
+    path('edit/<int:video_id>/', views.edit_video, name='edit_video'),
+    path('save_edits/<int:video_id>/', views.save_edits, name='save_edits'),
     
     path('beauticians/', beautician_list, name='beautician_list'),
+    
     path('view-profile/', beautician_profile, name='beautician_profile'),
-    
-    
-    
+    path('blog/', blog_view, name='blog'),
+    path('blog/nandanablog/', nandanablog, name='nandanablog'),
+    path('beautician_services/<int:beautician_id>/', beautician_services, name='beautician_services'),
+    path('book_service/<int:service_id>/', book_service, name='book_service'),
+    path('booking_confirmation/', booking_confirmation, name='booking_confirmation'),
+    path('booking_confirmation/<int:booking_id>/', booking_confirmation, name='booking_confirmation'),
+    path('book_checkout/', book_checkout, name='book_checkout'),
    
+    path('customise_booking/<int:beautician_id>/', views.customise_booking, name='customise_booking'),
+
+    
+     
+   path('beautician/<int:beautician_id>/appointments/', beautician_appointments, name='beautician_appointments'),
+  
+
+    # path('MakeupArtistTemplate/appointments.html', views.appointments, name='appointments'),
+   path('mybookings/', my_bookings, name='my_bookings'),
+   # Add this line in your urls.py
+  path('handle_appointment/<int:booking_id>/', views.handle_appointment, name='handle_appointment'),
+
+
+#booking payment
+    # path('make_payment/<int:booking_id>/', make_payment, name='make_payment'),
+    # path('payment_success/<int:booking_id>/', payment_success, name='payment_success'),
+     
+     path('payment_info/<int:booking_id>/', views.payment_info, name='payment_info'),
+
+     
+     # urls.py
+    # path('payment_info/', views.payment_info, name='payment_info'),
+
+   
+    path('payment_success/', payment_success, name='payment_success'),
+    
+    
     
 
     
@@ -230,8 +273,8 @@ urlpatterns =  [
 
     #forgetpassword
     path('reset_password/', auth_views.PasswordResetView.as_view(), name="reset_password"),
-     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
-     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
-     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
 ]
 

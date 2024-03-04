@@ -116,6 +116,116 @@
         }
     </style>
 </head>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var bioInput = document.getElementById('bio');
+        var phoneNumberInput = document.getElementById('phone_number');
+        var addressInput = document.getElementById('address');
+        var websiteInput = document.getElementById('website');
+        var socialMediaLinksInput = document.getElementById('social_media_links');
+        var experienceYearsInput = document.getElementById('experience_years');
+        var certificationsInput = document.getElementById('certifications');
+        var availabilityInput = document.getElementById('availability');
+        var submitButton = document.querySelector('button[type="submit"]');
+
+        bioInput.addEventListener('input', validateBio);
+        phoneNumberInput.addEventListener('input', validatePhoneNumber);
+        addressInput.addEventListener('input', validateAddress);
+        websiteInput.addEventListener('input', validateWebsite);
+        socialMediaLinksInput.addEventListener('input', validateSocialMediaLinks);
+        experienceYearsInput.addEventListener('input', validateExperienceYears);
+        certificationsInput.addEventListener('input', validateCertifications);
+        availabilityInput.addEventListener('input', validateAvailability);
+
+        function showError(inputId, message) {
+            var errorElement = document.getElementById(inputId + 'Error');
+            if (errorElement) {
+                errorElement.innerHTML = message;
+            }
+        }
+
+        function validateBio() {
+    var value = bioInput.value;
+    var hasNumeric = /\d/.test(value); // Check for numerical numbers
+    var hasSpecialChars = /[^a-zA-Z]/.test(value); // Check for special characters
+
+    var isValid = !hasNumeric && !hasSpecialChars && value.length <= 500;
+
+    if (hasNumeric) {
+        showError('bio', 'Use alphabets only (no numerical numbers)');
+    } else if (hasSpecialChars) {
+        showError('bio', 'Use alphabets only (no special characters)');
+    } else {
+        showError('bio', isValid ? '' : 'Bio should not exceed 500 characters');
+    }
+
+    checkFormValidity();
+}
+
+
+        function validatePhoneNumber() {
+            var value = phoneNumberInput.value;
+            var isValid = /^\d{3}-\d{3}-\d{4}$/.test(value); // Phone number should match the pattern XXX-XXX-XXXX
+            showError('phone_number', isValid ? '' : 'Invalid phone number format (XXX-XXX-XXXX)');
+            checkFormValidity();
+        }
+
+        function validateAddress() {
+            var value = addressInput.value;
+            var isValid = value.length <= 500; // Address should not exceed 500 characters
+            showError('address', isValid ? '' : 'Address should not exceed 500 characters');
+            checkFormValidity();
+        }
+
+        function validateWebsite() {
+            var value = websiteInput.value;
+            var isValid = /^https?:\/\/\S+$/.test(value); // Website should be a valid URL
+            showError('website', isValid ? '' : 'Invalid website URL');
+            checkFormValidity();
+        }
+
+        function validateSocialMediaLinks() {
+            var value = socialMediaLinksInput.value;
+            var isValid = value.length <= 500; // Social Media Links should not exceed 500 characters
+            showError('social_media_links', isValid ? '' : 'Social Media Links should not exceed 500 characters');
+            checkFormValidity();
+        }
+
+        function validateExperienceYears() {
+            var value = experienceYearsInput.value;
+            var isValid = /^\d+$/.test(value); // Experience Years should be a positive integer
+            showError('experience_years', isValid ? '' : 'Invalid experience years');
+            checkFormValidity();
+        }
+
+        function validateCertifications() {
+            var value = certificationsInput.value;
+            var isValid = value.length <= 500; // Certifications should not exceed 500 characters
+            showError('certifications', isValid ? '' : 'Certifications should not exceed 500 characters');
+            checkFormValidity();
+        }
+
+        function validateAvailability() {
+            var value = availabilityInput.value;
+            var isValid = value.length <= 500; // Availability should not exceed 500 characters
+            showError('availability', isValid ? '' : 'Availability should not exceed 500 characters');
+            checkFormValidity();
+        }
+
+        function checkFormValidity() {
+            var isValid = bioInput.checkValidity() &&
+                phoneNumberInput.checkValidity() &&
+                addressInput.checkValidity() &&
+                websiteInput.checkValidity() &&
+                socialMediaLinksInput.checkValidity() &&
+                experienceYearsInput.checkValidity() &&
+                certificationsInput.checkValidity() &&
+                availabilityInput.checkValidity();
+
+            submitButton.disabled = !isValid;
+        }
+    });
+</script>
 
 <body>
     <header>

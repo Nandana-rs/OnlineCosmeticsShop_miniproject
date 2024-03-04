@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <!-- Add any additional styles or meta tags here -->
+</head>
+
+<body>
+
+    <h1>Checkout</h1>
+    <!-- Add more details about the checkout as needed -->
+
+    <p>Total Amount: ₹<span id="total_item_amount">1000</span></p>
+    <!-- Display other checkout details -->
+
+    <button id="rzp-button1">Pay with Razorpay</button>
+
+    <!-- Include the Razorpay checkout script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="{% static 'checkout.js' %}"></script>
+</body>
+
+</html>

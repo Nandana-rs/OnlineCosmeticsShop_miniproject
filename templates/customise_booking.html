@@ -1,0 +1,115 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Booking</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            background-image: url('{% static "images/nrsbackground1.jpeg" %}');
+        }
+
+        h2, p {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            width: 100%;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #ff0090;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #ff0066;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Share your details and preferences</h2>
+    <p>Our Beauticians will get in touch with you to glam up your big day 🙂</p>
+
+    <form method="post" >
+        {% csrf_token %}
+
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="phone">Your Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <label for="location">Your Location:</label>
+        <input type="text" id="location" name="location" required>
+
+        <label for="email">Your Email Address:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="makeup-type">Makeup Type:</label>
+        <select id="makeup-type" name="makeup_type" required>
+            <option value="Bridal Makeup">Bridal Makeup</option>
+            <option value="Engagement Makeup">Engagement Makeup</option>
+            <option value="Reception Makeup">Reception Makeup</option>
+            <option value="Party Makeup">Party Makeup</option>
+            <option value="Mehndi Makeup">Mehndi Makeup</option>
+            <option value="Others">Others</option>
+        </select>
+
+        <label for="budget">Your Budget:</label>
+        <input type="text" id="budget" name="budget">
+
+        <label for="event-date">Your Event Date:</label>
+        <input type="date" id="event-date" name="event_date" required>
+
+        <label for="specific-requirements">Any specific requirements:</label>
+        <textarea id="specific-requirements" name="specific_requirements"></textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>

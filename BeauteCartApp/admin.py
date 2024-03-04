@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 
 from .models import CustomUser
-from .models import Category, Subcategory, Brand, Product ,WishlistItem ,Cart1 , CartItem1,ProfileUser ,Order ,OrderItem
+from .models import Category, Subcategory, Brand, Product ,WishlistItem ,Cart1 , CartItem1,ProfileUser ,Order ,OrderItem,MakeupType,Service1
 
 # Register your models here.
 #admin.site.register (CustomUser)
@@ -30,5 +30,7 @@ admin.site.register(CartItem1)
 admin.site.register(ProfileUser)
 admin.site.register(Order)
 admin.site.register(OrderItem)
+admin.site.register(MakeupType)
+admin.site.register(Service1)
 
 

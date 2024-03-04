@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +17,8 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            align-items: center;
+            background-image: url('{% static "images/nrsbackground1.jpeg" %}');
         }
 
         header {
@@ -26,24 +30,34 @@
             font-weight: bold;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 100;
+            width: 100%;
         }
 
         main {
             display: flex;
             flex-grow: 1;
             margin: 20px;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start; /* Align items to the start (left) */
+            justify-content: space-between; /* Add space between main and the new div */
+            width: 100%;
         }
 
         section {
             text-align: center;
             background-color: #fff;
-            border-radius: 8px;
+            border-radius: 0px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            padding: 30px;
+            padding: 5px;
             max-width: 600px;
-            width: 100%;
+            width: 50%;
+        }
+
+        .right-div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            width: 200px; /* Adjust width as needed */
         }
 
         h2 {
@@ -78,20 +92,24 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
 
-        .back-btn {
-            background-color: #007bff;
+        .back-btn, .customise-btn, .book-now-btn {
+            background-color: #ff0090;
             color: #fff;
             border: none;
             padding: 10px 20px;
             border-radius: 8px;
-            margin-top: 30px;
+            margin-top: 10px;
             cursor: pointer;
             transition: background-color 0.3s ease-in-out;
             text-decoration: none;
+            display: block;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .back-btn:hover {
-            background-color: #0056b3;
+        .back-btn:hover, .customise-btn:hover, .book-now-btn:hover {
+            background-color: #ff0066;
         }
     </style>
 </head>
@@ -104,7 +122,7 @@
         <section>
             <h2>Service Detail</h2>
             <div>
-                <strong>{{ service.beautician.user.username }}:</strong>
+                <strong>{{ service.beautician.user.username }}</strong>
                 <p>{{ service.makeup_type }}</p>
                 <p>RS.{{ service.pricing }}</p>
                 <p>{{ service.service_offerings }}</p>
@@ -113,7 +131,28 @@
                 {% endif %}
             </div>
         </section>
+        <div class="right-div">
+            <button id="customise-btn" class="customise-btn"><!-- Replace 'your_app' with the actual name of your Django app -->
+                Customize Booking
+                </button>
+            <button id="book-now-btn" class="book-now-btn">Book Now</button>
+        </div>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const customiseBtn = document.getElementById('customise-btn');
+            const bookNowBtn = document.getElementById('book-now-btn');
+    
+            customiseBtn.addEventListener('click', function () {
+                // Redirect to customise_booking.html
+                window.location.href = "{% url 'customise_booking' beautician_id=service.beautician.user.id %}";
+            });
+    
+            // Add event listeners or additional functionality for the Book Now button
+        });
+    </script>
+    
 </body>
 
 </html>

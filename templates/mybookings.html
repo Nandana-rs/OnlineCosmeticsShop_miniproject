@@ -1,0 +1,164 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+        }
+
+        header {
+            background: linear-gradient(to right, #071e36, #007bff);
+            padding: 15px 20px;
+            text-align: right;
+            width: 100%;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .back-btn {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        p {
+            color: #6c757d;
+            margin: 10px 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        td {
+            background-color: #ffffff;
+            color: #495057;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        td.status {
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        td.approved {
+            color: #28a745; /* Green for 'Approved' status */
+        }
+
+        td.pending {
+            color: #ffc107; /* Yellow for 'Pending' status */
+        }
+
+        button.pay-now {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button.pay-now:hover {
+            background-color: #0056b3;
+        }
+
+        /* Optional: Add some spacing between the table and other content */
+        body > *:not(table) {
+            margin-bottom: 20px;
+        }
+    </style>
+   
+</head>
+
+<body>
+
+    <header>
+        <h2><center>My Booking Status</center></h2>
+        <a href="#" class="back-btn" onclick="history.back()">Back</a>
+    </header>
+
+    <p>Welcome to your bookings page. Here are your bookings:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Location</th>
+                <th>Email</th>
+                <th>Makeup Type</th>
+                <th>Budget</th>
+                <th>Event Date</th>
+                <th>Specific Requirements</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in customer_bookings %}
+                <tr>
+                    <td>{{ booking.id }}</td>
+                    <td>{{ booking.name }}</td>
+                    <td>{{ booking.phone }}</td>
+                    <td>{{ booking.location }}</td>
+                    <td>{{ booking.email }}</td>
+                    <td>{{ booking.makeup_type }}</td>
+                    <td>{{ booking.budget }}</td>
+                    <td>{{ booking.event_date }}</td>
+                    <td>{{ booking.specific_requirements }}</td>
+                    <td class="status {% if booking.status == 'Approved' %}approved{% elif booking.status == 'Pending' %}pending{% endif %}">
+                        {{ booking.status }}
+                    </td>
+                    <td>
+                        {% if booking.status == 'Approved' %}
+                        <a href="{% url 'payment_info' booking_id=booking.id %}" class="pay-now">Pay Now</a>
+
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Add any additional content or scripts here -->
+
+</body>
+
+</html>

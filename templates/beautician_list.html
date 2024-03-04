@@ -1,7 +1,10 @@
 {% load static %}
 
+<!-- beautician_list.html -->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,8 +93,14 @@
             background-color: #007bff; /* Blue background on hover */
             color: #fff; /* White text on hover */
         }
+
+        .beautician-link {
+            text-decoration: none;
+            color: inherit;
+        }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -102,102 +111,24 @@
     </header>
 
     <main>
-        <div class="beautician-box">
-            <!-- <img src="/static/images/beautician1.jpeg" alt="Beautician 1" class="beautician-img"> -->
+        {% for beautician in beauticians %}
+        <a href="{% url 'beautician_services' beautician.id %}" class="beautician-link">
+            
+            <div class="beautician-box">
+                <!-- <img src="/static/images/beautician1.jpeg" alt="Beautician 1" class="beautician-img"> -->
 
-            <div class="beautician-name">Elsa MakeOvers</div>
-            <div class="beautician-details">
-                <p><h4>Sneha Jose</h4></p>
-                <p>Phone Number : 8994609578</p>
-                <p>Location : Kozhikode </p>
-                <!-- Add other details as needed -->
+                <div class="beautician-name">{{ beautician.user.username }}</div>
+                <div class="beautician-details">
+                    <p><h4>{{ beautician.bio }}</h4></p>
+                    <p>Phone Number : {{ beautician.phone_number }}</p>
+                    <p>Location : {{ beautician.address }}</p>
+                    <!-- Add other details as needed -->
+                </div>
             </div>
-        </div>
-
-        <div class="beautician-box">
-            <!-- <img src="beautician2.jpg" alt="Beautician 2" class="beautician-img"> -->
-            <div class="beautician-name">Blush Boutique</div>
-            <div class="beautician-details">
-                <p><h4> Shruthy Rag</h4></p>
-                <p>Phone Number : 929876543</p>
-                <p>Location : Trivandrum</p>
-                <!-- Add other details as needed -->
-            </div>
-        </div>
-
-        <div class="beautician-box">
-            <!-- <img src="beautician2.jpg" alt="Beautician 2" class="beautician-img"> -->
-            <div class="beautician-name">Serene Styles</div>
-            <div class="beautician-details">
-                <p><h4>Anitta Rose</h4></p>
-                <p>Phone Number : 9446022025</p>
-                <p>Location : Pathanamthitta</p>
-                <!-- Add other details as needed -->
-            </div>
-        </div>
-
-        <div class="beautician-box">
-            <!-- <img src="beautician2.jpg" alt="Beautician 2" class="beautician-img"> -->
-            <div class="beautician-name">Lavish Locks</div>
-            <div class="beautician-details">
-                <p><h4> Chithira</h4></p>
-                <p>Phone Number : 7306488281</p>
-                <p>Location : Wayanad</p>
-                <!-- Add other details as needed -->
-            </div>
-        </div>
-
-
-        <div class="beautician-box">
-            <!-- <img src="beautician2.jpg" alt="Beautician 2" class="beautician-img"> -->
-            <div class="beautician-name">Velvet Vanity</div>
-            <div class="beautician-details">
-                <p><h4> Nithasaha</h4></p>
-                <p>Phone Number : 7895643213</p>
-                <p>Location : Kollam</p>
-                <!-- Add other details as needed -->
-            </div>
-        </div>
-
-        <div class="beautician-box">
-            <!-- <img src="beautician2.jpg" alt="Beautician 2" class="beautician-img"> -->
-            <div class="beautician-name">Mystique Makeovers</div>
-            <div class="beautician-details">
-                <p><h4> Sanila</h4></p>
-                <p>Phone Number : 7657945672</p>
-                <p>Location : Thrissur</p>
-                <!-- Add other details as needed -->
-            </div>
-        </div>
-
-        <div class="beautician-box">
-            <!-- <img src="beautician2.jpg" alt="Beautician 2" class="beautician-img"> -->
-            <div class="beautician-name">Belle Boutique</div>
-            <div class="beautician-details">
-                <p><h4> Rugma</h4></p>
-                <p>Phone Number : 8679543217</p>
-                <p>Location : Pathanamthitta</p>
-                <!-- Add other details as needed -->
-            </div>
-        </div>
-
-        <div class="beautician-box">
-            <!-- <img src="beautician2.jpg" alt="Beautician 2" class="beautician-img"> -->
-            <div class="beautician-name"> Glamour Gaze</div>
-            <div class="beautician-details">
-                <p><h4> Anandu V</h4></p>
-                <p>Phone Number : 7306488281</p>
-                <p>Location : Trivandrum</p>
-                <!-- Add other details as needed -->
-            </div>
-        </div>
-
-        <!-- Add more beautician boxes as needed -->
+        </a>
+        {% endfor %}
     </main>
 
-    <!-- <footer>
-        <p>© 2024 Beautician Details</p>
-    </footer> -->
-
 </body>
+
 </html>

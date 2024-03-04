@@ -1,0 +1,37 @@
+<!-- booking_confirmation.html -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <!-- Add any additional styles or meta tags here -->
+</head>
+
+<body>
+
+    <!-- Your booking confirmation details go here -->
+
+    <h1>Booking Confirmation</h1>
+    <!-- Add more details about the booking as needed -->
+
+    <button id="proceed-to-payment-btn">Proceed to Payment</button>
+
+    <!-- Include the script for redirection -->
+    <script>
+        document.getElementById('proceed-to-payment-btn').addEventListener('click', function() {
+            // Redirect to checkout.html
+            window.location.href = "{% url 'book_checkout' %}";  // Replace 'checkout' with the actual URL name for checkout.html
+        });
+    </script>
+
+    <!-- Include the Razorpay checkout script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+</body>
+
+</html>

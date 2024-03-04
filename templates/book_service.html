@@ -1,0 +1,91 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Service</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url('{% static "images/nrsbackground1.jpeg" %}');
+        }
+
+        .booking-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .booking-form {
+            display: grid;
+            grid-gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="booking-container">
+        <h2>Book {{ service.beautician.user.username }}'s {{ service.makeup_type }} Service</h2>
+
+        <form method="post" class="booking-form">
+            {% csrf_token %}
+
+            <label for="id_date">Date:</label>
+            <input type="date" name="date" id="id_date" required>
+
+            <label for="id_start_time">Start Time:</label>
+            <input type="time" name="start_time" id="id_start_time" required>
+
+            <label for="id_end_time">End Time:</label>
+            <input type="time" name="end_time" id="id_end_time" required>
+
+            <label for="id_location">Location:</label>
+            <input type="text" name="location" id="id_location" required>
+
+            <label for="id_special_requests">Special Requests:</label>
+            <textarea name="special_requests" id="id_special_requests" rows="4"></textarea>
+
+            <button type="submit">Book Now</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
