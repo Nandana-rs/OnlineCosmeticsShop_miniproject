@@ -110,6 +110,8 @@ urlpatterns =  [
     path('products/<int:category_id>/', product_list, name='product_list_by_category'),
     path('products/<int:category_id>/<int:subcategory_id>/', product_list, name='product_list_by_subcategory'),
     path('products/<int:pk>/', product_detail, name='product_detail'),
+    #nandana 
+    path('get_subcategories/<int:category_id>/', views.get_subcategories, name='get_subcategories'),
 
     #seller viewing added products
     path('seller/products/', views.seller_products, name='seller_products'),

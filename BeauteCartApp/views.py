@@ -1638,4 +1638,20 @@ def post_list(request):
     return render(request, 'post_list.html', {'posts': posts})
 
 
+#nnadana new subcategory
+# views.py
+
+from django.http import JsonResponse
+
+def get_subcategories(request, category_id):
+    category = Category.objects.get(id=category_id)
+    subcategories = category.subcategory_set.all()
+    subcategory_html = ''
+    for subcategory in subcategories:
+        subcategory_html += f'<a href="#">{subcategory.name}</a>'
+    return JsonResponse({'html': subcategory_html})
+
+
+
+
 

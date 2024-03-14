@@ -1,4 +1,6 @@
-{% load static %}
+<!-- {% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,19 +14,19 @@
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
-            display: flex; /* Use flex display for main container */
+            display: flex; 
         }
 
         header {
             background-color: #333;
             color: white;
             text-align: center;
-            padding: 10px 20px; /* Adjusted padding for the header */
-            width: 250px; /* Adjusted width for the header */
-            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            padding: 10px 20px; 
+            width: 250px; 
+            box-sizing: border-box; 
         }
 
-        /* Add this to your existing styles */
+      
 
 .search-bar {
     margin-top: 10px;
@@ -54,23 +56,22 @@
 }
 
 .search-bar button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+    background-color: #0056b3; 
 }
 
 
         .main-container {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping to the next line */
-        }
+            flex-wrap: wrap; 
 
         .sidebar {
-            flex: 0 0 250px; /* Fixed width for the sidebar */
+            flex: 0 0 250px; 
             padding: 10px;
         }
 
         .category-links {
             display: flex;
-            flex-direction: column; /* Arrange links vertically */
+            flex-direction: column; 
         }
 
         .category-links a {
@@ -151,7 +152,7 @@
             flex-wrap: wrap;
             justify-content: center;
             margin: 20px;
-            flex: 1; /* Take the remaining space */
+            flex: 1; 
         }
 
         .product-card {
@@ -195,7 +196,7 @@
     </header>
 
     <div class="main-container">
-        <!-- Step 2: Update Product List Template -->
+      
         <div class="sidebar">
             <div class="category-links">
                 <a href="{% url 'product_list' %}">All</a>
@@ -247,3 +248,239 @@
     </div>
 </body>
 </html>
+ -->
+
+
+<!-- nandana new produt_list -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="{% static 'css/product_list.css' %}">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            background-image: url('{% static "images/nrsbackground1.jpeg" %}');
+        }
+
+        header {
+            background-color: #2874f0; /* Flipkart Blue */
+            color: white;
+            text-align: center;
+            padding: 20px 0; /* Adjusted padding for the header */
+        }
+        .hdr {
+            background-color: #2874f0;
+            color: white;
+            padding: 10px 20px;
+        }
+        .back-button {
+            color: #d0d3da;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .search-bar {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 60%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            background-color: #ff9f00; /* Myntra Orange */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #ff7b00; /* Darker shade on hover */
+        }
+
+        .main-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping to the next line */
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .category-dropdown select {
+            margin-top: 5px;
+            background-color: #fff;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .category-dropdown select::-ms-expand {
+            display: none;
+        }
+
+        .category-dropdown select::after {
+            content: '\25BC';
+            font-size: 12px;
+            color: #555;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+        .category-dropdown select option {
+            background-color: #fff;
+            color: #333;
+        }
+
+        .category-dropdown select:hover {
+            border-color: #007bff;
+        }
+
+        .category-dropdown select:hover::after {
+            color: #007bff;
+        }
+
+        .product-card {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            width: 300px;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .product-details {
+            padding: 20px;
+        }
+
+        .product-details h2 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .product-details p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .no-products {
+            text-align: center;
+            font-size: 16px;
+            margin-top: 20px;
+
+            
+        }
+    </style>
+
+</head>
+<body>
+    <div class="hdr">
+        <a class="back-button" href="{% url 'home2' %}">&#8249;</a>
+    </div>
+    <header>
+        
+    </div>
+        <h1>BeauteCart</h1>
+        <div class="search-bar">
+            <form method="get" action="{% url 'product_list' %}">
+                <input type="text" name="search" placeholder="Search products">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="category-links">
+                <a href="{% url 'product_list' %}">All</a>
+                {% for category in categories %}
+                    <a href="{% url 'product_list_by_category' category.id %}">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+            <!-- <div class="category-dropdowns">
+                {% for category in categories %}
+                    <div class="category-dropdown">
+                        <p>{{ category.name }}</p>
+                        <select onchange="location = this.value;">
+                            <option value="{% url 'product_list_by_category' category.id %}">All</option>
+                            {% for subcategory in category.subcategory_set.all %}
+                                <option value="{% url 'product_list_by_subcategory' category.id subcategory.id %}">{{ subcategory.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% endfor %}
+            </div>
+        </div> -->
+
+        <div class="product-container">
+            {% for product in products %}
+                <div class="product-card">
+                    <a href="{% url 'product_detail' product.id %}">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    </a>
+                    <div class="product-details">
+                        <h2>{{ product.name }}</h2>
+                        <p>Price: {{ product.price }}</p>
+                        <!-- <p>Brand: {{ product.brand }}</p> -->
+                        <!-- <p>Stock Quantity: {{ product.quantity }}</p>
+                        <p>Status: 
+                            {% if product.status == "active" %}
+                                <span class="active-status">Active</span>
+                            {% else %}
+                                <span class="inactive-status">Inactive</span>
+                            {% endif %}
+                        </p> -->
+                       
+                    </div>
+                </div>
+            {% empty %}
+                <p class="no-products">No products available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+
