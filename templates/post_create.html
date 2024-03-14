@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New Blog Post</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .back-btn {
+            position: absolute;
+            left: 10px;
+        }
+        /* Additional CSS styles can be added here */
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <!-- Setting button on the left side -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#settingMenu" aria-controls="settingMenu" aria-expanded="false" aria-label="Toggle setting menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="backMenu">
+                    <!-- Back menu content -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'MakeupArtistTemplate'%}">Back</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse text-success " id="settingMenu">
+                    <!-- Setting menu content -->
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'post'%}">Settings</a>
+                        </li>
+                        <!-- Add more setting options as needed -->
+                    </ul>
+                </div>
+                <!-- Brand logo or name -->
+                <a class="navbar-brand" href="#">BeauteBlog</a>
+                <!-- Navigation links -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            {% comment %} <a class="nav-link" href="{% url 'post_list' %}">Home</a> {% endcomment %}
+                        </li>
+                        <!-- Add more navigation links as needed -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-5">
+        <h1>Create a New Blog Post</h1>
+        <form method="post" id="postForm" enctype="multipart/form-data" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" oninput="validateTitle()">
+                <small id="titleError" class="text-danger"></small> <!-- Error message for title -->
+            </div>
+            <div class="form-group">
+                <label for="content">Content:</label>
+                <textarea class="form-control" id="content" name="content" rows="10" cols="50" oninput="validateContent()"></textarea>
+                <small id="contentError" class="text-danger"></small> <!-- Error message for content -->
+            </div>
+            <div class="form-group">
+                <label for="image">Image:</label>
+                <input type="file" class="form-control-file" id="image" name="image">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function validateTitle() {
+            var title = document.getElementById('title').value.trim();
+            var titleError = document.getElementById('titleError');
+
+            if (title === '') {
+                titleError.textContent = 'Please enter a title.';
+            } else if (title.split(/\s+/).length > 10) {
+                titleError.textContent = 'Title should not exceed 10 words.';
+            } else {
+                titleError.textContent = '';
+            }
+        }
+
+        function validateContent() {
+            var content = document.getElementById('content').value.trim();
+            var contentError = document.getElementById('contentError');
+
+            if (content === '') {
+                contentError.textContent = 'Please enter content.';
+            } else if (content.split(/\s+/).length > 300) {
+                contentError.textContent = 'Content should not exceed 300 words.';
+            } else {
+                contentError.textContent = '';
+            }
+        }
+
+        function validateForm() {
+            validateTitle();
+            validateContent();
+
+            var titleError = document.getElementById('titleError').textContent;
+            var contentError = document.getElementById('contentError').textContent;
+
+            if (titleError || contentError) {
+                return false; // Prevent form submission if there are errors
+            }
+
+            return true; // Allow form submission if there are no errors
+        }
+    </script>
+</body>
+</html>

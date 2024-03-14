@@ -260,6 +260,10 @@ urlpatterns =  [
 
    
     path('payment_success/', payment_success, name='payment_success'),
+    path('post/create/', views.post_create, name='post_create'),
+    path('post/', views.post, name='post'),
+    path('delete/<int:post_id>/', views.delete_post, name='delete_post'),
+    path('post_list/', views.post_list, name='post_list'),
     
     
     

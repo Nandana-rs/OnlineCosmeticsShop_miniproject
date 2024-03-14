@@ -1607,5 +1607,35 @@ def razorpay_webhook(request):
 def payment_success(request):
     return render(request, 'payment_success.html')
 
+#nandana blog
+from .forms import PostForm
+
+def post_create(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('MakeupArtistTemplate')
+    else:
+        form = PostForm()
+    return render(request, 'post_create.html', {'form': form})
+
+
+from .models import Post
+
+def post(request):
+    posts = Post.objects.all()
+    return render(request, 'post.html', {'posts': posts})
+
+def delete_post(request, post_id):
+    if request.method == 'POST':
+        post = Post.objects.get(pk=post_id)
+        post.delete()
+    return redirect('post')
+
+def post_list(request):
+    posts = Post.objects.all().order_by('-created_at')
+    return render(request, 'post_list.html', {'posts': posts})
+
 
 

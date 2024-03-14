@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Additional CSS styles can be added here */
+        header {
+            background-color: darkgreen;
+        }
+
+        .navbar-brand {
+            margin-right: auto;
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .post-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        header {
+            background-color: darkgreen !important;
+        }
+
+        .navbar-brand {
+            margin-right: auto;
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .post-image {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-success">
+            <div class="container">
+                <a class="navbar-brand" href="#">BeauteBlog</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home2' %}">Back</a>
+                        </li>
+                        <!-- Add more navigation links as needed -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-5">
+        <h1></h1>
+        {% for post in posts %}
+            <div class="post-box">
+                <h2>{{ post.title }}</h2>
+                {% if post.image %}
+                    <img src="{{ post.image }}" alt="Post Image" class="post-image">
+                {% else %}
+                    <p>No image available</p>
+                {% endif %}
+                <p>{{ post.content }}</p>
+                <p>Published on: {{ post.created_at }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
