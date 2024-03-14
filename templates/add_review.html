@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Review</title>
+    <style>
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add Review</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="id_rating">Rating:</label><br>
+        {{ form.rating }}
+        <span class="error-message">{{ form.rating.errors }}</span><br><br>
+        
+        <label for="id_review">Review:</label><br>
+        {{ form.review }}
+        <span class="error-message">{{ form.review.errors }}</span><br><br>
+
+        <button type="submit">Submit Review</button>
+    </form>
+</body>
+</html>

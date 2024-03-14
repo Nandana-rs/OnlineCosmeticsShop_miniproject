@@ -75,6 +75,8 @@ from .views import beautician_appointments
 from .views import my_bookings
 # from .views import make_payment, payment_success
 from .views import payment_info , payment_success
+from .views import add_review
+from .views import review_list
 
 
 
@@ -266,6 +268,10 @@ urlpatterns =  [
     path('post/', views.post, name='post'),
     path('delete/<int:post_id>/', views.delete_post, name='delete_post'),
     path('post_list/', views.post_list, name='post_list'),
+
+    #customer review
+    path('product/<int:product_id>/add_review/', add_review, name='add_review'),
+    path('reviews/', review_list, name='review_list'),
     
     
     

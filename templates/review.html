@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Reviews</title>
+</head>
+<body>
+    <h1>Product Reviews</h1>
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <p><strong>{{ review.product.name }}</strong></p>
+                <!-- Display the product image -->
+                <img src="{{ review.product.image.url }}" alt="{{ review.product.name }}" style="max-width: 100px;">
+                <p>Rating: {{ review.rating }}</p>
+                <p>{{ review.review }}</p>
+                <p>By: {{ review.customer.username }}</p>
+                <hr>
+            </li>
+        {% empty %}
+            <li>No reviews available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -406,3 +406,17 @@ class Post(models.Model):
 
     def _str_(self):
         return self.title
+    
+
+
+
+    #models for customer review
+class Review(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')])
+    review = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Review by {self.customer} for {self.product.name}'

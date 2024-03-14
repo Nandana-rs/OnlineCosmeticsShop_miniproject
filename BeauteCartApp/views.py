@@ -490,12 +490,14 @@ def remove_from_wishlist(request, product_id):
 def user_profile(request):
     # Retrieve the logged-in user's information
     user = request.user
+    product = Product.objects.first() 
 
     # You can fetch additional information from the user's profile if needed
     # For example: profile = user.profileuser
 
     context = {
         'user': user,
+        'product': product,  
         # Add additional context variables as needed
     }
 
@@ -1652,6 +1654,53 @@ def get_subcategories(request, category_id):
     return JsonResponse({'html': subcategory_html})
 
 
+#customer review
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Product, Review
+from .forms import ReviewForm
 
+@login_required
+def add_review(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    user = request.user
+
+    # Check if the user has purchased the product
+    has_purchased = check_user_has_purchased_product(user, product)
+
+    if has_purchased:
+        if request.method == 'POST':
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.product = product
+                review.customer = user
+                review.save()
+                return redirect('product_detail', product_id=product_id)
+        else:
+            form = ReviewForm()
+        return render(request, 'add_review.html', {'form': form})
+    else:
+        # Handle the case where the user has not purchased the product
+        return render(request, 'home2.html', {'product': product})
+
+def check_user_has_purchased_product(user, product):
+    # Implement your logic to check if the user has purchased the product
+    # For example, you can check if there is a purchase record for the user and product
+    # Return True if the user has purchased the product, otherwise return False
+    # Example:
+    return user.purchase_set.filter(product=product).exists()
+
+from .models import OrderItem
+
+def check_user_has_purchased_product(user, product):
+    # Check if there is any order item associated with the user and product
+    return OrderItem.objects.filter(order__user=user, product=product).exists()
+from django.shortcuts import render
+from .models import Review
+
+def review_list(request):
+    # Fetch all reviews from the database
+    reviews = Review.objects.all()
+    return render(request, 'review.html', {'reviews': reviews})
 
 

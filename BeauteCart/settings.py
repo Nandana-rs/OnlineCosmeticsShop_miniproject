@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'allauth.account',
     #heregoogleends
     'crispy_forms',
+    
+   
 
     
     
