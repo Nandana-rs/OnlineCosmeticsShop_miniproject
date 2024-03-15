@@ -1,4 +1,6 @@
 
+{% load social_share %}
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -133,6 +135,9 @@
             <div class="buttons">
                 <a href="{% url 'add_to_cart' product.id %}" class="btn btn-cart">Add to Cart</a>
                 <a href="{% url 'add_to_wishlist' product.id %}" class="btn btn-wishlist">Add to Wishlist</a>
+                <!-- Generate the WhatsApp sharing button -->
+            <a href="whatsapp://send?text={{ request.build_absolute_uri|urlencode }}" class="btn btn-whatsapp">Share on WhatsApp</a>
+              
             </div>
         </div>
     </div>

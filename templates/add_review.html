@@ -1,3 +1,5 @@
+
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,22 +7,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Review</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('{% static "images/nrsbackground1.jpeg" %}');
+        }
+
+        .header {
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        /* form {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        } */
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
         .error-message {
             color: red;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            margin-top: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .back-button {
+            background-color: #ccc;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #bbb;
         }
     </style>
 </head>
 <body>
-    <h1>Add Review</h1>
+    <div class="header">
+        <h1>Add Review</h1>
+        <button class="back-button" onclick="history.back()">Back</button>
+    </div>
     <form method="post">
         {% csrf_token %}
         <label for="id_rating">Rating:</label><br>
         {{ form.rating }}
-        <span class="error-message">{{ form.rating.errors }}</span><br><br>
+        <span class="error-message">{{ form.rating.errors }}</span><br>
         
         <label for="id_review">Review:</label><br>
         {{ form.review }}
-        <span class="error-message">{{ form.review.errors }}</span><br><br>
+        <span class="error-message">{{ form.review.errors }}</span><br>
 
         <button type="submit">Submit Review</button>
     </form>

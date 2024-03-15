@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     'allauth.account',
     #heregoogleends
     'crispy_forms',
+    'django_social_share',
+    
+
     
    
 
