@@ -272,6 +272,22 @@ urlpatterns =  [
     #customer review
     path('product/<int:product_id>/add_review/', add_review, name='add_review'),
     path('reviews/', review_list, name='review_list'),
+
+    #order cancellation
+    path('ordercancellation/<int:order_id>/', views.order_cancellation, name='order_cancellation'),
+    path('order_status/', views.order_status, name='order_status'),
+   
+    path('order_status/<int:order_id>/', views.order_status, name='order_status'),
+    # path('ordercancellation/<int:order_id>/', views.cancel_order, name='cancel_order'),
+    # path('cancel_order/<int:order_id>/', views.cancel_order, name='cancel_order'),
+    path('ordercancellation/<int:order_id>/', views.order_cancellation, name='order_cancellation'),
+
+    path('order_status/<int:order_id>/', views.order_status, name='order_status'),
+    path('ordercancellation/<int:order_id>/', views.order_cancellation, name='order_cancellation'),
+    
+    
+
+    
     
     
     

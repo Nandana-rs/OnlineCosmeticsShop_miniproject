@@ -213,9 +213,14 @@ class Order(models.Model):
     payment_id = models.CharField(max_length=100, null=True, blank=True)
     payment_status = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    cancelled = models.BooleanField(default=False)  # New field for order cancellation
 
     def __str__(self):
         return f"Order {self.id} by {self.user.username}"
+    def cancel(self):
+        # Add your cancellation logic here
+        self.cancelled = True  # Mark the order as cancelled
+        self.save()  # Save the changes to the database
     
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)

@@ -491,6 +491,7 @@ def user_profile(request):
     # Retrieve the logged-in user's information
     user = request.user
     product = Product.objects.first() 
+    
 
     # You can fetch additional information from the user's profile if needed
     # For example: profile = user.profileuser
@@ -502,6 +503,9 @@ def user_profile(request):
     }
 
     return render(request, 'user_profile.html', context)
+
+
+
 
 # views.py
 
@@ -1704,3 +1708,85 @@ def review_list(request):
     return render(request, 'review.html', {'reviews': reviews})
 
 
+#order cancellation
+
+    
+
+    # views.py
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def order_status(request):
+    orders = Order.objects.filter(user=request.user)
+    return render(request, 'order_status.html', {'orders': orders})
+
+
+# views.py
+
+# views.py
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Order
+
+def cancel_order(request, order_id):
+    if request.method == 'POST':
+        order = Order.objects.get(id=order_id)
+        if order.payment_status:
+            order.cancelled = True
+            order.save()
+            messages.success(request, 'Order cancelled successfully.')
+        else:
+            messages.error(request, 'Cannot cancel unpaid orders.')
+    return redirect('order_status')  # Redirect to the order status page
+
+
+# views.py
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
+from .models import Order
+
+# def order_cancellation(request, order_id):
+#     if request.method == 'POST':
+#         order = get_object_or_404(Order, id=order_id)
+        
+#         # Check if the order belongs to the currently logged-in user
+#         if order.user != request.user:
+#             return JsonResponse({'error': 'You are not authorized to cancel this order.'}, status=403)
+
+#         if order.cancelled:
+#             return JsonResponse({'error': 'This order has already been cancelled.'}, status=400)
+
+#         try:
+#             # Update order status to 'Cancelled'
+#             order.cancelled = True
+#             order.save()
+#             messages.success(request, 'Order successfully cancelled.')
+#             return redirect('order_status')  # Redirect to the order status page
+#         except Exception as e:
+#             return JsonResponse({'error': 'An error occurred while cancelling the order. Please try again.'}, status=500)
+#     else:
+#         return JsonResponse({'error': 'Invalid request method.'}, status=405)
+
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from .models import Order
+
+def order_cancellation(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+
+    if request.method == 'POST':
+        # Assuming you handle the cancellation logic here
+        order.cancel()  # You may have a method like cancel() in your Order model
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False, 'message': 'Invalid request method'})
+
+
+
+from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
+from .models import Order
+
+def order_status(request):
+    orders = Order.objects.filter(user=request.user)
+    return render(request, 'order_status.html', {'orders': orders})
