@@ -31,8 +31,8 @@ from django.test import TestCase
 #         )
 
 #         # Enter valid credentials
-#         username_input.send_keys("Anna")
-#         password_input.send_keys("Anna@123")
+#         username_input.send_keys("SnehaElsa")
+#         password_input.send_keys("Sneha@123")
 
 #         # Click the login button
 #         login_button.click()
@@ -41,7 +41,7 @@ from django.test import TestCase
 #         time.sleep(2)
         
 #         # Assert that the URL matches the expected redirect
-#         self.assertEqual(self.driver.current_url, 'http://127.0.0.1:8000/home2/')
+#         self.assertEqual(self.driver.current_url, 'http://127.0.0.1:8000/seller_template/')
 
 #     def tearDown(self):
 #         # Close the browser window
@@ -197,7 +197,13 @@ from django.test import TestCase
 #     unittest.main()
 
 
- #test4 Search bar
+# MAIN PROJECT TESTS_______________________________________________________________________________________________________________________________
+    
+
+    #TEST1  for search bar
+
+import time  # Import the time module
+
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -205,13 +211,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class ProductListSearchTest(unittest.TestCase):
-
     def setUp(self):
         self.driver = webdriver.Chrome()
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(20)
         self.live_server_url = 'http://127.0.0.1:8000/products/'  # Update with your actual URL
 
     def tearDown(self):
+        # Delay for 5 seconds before closing the WebDriver
+        time.sleep(5)
         self.driver.quit()
 
     def test_search_bar(self):
@@ -223,7 +230,7 @@ class ProductListSearchTest(unittest.TestCase):
         search_button = driver.find_element(By.CSS_SELECTOR, '.search-bar > form:nth-child(1) > button:nth-child(2)')
 
         # Perform a search
-        search_input.send_keys('Blue')  # Replace with your search term
+        search_input.send_keys('Bright')  # Replace with your search term
         search_button.click()
 
         # Wait for the search results to load
@@ -237,3 +244,4 @@ class ProductListSearchTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
