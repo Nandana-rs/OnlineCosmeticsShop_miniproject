@@ -1,0 +1,95 @@
+{%load static%}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Try-On</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        video {
+            margin-top: 20px;
+            border: 2px solid #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Virtual Try-On</h1>
+        <button id="tryOnButton">Try On</button>
+        <video id="webcam" autoplay playsinline></video>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tryOnButton = document.getElementById('tryOnButton');
+            const webcam = document.getElementById('webcam');
+
+            let isWebcamOpen = false;
+
+            const openWebcam = async () => {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    webcam.srcObject = stream;
+                    isWebcamOpen = true;
+                } catch (error) {
+                    console.error('Error opening webcam:', error);
+                }
+            };
+
+            const closeWebcam = () => {
+                const stream = webcam.srcObject;
+                if (stream) {
+                    const tracks = stream.getTracks();
+                    tracks.forEach(track => track.stop());
+                    webcam.srcObject = null;
+                    isWebcamOpen = false;
+                }
+            };
+
+            tryOnButton.addEventListener('click', () => {
+                if (!isWebcamOpen) {
+                    openWebcam();
+                    tryOnButton.textContent = 'Close Webcam';
+                } else {
+                    closeWebcam();
+                    tryOnButton.textContent = 'Try On';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -76,7 +76,7 @@ from .views import my_bookings
 # from .views import make_payment, payment_success
 from .views import payment_info , payment_success
 from .views import add_review
-from .views import review_list
+from .views import review_list , try_on
 
 
 
@@ -284,6 +284,7 @@ urlpatterns =  [
 
     path('order_status/<int:order_id>/', views.order_status, name='order_status'),
     path('ordercancellation/<int:order_id>/', views.order_cancellation, name='order_cancellation'),
+     path('tryon/', try_on, name='try_on'),
     
     
 

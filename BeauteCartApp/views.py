@@ -1764,3 +1764,26 @@ from .models import Order
 def order_status(request):
     orders = Order.objects.filter(user=request.user)
     return render(request, 'order_status.html', {'orders': orders})
+
+
+#tryon
+import requests
+from django.shortcuts import render
+from django.http import JsonResponse
+
+def try_on(request):
+    if request.method == 'POST' and 'image_data' in request.POST:
+        image_data = request.POST['image_data']
+        feature = request.POST.get('feature', 'lips')  # Default feature is 'lips', you can change it as needed
+
+        try:
+            response = requests.post('http://127.0.0.1:8000/api/apply-makeup/', data={'image_data': image_data, 'feature': feature})
+            if response.status_code == 200:
+                modified_image_data = response.content
+                return JsonResponse({'modified_image_data': modified_image_data})
+            else:
+                return JsonResponse({'error': 'Failed to process image'}, status=500)
+        except requests.RequestException as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return render(request, 'tryon.html')
