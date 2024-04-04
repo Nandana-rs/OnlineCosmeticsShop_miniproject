@@ -123,42 +123,45 @@ def registration(request):
     return render(request, 'registration.html')
 
 #login page
+from django.views.decorators.csrf import csrf_protect
+
+@csrf_protect
+
 # @never_cache
 def login(request):
-    #here session start
     if request.user.is_authenticated:
-        return redirect(home2)
-   #here session end
+        return redirect('home2')
+
     if request.method == 'POST':
-        username = request.POST["username"]
-
-        password = request.POST["password"]
+        username = request.POST.get("username")
+        password = request.POST.get("password")
        
-
         if username and password:
-            user = authenticate(request, username =username , password=password)
-           
-            if user is not None:
-                auth_login(request,user)
+            user = authenticate(request, username=username, password=password)
             
-                if request.user.user_type==CustomUser.CUSTOMER:
-              
-                    return redirect('home2')
-                elif request.user.user_type == CustomUser.SELLER:
-                    return redirect('seller_template')
-                
-                elif request.user.user_type == CustomUser.ADMIN:
-                    print("user is admin")                   
-                    return redirect('http://127.0.0.1:8000/admin/')
-                
-            else:
-                messages.success(request,("Invalid credentials."))
-        else:
-            messages.success(request,("Please fill out all fields."))
-        
-    return render(request, 'login.html')
- #here session started
+            print("userdata",user)
+            print("usertype",user.user_type)
+            if user is not None:
+                auth_login(request, user)
+                print(f"User type: {user.get_user_type_display()}")  # Debugging line
 
+                if user.user_type == CustomUser.CUSTOMER:
+                    print("User is a delivery team member.")
+                    return redirect('home2')
+                elif user.user_type == CustomUser.SELLER:
+                    return redirect('seller_template')
+                elif user.user_type == CustomUser.DELIVERYTEAM:
+                    print("User is a delivery team member.")
+                    return redirect('seller_template')  # Adjust this to your delivery team template
+                elif user.user_type == CustomUser.ADMIN:
+                    print("User is admin.")
+                    return redirect('admindashboard')
+            else:
+                messages.error(request, "Invalid credentials.")
+        else:
+            messages.error(request, "Please fill out all fields.")
+    
+    return render(request, 'login.html')
 #logout 
 #@never_cache
 @login_required(login_url='login')
@@ -1075,7 +1078,7 @@ def beautician_profile_form(request):
 
 
     #chatgpt nrs commented which is useful
-    # chatapp/views.py
+#     # chatapp/views.py
 # from django.http import JsonResponse
 # from django.views.decorators.csrf import csrf_exempt
 # from django.shortcuts import render
@@ -1787,3 +1790,44 @@ def try_on(request):
             return JsonResponse({'error': str(e)}, status=500)
 
     return render(request, 'tryon.html')
+
+
+#admindashboard nrs
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+@csrf_protect
+@login_required
+def admindashboard(request):
+    # Add any logic you need for the dashboard view
+    return render(request, 'admindashboard.html')
+
+
+#view for adding staff
+def addstaff(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+        first_name = request.POST.get('first_name', '')  # Ensure to use 'first_name' in the template
+
+    
+        user = CustomUser(username=username, email=email)
+        user.set_password(password)
+        user.user_type=CustomUser.DELIVERYTEAM
+        user.is_staff=True
+        user.save()
+
+        # Log in the new delivery boy
+        send_mail(
+            'Welcome to OneHealth',
+            f'Dear {first_name},\n\nYou have been added as a delivery boy. Your username is {username} and your password is {password}.\n\nPlease keep your credentials secure.',
+            'your_email@example.com',  # Replace with your email address
+            [email],  # Use the delivery boy's email address
+            fail_silently=False,
+        )
+
+        messages.success(request, "Delivery boy is added successfully.")
+        return redirect('admindashboard')  # Redirect to the admin dashboard
+
+    return render(request,'addstaff.html')

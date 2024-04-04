@@ -33,4 +33,15 @@ admin.site.register(OrderItem)
 admin.site.register(MakeupType)
 admin.site.register(Service1)
 
+# In admin.py
+from django.contrib import admin
+from .models import LogisticsCompany
+
+class LogisticsCompanyAdmin(admin.ModelAdmin):
+    list_display = ('company_name', 'contact_person', 'email', 'phone_number', 'address', 'license')  # Define fields to display in the admin list view
+    search_fields = ('company_name', 'contact_person', 'email')  # Add fields for search functionality
+    list_filter = ('license',)  # Add filters for the admin list view
+
+# Register the admin class and model
+admin.site.register(LogisticsCompany, LogisticsCompanyAdmin)
 

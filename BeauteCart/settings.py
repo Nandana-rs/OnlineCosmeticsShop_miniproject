@@ -210,7 +210,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'nandanars2024b@mca.ajce.in'  
-EMAIL_HOST_PASSWORD = '9946095781nrs'  
+EMAIL_HOST_PASSWORD = 'dsaexgyzybkiiitk'  
 
 #implementing role based acces for product adding by admin & seller
 # settings.py

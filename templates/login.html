@@ -17,6 +17,7 @@
         <div class="login-container">
        
             <h2>Login</h2>
+            
         <form class="login-form"  method="POST" onsubmit="return validateForm()">
         {% csrf_token %}
             <input class="form-input" type="text" name="username" id="username" placeholder="Username" required>

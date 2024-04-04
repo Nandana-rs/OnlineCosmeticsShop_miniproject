@@ -214,6 +214,7 @@ class Order(models.Model):
     payment_status = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     cancelled = models.BooleanField(default=False)  # New field for order cancellation
+    delivery_address = models.ForeignKey(ProfileUser, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"Order {self.id} by {self.user.username}"
@@ -425,3 +426,18 @@ class Review(models.Model):
 
     def __str__(self):
         return f'Review by {self.customer} for {self.product.name}'
+    
+
+    # In models.py
+from django.db import models
+
+class LogisticsCompany(models.Model):
+    company_name = models.CharField(max_length=255)
+    contact_person = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=20)
+    address = models.TextField()
+    license = models.CharField(max_length=100)  # Add the license field
+
+    def __str__(self):
+        return self.company_name
