@@ -290,6 +290,8 @@ urlpatterns =  [
 
     path('admindashboard/', views.admindashboard, name='admindashboard'),
     path('addstaff/', views.addstaff, name='addstaff'),
+    path('delivery/', views.delivery_view, name='delivery'),
+    path('deliveryboy/', views.deliveryboy, name='deliveryboy'),
 
     
     

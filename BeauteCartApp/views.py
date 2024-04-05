@@ -152,7 +152,7 @@ def login(request):
                     return redirect('seller_template')
                 elif user.user_type == CustomUser.DELIVERYTEAM:
                     print("User is a delivery team member.")
-                    return redirect('seller_template')  # Adjust this to your delivery team template
+                    return redirect('deliveryboy')  # Adjust this to your delivery team template
                 elif user.user_type == CustomUser.ADMIN:
                     print("User is admin.")
                     return redirect('admindashboard')
@@ -1831,3 +1831,20 @@ def addstaff(request):
         return redirect('admindashboard')  # Redirect to the admin dashboard
 
     return render(request,'addstaff.html')
+
+#deliver boy template
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+@csrf_protect
+@login_required
+def deliveryboy(request):
+    # Add any logic you need for the dashboard view
+    return render(request, 'deliveryboy.html')
+
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def delivery_view(request):
+    # Your view logic goes here
+    return HttpResponse("This is the delivery view")
+

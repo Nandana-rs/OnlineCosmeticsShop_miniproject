@@ -20,481 +20,236 @@
 	
 <style>
             /* Main CSS Here */
-
-
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: "Poppins", sans-serif;
-}
-:root {
---background-color1: #fafaff;
---background-color2: #ffffff;
---background-color3: #ededed;
---background-color4: #cbe2deac;
---primary-color: #116d589e;
---secondary-color: #116d589e;
---Border-color:#116d589e;
---one-use-color:#116d589e;
---two-use-color:#116d589e;
-}
-body {
-    background-color: var(--background-color4);
-    max-width: 100%;
-    overflow-x: hidden;
+            * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', sans-serif; /* You can change the font family */
     }
-    
+
+    body {
+        background-color: #f0f2f5; /* Light gray background */
+    }
+
+    /* Header Styles */
     header {
-    height: 70px;
-    width: 100vw;
-    padding: 0 30px;
-    background-color: var(--background-color1);
-    position: fixed;
-    z-index: 100;
-    box-shadow: 1px 1px 15px rgba(190, 251, 247, 0.825);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+        background-color: #2874f0; /* Flipkart Blue */
+        color: #ffffff; /* White text color */
+        padding: 15px 30px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-    
+
     .logo {
-    font-size: 27px;
-    font-weight: 600;
-    color: rgb(30, 157, 127);
+        font-size: 24px;
+        font-weight: 600;
     }
-    
-    .icn {
-    height: 30px;
+
+    .searchbar {
+        display: flex;
+        align-items: center;
+        background-color: #ffffff; /* White background */
+        padding: 5px;
+        border-radius: 5px;
+        width: 300px; /* Adjust width as needed */
     }
-    .menuicn {
-    cursor: pointer;
+
+    .searchbar input[type="text"] {
+        border: none;
+        outline: none;
+        background: none;
+        flex: 1;
+        padding: 5px;
     }
-    
-    .searchbar,
-    .message,
-    .logosec {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    }
-    
-    .searchbar2 {
-    display: none;
-    }
-    
-    .logosec {
-    gap: 60px;
-    }
-    
-    .searchbar input {
-    width: 250px;
-    height: 42px;
-    border-radius: 50px 0 0 50px;
-    background-color: var(--background-color3);
-    padding: 0 20px;
-    font-size: 15px;
-    outline: none;
-    border: none;
-    }
+
     .searchbtn {
-    width: 50px;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0px 50px 50px 0px;
-    background-color:  #fafaff;
-    cursor: pointer;
+        cursor: pointer;
+        padding: 5px;
+        background-color: #ee4d2d; /* Flipkart Orange */
+        border-radius: 0 5px 5px 0;
     }
-    
-    .message {
-    gap: 40px;
-    position: relative;
-    cursor: pointer;
+
+    .searchbtn img {
+        width: 20px; /* Adjust icon size */
+        height: 20px;
+        filter: invert(1); /* Invert icon color */
     }
-    .circle {
-    height: 7px;
-    width: 7px;
-    position: absolute;
-    background-color: #fa7bb4;
-    border-radius: 50%;
-    left: 19px;
-    top: 8px;
+
+    .button-row {
+        display: flex;
+        gap: 10px;
     }
-    .dp {
-    height: 40px;
-    width: 40px;
-    background-color: #626262;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+
+    .button-link {
+        padding: 8px 15px;
+        background-color: #2874f0; /* Flipkart Blue */
+        color: #ffffff; /* White text color */
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
     }
-    .main-container {
-    display: flex;
-    width: 100vw;
-    position: relative;
-    top: 70px;
-    z-index: 1;
+
+    .button-link:hover {
+        background-color: #1751a7; /* Darker blue on hover */
     }
-    .dpicn {
-    height: 42px;
+
+    .dropdown .btn-secondary {
+        background-color: #ee4d2d; /* Flipkart Orange */
+        color: #ffffff; /* White text color */
+        border: none;
+        border-radius: 5px;
+        padding: 8px 15px;
+        cursor: pointer;
     }
-    
-    .main {
-    height: calc(100vh - 70px);
-    width: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    padding: 40px 30px 30px 30px;
+
+    .dropdown .btn-secondary:hover {
+        background-color: #e23317; /* Darker orange on hover */
     }
-    
-    .main::-webkit-scrollbar-thumb {
-    background-image: 
-            linear-gradient(to bottom, rgb(49, 133, 126), rgb(9, 68, 54));
-    }
-    .main::-webkit-scrollbar {
-    width: 5px;
-    }
-    .main::-webkit-scrollbar-track {
-    background-color: #9e9e9eb2;
-    }
-    
-    .box-container {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 50px;
-    }
-    .nav {
-    min-height: 91vh;
-    width: 250px;
-    background-color: var(--background-color2);
-    position: absolute;
-    top: 0px;
-    left: 00;
-    box-shadow: 1px 1px 10px rgba(189, 245, 234, 0.825);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-    padding: 30px 0 20px 10px;
-    }
+
+    /* Sidebar Styles */
     .navcontainer {
-    height: calc(100vh - 70px);
-    width: 350px;
-    position: relative;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    transition: all 0.5s ease-in-out;
+        position: fixed;
+        left: 0;
+        top: 70px; /* Adjust top position based on header height */
+        bottom: 0;
+        width: 250px;
+        background-color: #2874f0; /* White sidebar background */
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        z-index: 1000;
+        overflow-y: auto; /* Enable vertical scroll if needed */
     }
-    .navcontainer::-webkit-scrollbar {
-    display: none;
+
+    .nav {
+        padding: 20px;
     }
-    .navclose {
-    width: 80px;
-    }
+
     .nav-option {
-    font-size: 9px; /* Set your desired text size */
-}
-    .nav-option {
-    width: 250px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    padding: 0 30px 0 20px;
-    gap: 20px;
-    transition: all 0.1s ease-in-out;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
     }
-   
+
     .nav-option:hover {
-    border-left: 5px solid #a2a2a2;
-    background-color: #dadada;
-    cursor: pointer;
+        background-color: #f0f0f0; /* Light gray on hover */
     }
+
     .nav-img {
-    height: 30px;
+        width: 24px;
+        height: 24px;
     }
-    
-    .nav-upper-options {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
+
+    /* Main Content Styles */
+    .main {
+        margin-left: 250px; /* Same as sidebar width */
+        padding: 20px;
     }
-    
-    .option1 {
-    border-left: 5px solid #4fd5c8af;
-    background-color: var(--Border-color);
-    color: white;
-    cursor: pointer;
+
+    .box-container {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
     }
-    .option1:hover {
-    border-left: 5px solid #40d0a0af;
-    background-color: var(--Border-color);
-    }
+
     .box {
-    height: 130px;
-    width: 230px;
-    border-radius: 20px;
-    box-shadow: 3px 3px 10px rgba(90, 238, 194, 0.751);
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+        flex: 1;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        cursor: pointer;
     }
+
     .box:hover {
-    transform: scale(1.08);
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-    
-    .box:nth-child(1) {
-    background-color: var(--one-use-color);
-    }
-    .box:nth-child(2) {
-    background-color: var(--two-use-color);
-    }
-    .box:nth-child(3) {
-    background-color: var(--one-use-color);
-    }
-    .box:nth-child(4) {
-    background-color: var(--two-use-color);
-    }
-    
-    .box img {
-    height: 50px;
-    }
-    .box .text {
-    color: white;
-    }
-    .topic {
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 1px;
-    }
-    
+
     .topic-heading {
-    font-size: 30px;
-    letter-spacing: 3px;
+        font-size: 24px;
+        font-weight: 600;
+        color: #333333;
+        margin-bottom: 10px;
     }
-    
-    .report-container {
-    min-height: 300px;
-    max-width: 1200px;
-    margin: 70px auto 0px auto;
-    background-color: #ffffff;
-    border-radius: 30px;
-    box-shadow: 3px 3px 10px rgb(188, 188, 188);
-    padding: 0px 20px 20px 20px;
+
+    .topic {
+        font-size: 16px;
+        color: #555555;
     }
-    .report-header {
-    height: 80px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 20px 10px 20px;
-    border-bottom: 2px solid rgba(86, 220, 202, 0.59);
+
+    /* Table Styles */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    
-    .recent-Articles {
-    font-size: 30px;
-    font-weight: 600;
-    color: #34a383;
+
+    th,
+    td {
+        padding: 10px;
+        border-bottom: 1px solid #f0f0f0; /* Light gray border */
+        text-align: left;
     }
-    
-    .view {
-    height: 35px;
-    width: 90px;
-    border-radius: 8px;
-    background-color: #268d81;
-    color: white;
-    font-size: 15px;
-    border: none;
-    cursor: pointer;
+
+    th {
+        background-color: #f5f5f5; /* Light gray background for table header */
+        font-weight: 600;
     }
-    
-    .report-body {
-    max-width: 1160px;
-    overflow-x: auto;
-    padding: 20px;
+
+    .btn-edit,
+    .btn-delete {
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
     }
-    .report-topic-heading,
-    .item1 {
-    width: 1120px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+    .btn-edit {
+        background-color: #2874f0; /* Flipkart Blue */
+        color: #ffffff; /* White text color */
     }
-    .t-op {
-    font-size: 18px;
-    letter-spacing: 0px;
+
+    .btn-delete {
+        background-color: #dc3545; /* Red button color */
+        color: #ffffff; /* White text color */
     }
-    
-    .items {
-    width: 1120px;
-    margin-top: 15px;
+
+    .btn-edit:hover,
+    .btn-delete:hover {
+        opacity: 0.8; /* Reduced opacity on hover */
     }
-    
-    .item1 {
-    margin-top: 20px;
+
+    /* Message Toaster Styles */
+    .message-toaster {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background-color: #28a745; /* Green background for success message */
+        color: #ffffff; /* White text color */
+        border-radius: 5px;
+        z-index: 1000;
+        animation: slide-in 0.5s ease;
     }
-    .t-op-nextlvl {
-    font-size: 14px;
-    letter-spacing: 0px;
-    font-weight: 600;
-    }
-    
-    .label-tag {
-    width: 100px;
-    text-align: center;
-    background-color: rgb(117, 184, 171);
-    color: white;
-    border-radius: 4px;
-    }
-    .container {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(65, 117, 109, 0.1);
-}
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(168, 236, 226, 0.1);
-}
-
-/* Style the table header */
-th {
-    background-color: #a5c4bd;
-    color: #fff;
-    font-weight: bold;
-    padding: 10px;
-    text-align: left;
-}
-
-/* Style the table rows */
-tr {
-    transition: background-color 0.3s;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-/* Style the table cells (columns) */
-th, td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-}
-
-/* Extend the Action header cell */
-th.action-header {
-    width: 100px;
-}
-
-/* Style the action buttons in the table */
-.btn-edit, .btn-delete {
-    padding: 5px 9px;
-    margin-right: 5px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 12px;
-    color: #fff;
-    transition: background-color 0.3s;
-}
-
-.btn-edit {
-    background-color: #76c676;
-}
-
-.btn-delete {
-    background-color: #f44336;
-}
-
-.btn-edit:hover {
-    background-color: #5aaf5a;
-}
-
-.btn-delete:hover {
-    background-color: #d63737;
-}
-.dropdown .btn-secondary {
-    background-color: #09ae96;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    padding: 5px 15px;
-}
-
-.dropdown .btn-secondary:hover {
-    background-color: #035b52; /* Change background color on hover */
-    color: #fff; /* Change text color on hover */
-}
-
-/* Style for the user icon */
-.user-icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    border-radius: 50%;
-}
-
-/* Style for the user profile dropdown menu */
-.dropdown-menu {
-    background-color: #333;
-    color: #fff;
-}
-
-.dropdown-item {
-    color: #fff;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.dropdown-item:hover {
-    background-color: #214644; /* Change background color on hover */
-    color: #fff; /* Change text color on hover */
-}
-.button-link {
-    display: inline-block;
-    padding: 10px 10px;
-    background-color: rgb(32, 77, 77);
-    color: white;
-    text-decoration: none;
-    border: none;
-    border-radius: 6px;
-}
-
-.button-link:hover {
-    background-color: #072f2c; /* Darken the color on hover */
-}
-
-.message-toaster {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            text-align: center;
-            z-index: 9999;
-            transform: translateX(-50%);
-            padding: 30px 0;
+    @keyframes slide-in {
+        0% {
+            transform: translateX(-100%);
         }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
     </style>
     </head>
     
@@ -504,7 +259,7 @@ th.action-header {
         <header>
     
             <div class="logosec">
-                <div class="logo">OneHealth</div>
+                <div class="logo">BeauteCart</div>
                 
                    
             </div>
@@ -512,7 +267,8 @@ th.action-header {
             <div class="searchbar">
                 <input type="text" id="searchInput" placeholder="Search" oninput="searchTable()">
                 <div class="searchbtn" onclick="performSearch()">
-                    <img src="{% static '/C:/Project/PROJECT/static/assets/img/search.png' %}" class="icn srchicn" alt="search-icon">
+                    <img src="{% static '/images/view_icon.png' %}" class="icn srchicn" alt="search-icon">
+                  
                 </div>
             </div>
             
@@ -521,20 +277,21 @@ th.action-header {
                 <b><a href="#" id="addTestLink"class="button-link">Add a Test</a></b>
                 <b><a href="#"id="addStaffLink" class="button-link">Add Staff</a></b>
                 <b><a href="#"id="addproductLink" class="button-link">Add product</a></b>
-                <b><a href="{% url 'addstaff' %}">Add Delivery Boy</a></b>
+                <b><a href="{% url 'addstaff' %}" class="button-link">Add Delivery Boy</a></b>
 
             </div>
             
                    <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="userProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="user-profile">
-                        <img src="{% static '/C:/Project/PROJECT/static/assets/img/picon.png' %}" alt="User Icon" class="user-icon">
+                        <!-- <img src="{% static '/C:/Project/PROJECT/static/assets/img/picon.png' %}" alt="User Icon" class="user-icon"> -->
                         {{ user.username }}
                     </div>
                         </button>
             <div class="dropdown-menu" aria-labelledby="userProfileDropdown">
                 
-                <a class="dropdown-item" href="logout">Logout</a>
+                <a class="dropdown-item" href="{% url 'logout' %}" >Logout</a>
+                
             </div>
         </div>
             </div>

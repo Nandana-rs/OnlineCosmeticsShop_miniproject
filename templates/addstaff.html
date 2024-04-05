@@ -71,7 +71,7 @@ body {
     .logo {
     font-size: 27px;
     font-weight: 600;
-    color: rgb(30, 157, 127);
+    color: #2874f0;
     }
     
     .icn {
@@ -237,14 +237,14 @@ body {
     }
     
     .option1 {
-    border-left: 5px solid #4fd5c8af;
-    background-color: var(--Border-color);
+    border-left: 5px solid #dadada;
+    background-color:#dadada ;
     color: white;
     cursor: pointer;
     }
     .option1:hover {
-    border-left: 5px solid #40d0a0af;
-    background-color: var(--Border-color);
+    border-left: 5px solid #dadada;
+    background-color:#dadada;
     }
     
     
@@ -504,13 +504,13 @@ th.action-header {
         <!-- for header part -->
         <header>
             <div class="logosec">
-                <div class="logo">OneHealth</div>  
+                <div class="logo">BeauteCart</div>  
             </div>
     
             <div class="searchbar">
                 <input type="text" id="searchInput" placeholder="Search" oninput="searchTable()">
                 <div class="searchbtn" onclick="performSearch()">
-                    <img src="{% static '/C:/Project/PROJECT/static/assets/img/search.png' %}" class="icn srchicn" alt="search-icon">
+                    <img src="{% static '/images/view_icon.png' %}" class="icn srchicn" alt="search-icon">
                 </div>
             </div>
     
@@ -518,13 +518,14 @@ th.action-header {
                    <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="userProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="user-profile">
-                        <img src="{% static '/C:/Project/PROJECT/static/assets/img/picon.png' %}" alt="User Icon" class="user-icon">
+                        <!-- <img src="{% static '/C:/Project/PROJECT/static/assets/img/picon.png' %}" alt="User Icon" class="user-icon"> -->
                         {{ user.username }}
                     </div>
                         </button>
             <div class="dropdown-menu" aria-labelledby="userProfileDropdown">
               
-                <a class="dropdown-item" href="logout">Logout</a>
+                <a class="dropdown-item" href="{% url 'logout' %}" >Logout</a>
+                
             </div>
             </div>
             </div>
@@ -536,10 +537,10 @@ th.action-header {
                 <nav class="nav">
                     <div class="nav-upper-options">
                         <a href="admin-dashboard">
-                            <div class="nav-option option1">
+                            <!-- <div class="nav-option option1">
                                 
                                 <h3 style="font-size: 17px;"> Dashboard</h3>
-                            </div>
+                            </div> -->
                             </a>
                         <a href="userdetails.html">
                         <div class="option2 nav-option">
