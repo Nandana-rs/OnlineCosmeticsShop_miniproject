@@ -1848,3 +1848,234 @@ def delivery_view(request):
     # Your view logic goes here
     return HttpResponse("This is the delivery view")
 
+
+from django.shortcuts import render
+from .models import Order
+
+def available_orders(request):
+    # Query the database for all orders
+    all_orders = Order.objects.all()
+
+    # Pass all_orders data to the template
+    return render(request, 'availableorders.html', {'available_orders': all_orders})
+
+
+
+
+
+
+
+
+  
+
+# from django.shortcuts import render, redirect
+# from django.contrib import messages
+# from django.core.mail import send_mail
+# from django.conf import settings
+# from .models import Order
+# import random
+
+# def delivery_update_status(request, order_id):
+#     order = Order.objects.get(id=order_id)
+#     if request.method == 'POST':
+#         status = request.POST.get('status')
+#         if status == 'Out for Delivery':
+#             order.delivery_status = 'OUT_FOR_DELIVERY'
+#             order.save()
+#             messages.success(request, 'Order status updated to Out for Delivery.')
+#         elif status == 'Delivered':
+#             # Generate OTP
+#             otp = generate_otp()
+#             # Send OTP via email
+#             send_otp_email(order.user.email, otp)
+#             # Store OTP in the database (optional)
+#             order.otp = otp
+#             order.delivery_status = 'DELIVERED'
+#             order.save()
+#             messages.success(request, 'Order status updated to Delivered. OTP sent to customer.')
+#         # Fetch all orders after updating status
+#         all_orders = Order.objects.all()
+#         return render(request, 'availableorders.html', {'available_orders': all_orders})
+#     else:
+#         return render(request, 'deliveryupdatestatus.html', {'order': order})
+
+
+
+# def generate_otp():
+#     # Generate a random 6-digit OTP
+#     return ''.join(random.choices('0123456789', k=6))
+
+# def send_otp_email(email, otp):
+#     subject = 'Your OTP for Order Delivery Confirmation'
+#     message = f'Your OTP is: {otp}. Please enter this OTP to confirm delivery.'
+#     from_email = "nandanars2024b@mca.ajce.in"# Update this with your email address
+#     recipient_list = [email]
+#     send_mail(subject, message, from_email, recipient_list)
+
+# from django.shortcuts import render, redirect
+# from django.contrib import messages
+# from django.core.mail import send_mail
+# from django.conf import settings
+# from .models import Order
+# import random
+
+# def delivery_update_status(request, order_id):
+#     order = Order.objects.get(id=order_id)
+#     if request.method == 'POST':
+#         status = request.POST.get('status')
+#         if status == 'Out for Delivery':
+#             order.delivery_status = 'OUT_FOR_DELIVERY'
+#             order.save()
+#             messages.success(request, 'Order status updated to Out for Delivery.')
+#         elif status == 'Delivered':
+#             # Check if the order is in 'Out for Delivery' status before sending OTP
+#             if order.delivery_status == 'OUT_FOR_DELIVERY':
+#                 # Generate OTP
+#                 otp = generate_otp()
+#                 # Send OTP via email
+#                 send_otp_email(order.user.email, otp)
+#                 # Store OTP in the database (optional)
+#                 order.otp = otp
+#                 order.delivery_status = 'DELIVERED'
+#                 order.save()
+#                 messages.success(request, 'Order status updated to Delivered. OTP sent to customer.')
+#             else:
+#                 messages.error(request, 'Order status is not eligible for OTP confirmation.')
+#         # Fetch all orders after updating status
+#         all_orders = Order.objects.all()
+#         return render(request, 'availableorders.html', {'available_orders': all_orders})
+#     else:
+#         return render(request, 'deliveryupdatestatus.html', {'order': order})
+
+# def generate_otp():
+#     # Generate a random 6-digit OTP
+#     return ''.join(random.choices('0123456789', k=6))
+
+# def send_otp_email(email, otp):
+#     subject = 'Your OTP for Order Delivery Confirmation'
+#     message = f'Your OTP is: {otp}. Please enter this OTP to confirm delivery.'
+#     from_email = "nandanars2024b@mca.ajce.in"  # Update this with your email address
+#     recipient_list = [email]
+#     try:
+#         send_mail(subject, message, from_email, recipient_list)
+#     except Exception as e:
+#         # Handle email sending errors
+# #         print(f'Error sending OTP email: {e}')
+
+# from django.shortcuts import render, redirect
+# from django.contrib import messages
+# from django.core.mail import send_mail
+# from django.conf import settings
+# from .models import Order
+# import random
+# import logging
+
+# logger = logging.getLogger(__name__)
+
+# def send_otp_email(email, otp):
+#     subject = 'Your OTP for Order Delivery Confirmation'
+#     message = f'Your OTP is: {otp}. Please enter this OTP to confirm delivery.'
+#     from_email = "nandanars2024b@mca.ajce.in"  # Update this with your email address
+#     recipient_list = [email]
+#     try:
+#         send_mail(subject, message, from_email, recipient_list)
+#     except Exception as e:
+#         # Log the error to terminal
+#         logger.error(f'Error sending OTP email: {e}')
+#         # Optionally, you can also print the error to terminal
+#         print(f'Error sending OTP email: {e}')
+
+
+
+# from django.http import JsonResponse
+# from .models import Order
+
+# def verify_otp(request):
+#     if request.method == 'POST':
+#         otp = request.POST.get('otp')
+#         order_id = request.POST.get('order_id')
+#         order = Order.objects.get(id=order_id)
+        
+#         # Check if the entered OTP matches the stored OTP in the order
+#         if otp == order.otp:
+#             # Update delivery status to 'DELIVERED'
+#             order.delivery_status = 'DELIVERED'
+#             order.save()
+#             return JsonResponse({'success': True})
+#         else:
+#             return JsonResponse({'success': False, 'error': 'Invalid OTP'})
+#     else:
+#         return JsonResponse({'success': False, 'error': 'Method not allowed'})
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
+from .models import Order
+import random
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+
+@never_cache
+@login_required(login_url='login')
+def delivery_update_status(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+
+    if request.method == 'POST':
+        delivery_status = request.POST.get('delivery_status')
+
+        if delivery_status == 'Delivered':
+            otp = ''.join([str(random.randint(0, 9)) for _ in range(6)])
+            send_mail(
+                'Delivery Confirmation OTP',
+                f'Your OTP for order {order.id} is: {otp}',
+                settings.EMAIL_HOST_USER,
+                [order.user.email],
+                fail_silently=False,
+            )
+
+            # Store OTP and order ID in session for later verification
+            request.session['delivery_status_otp'] = otp
+            request.session['otp_order_id'] = str(order_id)
+
+            messages.info(request, 'OTP has been sent to the customer for delivery confirmation.')
+            return redirect('otp_verification', order_id=order_id)  # Redirect to OTP verification page with order_id
+
+        else:
+            order.delivery_status = delivery_status
+            order.save()
+            messages.success(request, 'Delivery status updated successfully.')
+            return redirect('available_orders')  # Redirect to the delivery boy dashboard
+
+    return render(request, "deliveryupdatestatus.html", {'order': order})
+
+@login_required(login_url='login')
+def otp_verification(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+
+    if request.method == 'POST':
+        submitted_otp = request.POST.get('otp')
+        session_order_id = request.session.get('otp_order_id')
+
+        if str(order_id) == session_order_id and submitted_otp == request.session.get('delivery_status_otp'):
+            # OTP is correct, update the delivery status
+            order.delivery_status = 'Delivered'
+            order.save()
+
+            # Clear OTP and order ID from session
+            del request.session['delivery_status_otp']
+            del request.session['otp_order_id']
+
+            # Redirect to a success page or the delivery details page
+            messages.success(request, 'Order marked as delivered successfully.')
+            return redirect('available_orders')
+        else:
+            # OTP is incorrect, render the OTP verification page with error message
+            messages.error(request, 'Incorrect OTP. Please try again.')
+            return render(request, 'otp_verification.html', {'order': order, 'error_message': 'Incorrect OTP. Please try again.'})
+
+    else:
+        return render(request, 'otp_verification.html', {'order': order})

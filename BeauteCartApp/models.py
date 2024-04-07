@@ -207,6 +207,12 @@ class ProfileUser(models.Model):
 
 # razorpay payment
 class Order(models.Model):
+    DELIVERY_STATUS_CHOICES = [
+        ('PENDING', 'Pending'),
+        ('OUT_FOR_DELIVERY', 'Out for Delivery'),
+        ('DELIVERED', 'Delivered'),
+    ]
+
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product, through='OrderItem')
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -215,6 +221,8 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     cancelled = models.BooleanField(default=False)  # New field for order cancellation
     delivery_address = models.ForeignKey(ProfileUser, on_delete=models.SET_NULL, null=True, blank=True)
+    delivery_status = models.CharField(max_length=20, choices=DELIVERY_STATUS_CHOICES, default='PENDING')
+
 
     def __str__(self):
         return f"Order {self.id} by {self.user.username}"

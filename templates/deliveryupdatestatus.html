@@ -1,112 +1,61 @@
-{%load static%}
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Delivery Boy Dashboard</title>
+    <title>Update Delivery Status</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css?v=1.0">
-    <!-- <link rel="stylesheet" href="{% static 'css/deliverboy_template.css' %}"> -->
     <style>
-.body {
-    background-image: url('{% static "images/db.jpg" %}');
-}      /* Navbar Styles */
-.navbar {
-    background-color: #007bff;
-}
+        /* Header Styles */
+        .navbar {
+            background-color: #007bff;
+        }
 
-.navbar-brand {
-    font-size: 1.5em;
-}
+        .navbar-brand {
+            font-size: 1.5em;
+        }
 
-.navbar-toggler-icon {
-    color: white;
-}
+        .navbar-toggler-icon {
+            color: white;
+        }
 
-.navbar-nav .nav-link {
-    color: white;
-    font-weight: bold;
-}
+        .navbar-nav .nav-link {
+            color: white;
+            font-weight: bold;
+        }
 
-.navbar-nav .nav-link:hover {
-    color: #f0f0f0;
-}
+        .navbar-nav .nav-link:hover {
+            color: #f0f0f0;
+        }
 
-/* Sidebar Styles */
-.sidebar {
-    background-color: #007bff;
-    color: #f0f0f0;
-    height: 100%;
-}
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: #007bff;
+            color: #f0f0f0;
+            height: 100%;
+        }
 
-.sidebar ul.nav.flex-column {
-    padding-top: 20px;
-}
+        .sidebar ul.nav.flex-column {
+            padding-top: 20px;
+        }
 
-.sidebar .nav-item {
-    padding: 8px 15px;
-    font-size: 1.1em;
-}
+        .sidebar .nav-item {
+            padding: 8px 15px;
+            font-size: 1.1em;
+        }
 
-.sidebar .nav-item.active {
-    background-color: #007bff;
-}
+        .sidebar .nav-item.active {
+            background-color: #007bff;
+        }
 
-.sidebar .nav-item.active a {
-    color: #f0f0f0 !important;
-}
+        .sidebar .nav-item.active a {
+            color: #f0f0f0 !important;
+        }
 
-/* Inline Block Styles */
-.block-icon {
-    display: inline-block;
-}
-
-.inline-block {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-}
-
-.block-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 150px;
-    height: 150px;
-    background-color: #f8f9fa;
-    text-align: center;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 10px;
-    transition: transform 0.3s;
-}
-
-.block-icon img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
-}
-
-.block-icon:hover {
-    transform: scale(1.05);
-}
-.main-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%; /* Ensure the main content area takes up the full height */
-}
-
-.centered-image {
-    margin-top: auto; /* Push the image to the bottom */
-    margin-bottom: auto; /* Center the image vertically */
-}
-
-
+        /* Other Styles */
+        .container-fluid {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -168,27 +117,21 @@
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <!-- Main content goes here -->
-                <div class="inline-block">
-                    <div class="block-icon">
-                        <img src="{% static 'images/cart_icon.png' %}" alt="Today's Orders">
-                        Today's Orders
+                <form action="{% url 'delivery_update_status' order.id %}" method="post">
+                    {% csrf_token %}
+                    <!-- Other form fields -->
+                    <input type="hidden" name="order_id" value="{{ order.id }}">
+                    <!-- Delivery Status -->
+                    <div class="form-group">
+                        <label for="delivery_status">Delivery Status:</label>
+                        <select class="form-control" name="delivery_status" id="delivery_status">
+                            <option value="Pending">Pending</option>
+                            <option value="Out for delivery">Out for delivery</option>
+                            <option value="Delivered">Delivered</option>
+                        </select>
                     </div>
-                    <div class="block-icon">
-                        <img src="{% static 'images/rocket_icon.png' %}" alt="Order History">
-                        Order History
-                    </div>
-                    <div class="block-icon">
-                        <img src="{% static 'images/view_icon.png' %}" alt="Track Order">
-                        Track Order
-                    </div>
-                    <div class="block-icon">
-                        <img src="{% static 'images/card_icon.png' %}" alt="Settings">
-                        Settings
-                    </div>
-                </div>
-                <!-- Add the image here -->
-                
-                </div>
+                    <button type="submit" class="btn btn-primary">Update Delivery status</button>
+                </form>
             </main>
         </div>
     </div>

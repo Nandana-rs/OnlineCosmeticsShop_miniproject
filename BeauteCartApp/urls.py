@@ -292,9 +292,11 @@ urlpatterns =  [
     path('addstaff/', views.addstaff, name='addstaff'),
     path('delivery/', views.delivery_view, name='delivery'),
     path('deliveryboy/', views.deliveryboy, name='deliveryboy'),
-
-    
-    
+    path('availableorders/', views.available_orders, name='available_orders'),
+    # urls.py
+  
+    path('deliveryupdatestatus/<int:order_id>/', views.delivery_update_status, name='delivery_update_status'),
+    path('otp-verification/<int:order_id>/', views.otp_verification, name='otp_verification'),
 
     
     
