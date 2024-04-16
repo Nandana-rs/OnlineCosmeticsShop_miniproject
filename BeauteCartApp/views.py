@@ -1868,144 +1868,17 @@ def available_orders(request):
 
   
 
-# from django.shortcuts import render, redirect
-# from django.contrib import messages
-# from django.core.mail import send_mail
-# from django.conf import settings
-# from .models import Order
-# import random
-
-# def delivery_update_status(request, order_id):
-#     order = Order.objects.get(id=order_id)
-#     if request.method == 'POST':
-#         status = request.POST.get('status')
-#         if status == 'Out for Delivery':
-#             order.delivery_status = 'OUT_FOR_DELIVERY'
-#             order.save()
-#             messages.success(request, 'Order status updated to Out for Delivery.')
-#         elif status == 'Delivered':
-#             # Generate OTP
-#             otp = generate_otp()
-#             # Send OTP via email
-#             send_otp_email(order.user.email, otp)
-#             # Store OTP in the database (optional)
-#             order.otp = otp
-#             order.delivery_status = 'DELIVERED'
-#             order.save()
-#             messages.success(request, 'Order status updated to Delivered. OTP sent to customer.')
-#         # Fetch all orders after updating status
-#         all_orders = Order.objects.all()
-#         return render(request, 'availableorders.html', {'available_orders': all_orders})
-#     else:
-#         return render(request, 'deliveryupdatestatus.html', {'order': order})
 
 
 
-# def generate_otp():
-#     # Generate a random 6-digit OTP
-#     return ''.join(random.choices('0123456789', k=6))
-
-# def send_otp_email(email, otp):
-#     subject = 'Your OTP for Order Delivery Confirmation'
-#     message = f'Your OTP is: {otp}. Please enter this OTP to confirm delivery.'
-#     from_email = "nandanars2024b@mca.ajce.in"# Update this with your email address
-#     recipient_list = [email]
-#     send_mail(subject, message, from_email, recipient_list)
-
-# from django.shortcuts import render, redirect
-# from django.contrib import messages
-# from django.core.mail import send_mail
-# from django.conf import settings
-# from .models import Order
-# import random
-
-# def delivery_update_status(request, order_id):
-#     order = Order.objects.get(id=order_id)
-#     if request.method == 'POST':
-#         status = request.POST.get('status')
-#         if status == 'Out for Delivery':
-#             order.delivery_status = 'OUT_FOR_DELIVERY'
-#             order.save()
-#             messages.success(request, 'Order status updated to Out for Delivery.')
-#         elif status == 'Delivered':
-#             # Check if the order is in 'Out for Delivery' status before sending OTP
-#             if order.delivery_status == 'OUT_FOR_DELIVERY':
-#                 # Generate OTP
-#                 otp = generate_otp()
-#                 # Send OTP via email
-#                 send_otp_email(order.user.email, otp)
-#                 # Store OTP in the database (optional)
-#                 order.otp = otp
-#                 order.delivery_status = 'DELIVERED'
-#                 order.save()
-#                 messages.success(request, 'Order status updated to Delivered. OTP sent to customer.')
-#             else:
-#                 messages.error(request, 'Order status is not eligible for OTP confirmation.')
-#         # Fetch all orders after updating status
-#         all_orders = Order.objects.all()
-#         return render(request, 'availableorders.html', {'available_orders': all_orders})
-#     else:
-#         return render(request, 'deliveryupdatestatus.html', {'order': order})
-
-# def generate_otp():
-#     # Generate a random 6-digit OTP
-#     return ''.join(random.choices('0123456789', k=6))
-
-# def send_otp_email(email, otp):
-#     subject = 'Your OTP for Order Delivery Confirmation'
-#     message = f'Your OTP is: {otp}. Please enter this OTP to confirm delivery.'
-#     from_email = "nandanars2024b@mca.ajce.in"  # Update this with your email address
-#     recipient_list = [email]
-#     try:
-#         send_mail(subject, message, from_email, recipient_list)
-#     except Exception as e:
-#         # Handle email sending errors
-# #         print(f'Error sending OTP email: {e}')
-
-# from django.shortcuts import render, redirect
-# from django.contrib import messages
-# from django.core.mail import send_mail
-# from django.conf import settings
-# from .models import Order
-# import random
-# import logging
-
-# logger = logging.getLogger(__name__)
-
-# def send_otp_email(email, otp):
-#     subject = 'Your OTP for Order Delivery Confirmation'
-#     message = f'Your OTP is: {otp}. Please enter this OTP to confirm delivery.'
-#     from_email = "nandanars2024b@mca.ajce.in"  # Update this with your email address
-#     recipient_list = [email]
-#     try:
-#         send_mail(subject, message, from_email, recipient_list)
-#     except Exception as e:
-#         # Log the error to terminal
-#         logger.error(f'Error sending OTP email: {e}')
-#         # Optionally, you can also print the error to terminal
-#         print(f'Error sending OTP email: {e}')
 
 
 
-# from django.http import JsonResponse
-# from .models import Order
 
-# def verify_otp(request):
-#     if request.method == 'POST':
-#         otp = request.POST.get('otp')
-#         order_id = request.POST.get('order_id')
-#         order = Order.objects.get(id=order_id)
+
+
         
-#         # Check if the entered OTP matches the stored OTP in the order
-#         if otp == order.otp:
-#             # Update delivery status to 'DELIVERED'
-#             order.delivery_status = 'DELIVERED'
-#             order.save()
-#             return JsonResponse({'success': True})
-#         else:
-#             return JsonResponse({'success': False, 'error': 'Invalid OTP'})
-#     else:
-#         return JsonResponse({'success': False, 'error': 'Method not allowed'})
+
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
