@@ -25,7 +25,8 @@
                <li><a href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                <li><a href="{% url 'user_profile' %}"><i class="fa fa-user"></i> Profile</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
-                <li><a href="{% url 'tryon' %}"><i class="   fa fa-gift"></i>......TryOn</a></li>
+                <!-- <li><a href="{% url 'tryon' %}"><i class="   fa fa-gift"></i>......TryOn</a></li> -->
+                <li><a href="http://localhost:8501" target="_blank"><i class="fa fa-gift"></i> TryOn</a></li>
                 <!-- <li><a href="{% url 'logout' %}">Logout</a></li> -->
                 <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out" style="font-size:24px;color:rgba(216, 188, 188, 0.844)"></i>Logout</a></li>
 
@@ -68,7 +69,7 @@
           <a class="LINK" href="{% url 'product_list' %}">Our Products</a>
           <a class="LINK"href="{% static '#Artists' %}">Artists</a> 
           <!-- <a class="LINK" href="{% url 'upload_video' %}">FLAWLESS</a> -->
-          <a class="LINK" href="#">BeauteBot</a>
+          <a class="LINK" href="{% url 'chatgpt' %}">BeauteBot</a>
           <a class="LINK" href="{% url 'Brideindex' %}">BridalDreams</a>
           <a class="LINK" href="{% url 'display_videos' %}">BeauteAdvice</a>
           <a class="LINK" href="{% url 'blog' %}">BeauteBlog</a>

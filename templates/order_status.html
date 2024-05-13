@@ -199,7 +199,7 @@
     </script>
 </body>
 </html> -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -312,18 +312,17 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
+   
     <div class="header">
         <span>Order Status</span>
         <a href="#" class="back-button">Back</a>
     </div>
 
-    <!-- Content -->
+    
     {% for order in orders %}
     <div class="order {% if order.cancelled %}cancelled-order{% endif %}">
         <div class="order-details">
-            <!-- <p><strong>Order Number:</strong> #{{ order.id }}</p>
-            <p><strong>User:</strong> {{ order.user.username }}</p> -->
+
             <p><strong>Total Amount:</strong> ₹{{ order.total_amount }}</p>
             <p><strong>Payment Status:</strong> {% if order.payment_status %}Paid{% else %}Pending{% endif %}</p>
             <p><strong>Created At:</strong> {{ order.created_at }}</p>
@@ -346,7 +345,7 @@
                         {% if order.delivery_status.isdigit %}
                             <div class="progress" style="width: {{ order.delivery_status|divisibleby:25|add:'-25' }}%;"></div>
                         {% else %}
-                            <!-- Handle non-numeric delivery_status -->
+                        
                         {% endif %}
                     </div>
                     <div class="status-labels">
@@ -362,4 +361,200 @@
     {% endfor %}
 </body>
 </html>
+ -->
 
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Status</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: #c7b9ff; /* Pastel purple color */
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-button {
+            background-color: #fff;
+            color: #c7b9ff; /* Pastel purple color */
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* Order styles */
+        .order {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-details {
+            margin-bottom: 10px;
+        }
+
+        .order-items {
+            margin-bottom: 10px;
+        }
+
+        /* Button styles */
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn.cancel-btn {
+            background-color: #dc3545;
+        }
+
+        .btn.order-cancelled-btn {
+            background-color: #28a745; /* Green color for Order Cancelled button */
+        }
+
+        /* Cancelled order styles */
+        .cancelled-order {
+            background-color: #ffc0cb; /* Light pink color for cancelled orders */
+            color: #000;
+        }
+        /* Product image styles */
+        .product-image {
+            max-width: 100px; /* Adjust the max-width as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin-right: 10px; /* Add spacing between image and text */
+        }
+
+        /* Graphical representation styles */
+        .delivery-status {
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .status-bar {
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress {
+            height: 100%;
+            width: 0;
+            background-color: #007bff; /* Blue color for progress */
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: width 1s ease-in-out; /* Smooth transition */
+        }
+
+        .status-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .status-labels span {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        /* Active status style */
+        .active {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <span>Order Status</span>
+        <a href="#" class="back-button">Back</a>
+    </div>
+
+    
+    {% for order in orders %}
+    <div class="order {% if order.cancelled %}cancelled-order{% endif %}">
+        <div class="order-details">
+           
+            <p><strong>Total Amount:</strong> ₹{{ order.total_amount }}</p>
+            <p><strong>Payment Status:</strong> {% if order.payment_status %}Paid{% else %}Pending{% endif %}</p>
+            <p><strong>Created At:</strong> {{ order.created_at }}</p>
+            {% if order.cancelled %}
+                <p><strong>Status:</strong> Order Cancelled</p>
+            {% endif %}
+        </div>
+        <div class="order-items">
+            <h4>Ordered Items</h4>
+            <ul>
+                {% for order_item in order.orderitem_set.all %}
+                <li><img src="{{ order_item.product.image.url }}" alt="{{ order_item.product.name }}" class="product-image"> {{ order_item.quantity }} x {{ order_item.product.name }} - ₹{{ order_item.item_total }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if order.payment_status %}
+            {% if not order.cancelled %}
+                <div class="delivery-status">
+                    <div class="status-bar">
+                        <div class="progress" style="width: 0;"></div>
+                    </div>
+                    <div class="status-labels">
+                        <span>Pending</span>
+                        <span>Out for Delivery</span>
+                        <span>Delivered</span>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% endfor %}
+    <script>
+        // Update progress bar width based on delivery status
+        const orders = document.querySelectorAll('.order');
+        orders.forEach(order => {
+            const progress = order.querySelector('.progress');
+            const statusLabels = order.querySelectorAll('.status-labels span');
+
+            let currentStatus = 0;
+            const intervalId = setInterval(() => {
+                if (currentStatus < statusLabels.length) {
+                    progress.style.width = `${(currentStatus + 1) * 33.33}%`;
+                    statusLabels[currentStatus].classList.add('active');
+                    currentStatus++;
+                }
+            }, 3000); // Adjust the duration as needed (3 seconds here for each status)
+        });
+
+        // Back button functionality
+        document.querySelector(".back-button").addEventListener("click", function(event) {
+            event.preventDefault();
+            history.back();
+        });
+    </script>
+</body>
+</html>

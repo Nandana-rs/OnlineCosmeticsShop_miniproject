@@ -1079,58 +1079,58 @@ def beautician_profile_form(request):
 
     #chatgpt nrs commented which is useful
 #     # chatapp/views.py
-# from django.http import JsonResponse
-# from django.views.decorators.csrf import csrf_exempt
-# from django.shortcuts import render
-# from transformers import GPT2LMHeadModel, GPT2Tokenizer
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
-# model_name = "gpt2"
-# tokenizer = GPT2Tokenizer.from_pretrained(model_name)
-# model = GPT2LMHeadModel.from_pretrained(model_name)
+model_name = "gpt2"
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+model = GPT2LMHeadModel.from_pretrained(model_name)
 
-# @csrf_exempt
-# def chatgpt(request):
-#     return render(request, 'chatgpt.html')
+@csrf_exempt
+def chatgpt(request):
+    return render(request, 'chatgpt.html')
 
 
 
-# def generate_response(request):
-#     if request.method == 'POST':
+def generate_response(request):
+    if request.method == 'POST':
 
-#         user_input = request.POST.get('user_input').lower()
-#         if 'beautecart' in user_input:
-#             response_data = {'response': "BeauteCart is your go-to destination for high-quality cosmetics! How can I assist you today?"}
-#         elif 'products' in user_input:
-#             response_data = {'response': "We offer a wide range of beauty products, including makeup, skincare, and more. Browse our collection online!"}
-#         elif 'hi' in user_input:
-#             response_data = {'response': "hellooo"}
-#         elif 'skincare for oily skin' in user_input:
-#             response_data = {'response': "For oily skin, we recommend starting with a gentle cleanser, followed by a toner to balance oil production. Consider using a lightweight, oil-free moisturizer and a mattifying sunscreen during the day. "}
-#         elif 'makeup brands' in user_input:
-#             response_data = {'response': "Beautecart proudly offers a wide range of renowned makeup brands, including but not limited to MAC, Maybelline, NYX, and Urban Decay. Explore our collection to find your favorite brands and discover new ones!"}
-#         elif 'bridal makeup booking' in user_input:
-#             response_data = {'response': "Booking a bridal makeup session is easy! Log in ,navigate to the 'Bookings' section, and choose your preferred date and time. Select a skilled beautician, and you're all set! "}
-#         elif ' return policy' in user_input:
-#             response_data = {'response': "We want you to be satisfied with your purchase! Our return policy allows for returns within 30 days of delivery."}
-#         elif 'offers' in user_input or 'discounts' in user_input:
-#             response_data = {'response': "Check out our latest offers and discounts on premium beauty products. Don't miss out on great deals!"}
-#         elif 'order' in user_input or 'delivery' in user_input:
-#             response_data = {'response': "For information about your order or delivery, please contact our customer support at support@beautecart.com."}
-#         else:
+        user_input = request.POST.get('user_input').lower()
+        if 'beautecart' in user_input:
+            response_data = {'response': "BeauteCart is your go-to destination for high-quality cosmetics! How can I assist you today?"}
+        elif 'products' in user_input:
+            response_data = {'response': "We offer a wide range of beauty products, including makeup, skincare, and more. Browse our collection online!"}
+        elif 'hi' in user_input:
+            response_data = {'response': "hellooo"}
+        elif 'skincare for oily skin' in user_input:
+            response_data = {'response': "For oily skin, we recommend starting with a gentle cleanser, followed by a toner to balance oil production. Consider using a lightweight, oil-free moisturizer and a mattifying sunscreen during the day. "}
+        elif 'makeup brands' in user_input:
+            response_data = {'response': "Beautecart proudly offers a wide range of renowned makeup brands, including but not limited to MAC, Maybelline, NYX, and Urban Decay. Explore our collection to find your favorite brands and discover new ones!"}
+        elif 'bridal makeup booking' in user_input:
+            response_data = {'response': "Booking a bridal makeup session is easy! Log in ,navigate to the 'Bookings' section, and choose your preferred date and time. Select a skilled beautician, and you're all set! "}
+        elif ' return policy' in user_input:
+            response_data = {'response': "We want you to be satisfied with your purchase! Our return policy allows for returns within 30 days of delivery."}
+        elif 'offers' in user_input or 'discounts' in user_input:
+            response_data = {'response': "Check out our latest offers and discounts on premium beauty products. Don't miss out on great deals!"}
+        elif 'order' in user_input or 'delivery' in user_input:
+            response_data = {'response': "For information about your order or delivery, please contact our customer support at support@beautecart.com."}
+        else:
             
-#             response_data = {'response': "Sorry Idk"}
-#             # response = generate_gpt2_response(user_input)
-#             # response_data = {'response': response}
+            response_data = {'response': "Sorry Idk"}
+            # response = generate_gpt2_response(user_input)
+            # response_data = {'response': response}
 
-#         return JsonResponse(response_data)
-#     else:
-#         return JsonResponse({'error': 'Invalid request method'})
+        return JsonResponse(response_data)
+    else:
+        return JsonResponse({'error': 'Invalid request method'})
 
-# def generate_gpt2_response(user_input, max_length=100):
-#     input_ids = tokenizer.encode(user_input, return_tensors="pt")
-#     output = model.generate(input_ids, max_length=max_length, num_beams=5, no_repeat_ngram_size=2, top_k=50, top_p=0.95)
-#     response = tokenizer.decode(output[0], skip_special_tokens=True)
-#     return response
+def generate_gpt2_response(user_input, max_length=100):
+    input_ids = tokenizer.encode(user_input, return_tensors="pt")
+    output = model.generate(input_ids, max_length=max_length, num_beams=5, no_repeat_ngram_size=2, top_k=50, top_p=0.95)
+    response = tokenizer.decode(output[0], skip_special_tokens=True)
+    return response
 
 
 # upload videaos
@@ -1820,7 +1820,7 @@ def addstaff(request):
 
         # Log in the new delivery boy
         send_mail(
-            'Welcome to OneHealth',
+            'Welcome to BeauteCart',
             f'Dear {first_name},\n\nYou have been added as a delivery boy. Your username is {username} and your password is {password}.\n\nPlease keep your credentials secure.',
             'your_email@example.com',  # Replace with your email address
             [email],  # Use the delivery boy's email address
@@ -1952,3 +1952,54 @@ def otp_verification(request, order_id):
 
     else:
         return render(request, 'otp_verification.html', {'order': order})
+    
+
+
+    #REport
+
+# from django.shortcuts import render
+# from django.db.models import Sum
+# from datetime import datetime, timedelta
+# from .models import Order, OrderItem
+
+# def sales_report(request):
+#     end_date = datetime.now()
+#     start_date = end_date - timedelta(days=30)
+
+#     total_sales = Order.objects.filter(created_at__range=(start_date, end_date)).aggregate(total_sales=Sum('total_amount'))['total_sales']
+#     sales_by_category = OrderItem.objects.filter(order__created_at__range=(start_date, end_date)).values('product__category__name').annotate(total_sales=Sum('item_total'))
+#     top_selling_products = OrderItem.objects.filter(order__created_at__range=(start_date, end_date)).values('product__name').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:5]
+#     revenue_bridal_makeup = OrderItem.objects.filter(order__created_at__range=(start_date, end_date), product__category__name='Bridal Makeup').aggregate(revenue=Sum('item_total'))['revenue']
+
+#     context = {
+#         'total_sales': total_sales,
+#         'sales_by_category': sales_by_category,
+#         'top_selling_products': top_selling_products,
+#         'revenue_bridal_makeup': revenue_bridal_makeup,
+#     }
+#     return render(request, 'report.html', context)
+
+from django.shortcuts import render
+from django.db.models import Sum
+from datetime import datetime, timedelta
+from .models import Order, OrderItem, CustomizeBooking
+
+def sales_report(request):
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=30)
+
+    total_sales = Order.objects.filter(created_at__range=(start_date, end_date)).aggregate(total_sales=Sum('total_amount'))['total_sales']
+    sales_by_category = OrderItem.objects.filter(order__created_at__range=(start_date, end_date)).values('product__category__name').annotate(total_sales=Sum('item_total'))
+    top_selling_products = OrderItem.objects.filter(order__created_at__range=(start_date, end_date)).values('product__name').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:5]
+
+    # Calculate revenue from bridal makeup services booked by customers
+    bridal_makeup_bookings = CustomizeBooking.objects.filter(event_date__range=(start_date, end_date), makeup_type='Bridal Makeup', status='Approved')
+    revenue_bridal_makeup = bridal_makeup_bookings.aggregate(revenue=Sum('budget'))['revenue']
+
+    context = {
+        'total_sales': total_sales,
+        'sales_by_category': sales_by_category,
+        'top_selling_products': top_selling_products,
+        'revenue_bridal_makeup': revenue_bridal_makeup,
+    }
+    return render(request, 'report.html', context)

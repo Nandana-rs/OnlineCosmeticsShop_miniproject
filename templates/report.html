@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Report</title>
+<style>
+  /* Global styles */
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1, h2, h3 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+  }
+
+  th {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .total-sales {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+  }
+
+  .revenue {
+    font-size: 20px;
+    font-weight: bold;
+    color: #28a745;
+  }
+
+  /* Print button styles */
+  .print-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* Header styles */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .back-btn {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .back-btn:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Sales Report</h1>
+      <button class="back-btn" onclick="window.history.back()">Back</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Total Sales for Specific Period</th>
+          <td class="total-sales">RS. {{ total_sales }}</td>
+        </tr>
+      </thead>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Product Category</th>
+          <th>Total Sales</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category_sales in sales_by_category %}
+        <tr>
+          <td>{{ category_sales.product__category__name }}</td>
+          <td>RS.{{ category_sales.total_sales }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Top-Selling Products</th>
+          <th>Quantity Sold</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for top_product in top_selling_products %}
+        <tr>
+          <td>{{ top_product.product__name }}</td>
+          <td>{{ top_product.total_quantity }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Revenue from Bridal Makeup Services</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="revenue">RS. {{ revenue_bridal_makeup }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="print-btn">
+      <button onclick="window.print()">Print</button>
+    </div>
+  </div>
+</body>
+</html>

@@ -60,7 +60,7 @@ from .views import BeauticianCRUD, edit_beautician
 from .views import service_detail
 from .views import beautician_profile_form , beautician_profile
  #chatgpt nrs which is commented
-# from .views import chatgpt, generate_response
+from .views import chatgpt, generate_response
  
 from .views import upload_video
 from .views import display_videos
@@ -78,6 +78,7 @@ from .views import payment_info , payment_success
 from .views import add_review
 from .views import review_list 
 from .views import try_on
+from .views import sales_report
 
 
 
@@ -198,6 +199,7 @@ urlpatterns =  [
     path('Bridal_makeup/about.html', views.bride_about_view, name='Brideabout'),  # Replace 'bride_about_view' with the actual view function
     path('Bridal_makeup/contact.html', views.bride_contact_view, name='Bridecontact'),  # Replace 'bride_contact_view' with the actual view function
     path('MakeupArtistTemplate/add_edit_service.html', add_edit_service, name='add_edit_service'),
+     path('admindashboard/report.html/', sales_report, name='sales_report'),
     path('customer/bridal-packages/', view_bridal_packages, name='customer_bridal_packages'),
   
 
@@ -217,8 +219,8 @@ urlpatterns =  [
 
     #chatgpt nrs which is commented
 
-    # path('chatgpt/', chatgpt, name='chatgpt'),
-    # path('generate-response/', generate_response, name='generate_response'),
+    path('chatgpt/', chatgpt, name='chatgpt'),
+    path('generate-response/', generate_response, name='generate_response'),
 
     # videao upload
      path('MakeupArtistTemplate/upload_video.html', upload_video, name='upload_video'),
@@ -297,6 +299,8 @@ urlpatterns =  [
   
     path('deliveryupdatestatus/<int:order_id>/', views.delivery_update_status, name='delivery_update_status'),
     path('otp-verification/<int:order_id>/', views.otp_verification, name='otp_verification'),
+    #report
+    path('sales_report/', sales_report, name='sales_report'),
 
     
     
