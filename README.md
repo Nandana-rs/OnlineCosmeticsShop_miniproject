@@ -6,4 +6,15 @@ project also has an Artificial Intelligence to showcase an augmented reality fea
 user friendly software that is applicable across industries, streching convenience and strong data management capabilities.This project was built  on the Python Django framework for the
 backend and includes HTML, CSS, and JavaScript for the frontend, the project also has features such as bridal makeup booking, order cancellation, delivery management, and a chatbot for
 enhanced user interaction.
+
+Landing Page : 
 ![image](https://github.com/user-attachments/assets/04208a9e-ef32-4484-822c-bc27260626c8)
+
+UserHome page :
+![Screenshot 2023-12-06 075928](https://github.com/user-attachments/assets/173111da-d0f2-4df8-9a18-4d73de5526f2)
+
+Seller Dashboard :
+![Screenshot 2023-12-06 075818](https://github.com/user-attachments/assets/1d835025-c89f-4cce-bba4-92adeccd7707)
+
+
+
