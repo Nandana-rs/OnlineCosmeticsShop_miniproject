@@ -8,7 +8,7 @@ backend and includes HTML, CSS, and JavaScript for the frontend, the project als
 enhanced user interaction.
 
 Landing Page : 
-![image](https://github.com/user-attachments/assets/04208a9e-ef32-4484-822c-bc27260626c8)
+![image](https://github.com/user-attachments/assets/34bfecfd-f995-4f01-b313-49fd553b1fe1)
 
 UserHome page :
 ![Screenshot 2023-12-06 075928](https://github.com/user-attachments/assets/173111da-d0f2-4df8-9a18-4d73de5526f2)
